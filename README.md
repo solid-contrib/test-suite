@@ -2,7 +2,6 @@
 
 Suggestions for which criteria to include in the test suite include: 
 
-| Criteria  | WebID | | Pod  | App |
+| Criteria  | WebID Requirement | Pod Requirement  | Solid App Requirement  |
 | ------------- | ------------- | ------------- | ------------- | 
-| Identity provision needs to be independent from data storage provision | x | x |  | 
-| ------------- | ------------- | ------------- | ------------- | 
+| Identity provision needs to be independent from data storage provision | yes | yes | no | 
