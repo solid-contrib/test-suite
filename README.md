@@ -8,14 +8,12 @@ Run the following commands in your command line terminal:
 
 ```sh
 docker build -t tester dockerfiles/tester/
-docker build -t inrupt-pod-server dockerfiles/inrupt-pod-server
-docker build -t trellis dockerfiles/trellis
-docker build -t node-solid-server dockerfiles/node-solid-server
-docker build -t gold dockerfiles/gold
-docker build -t rww-play dockerfiles/rww-play
 docker network create testnet
-docker run -d --name=server --network=testnet inrupt-pod-server
-docker run --network=testnet tester
-docker stop server
-docker rm server
+mkdir reports
+
+./test.sh inrupt-pod-server
+./test.sh node-solid-server
+./test.sh trellis
+./test.sh gold 
+./test.sh rww-play
 ```
