@@ -5,6 +5,14 @@ docker build -t $1 dockerfiles/$1
 echo Starting server ...
 docker run -d --name=server --network=testnet $1
 
+if [[ "$1" == trellis ]]
+  then
+    docker logs server
+    echo Waiting for ten seconds ...
+    sleep 10
+    docker logs server
+fi
+
 echo Running ldp-testsuite tester ...
 docker run --network=testnet tester > reports/$1.txt
 

@@ -1,0 +1,2 @@
+FROM trellisldp/trellis
+

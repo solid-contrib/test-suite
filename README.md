@@ -16,4 +16,7 @@ mkdir reports
 ./test.sh trellis
 ./test.sh gold 
 ./test.sh rww-play
+
+grep Total\ tests reports/*
+
 ```
