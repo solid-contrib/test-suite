@@ -12,10 +12,10 @@ docker network create testnet
 mkdir reports
 
 ./test.sh inrupt-pod-server
-./test.sh node-solid-server
+# ./test.sh node-solid-server
 ./test.sh trellis
 ./test.sh gold 
-./test.sh rww-play
+# ./test.sh rww-play
 
 grep Total\ tests reports/*
 
