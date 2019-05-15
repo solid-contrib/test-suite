@@ -2,11 +2,11 @@
   "root": "./data",
   "port": "8080",
   "serverUri": "http://localhost:8080",
-  "webid": true,
+  "webid": false,
   "mount": "/",
   "configPath": "./config",
   "dbPath": "./.db",
-  "multiuser": true,
+  "multiuser": false,
   "corsProxy": "/proxy",
   "server": {
     "name": "",
