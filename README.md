@@ -25,7 +25,7 @@ The final output should look something like:
 ```sh
 Server              	LDP Basic           	Websockets-pub-sub  
 gold                	1/90                	0/1                 
-inrupt-pod-server   	25/90               	1/1                 
+inrupt-pod-server   	56/90               	1/1                 
 node-solid-server   	15/90               	0/1                 
 trellis             	52/90               	0/1                 
 ```
