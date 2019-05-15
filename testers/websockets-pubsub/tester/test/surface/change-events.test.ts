@@ -20,7 +20,6 @@ beforeEach(async () => {
 })
 afterEach(() => {
   wsClient.close()
-  stopServer()
 })
 
 test('publishes a change event', async () => {
