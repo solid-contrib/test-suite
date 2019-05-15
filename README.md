@@ -8,6 +8,7 @@ Run the following commands in your command line terminal:
 
 ```sh
 docker build -t ldp-basic testers/ldp-basic
+docker build -t websockets-pubsub testers/websockets-pubsub
 docker network create testnet
 mkdir  -p reports
 
