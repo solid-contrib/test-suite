@@ -27,7 +27,7 @@ Server              	LDP Basic           	Websockets-pub-sub
 gold                	1/90                	0/1                 
 inrupt-pod-server   	25/90               	1/1                 
 node-solid-server   	15/90               	0/1                 
-trellis             	52/90               	0/1               
+trellis             	52/90               	0/1                 
 ```
 
 Caveat 1: the qualities of a software product can of course not be counted with a simple number of passing tests, so this list only gives a rough idea of levels of Solid spec compliance.
