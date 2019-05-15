@@ -1,4 +1,4 @@
 FROM node
 ADD tester .
 RUN npm install
-CMD npm jest
+CMD npm run jest
