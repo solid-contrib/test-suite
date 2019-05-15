@@ -7,7 +7,7 @@ Prerequisites: [Docker](https://docs.docker.com/install/)
 Run the following commands in your command line terminal:
 
 ```sh
-docker build -t tester dockerfiles/tester/
+docker build -t ldp-basic testers/ldp-basic
 docker network create testnet
 mkdir reports
 
