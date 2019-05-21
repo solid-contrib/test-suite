@@ -1,0 +1,20 @@
+{
+  "root": "./data",
+  "port": "8080",
+  "serverUri": "http://localhost:8080",
+  "webid": false,
+  "mount": "/",
+  "configPath": "./config",
+  "dbPath": "./.db",
+  "multiuser": false,
+  "corsProxy": "/proxy",
+  "server": {
+    "name": "",
+    "description": "",
+    "logo": ""
+  },
+  "enforceToc": true,
+  "disablePasswordChecks": false,
+  "tocUri": "https://your-toc",
+  "supportEmail": "Your support email address"
+}
