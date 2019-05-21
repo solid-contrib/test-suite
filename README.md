@@ -9,6 +9,8 @@ Run the following commands in your command line terminal:
 ```sh
 docker build -t ldp-basic testers/ldp-basic
 docker build -t websockets-pubsub testers/websockets-pubsub
+docker build -t perl-based testers/perl-based
+
 docker build -t table-reporter reporters/table
 docker network create testnet
 mkdir  -p reports
