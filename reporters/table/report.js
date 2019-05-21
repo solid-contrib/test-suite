@@ -13,8 +13,40 @@
 
 const PAD_LEN = 20
 const table = {};
+const numPerlBasedOkay = {};
+
+function processPerlBasedLine (parts) {
+  // reports/trellis-perl-based.txt:tests/basic.t (Wstat: 1024 Tests: 6 Failed: 4)
+  // [ 'reports/trellis-perl-based.txt:tests/basic.t', '(Wstat:', '1024',
+  //   'Tests:', '6', 'Failed:',
+  //   '4)' ]
+  if (parts[3] === 'Tests:') {
+    const serverName = parts[0].substring('reports/'.length, parts[0].length - '-perl-based.txt:tests/basic.t'.length)
+    // console.log('tests', serverName, parts[4])
+    const result = `${numPerlBasedOkay[serverName]}/${parts[4]}`
+    table[serverName].perlBased = result;
+    return
+  }
+
+  // 'reports/gold-perl-based.txt:	(less 2 skipped subtests: 2 okay)'
+  // [ 'reports/gold-perl-based.txt:(less', '2',
+  // 'skipped', 'subtests:', '2', 'okay)' ]
+
+  // console.log('process perl-based line', parts)
+  if (parts[5] !== 'okay)') {
+    return;
+  }
+  const serverName = parts[0].substring('reports/'.length, parts[0].length - '-perl-based.txt:\t(less'.length)
+  // console.log('okay', serverName, parts[4])
+  numPerlBasedOkay[serverName] = parts[4]
+
+  if (!table[serverName]) {
+    table[serverName] = {};
+  }
+}
 
 function processWebsocketsPubsubLine (parts) {
+  // console.log('process websockets-pubsub line', parts)
   // reports/gold-websockets-pubsub.txt:Tests:       1 failed, 1 total
   // [ 'reports/gold-websockets-pubsub.txt:Tests:', '', '',
   //   '', '', '',
@@ -33,10 +65,11 @@ function processWebsocketsPubsubLine (parts) {
   table[serverName].websocketsPubsub = result;
 }
 function processLdpBasicLine (parts) {
-// reports/gold-ldp-basic.txt:Total tests run: 90, Failures: 20, Skips: 69
-// [ 'reports/gold-ldp-basic.txt:Total', 'tests', 'run:',
-//   '90,', 'Failures:', '20,',
-//   'Skips:', '69' ]
+  //  console.log('process ldp-basic line', parts)
+  // reports/gold-ldp-basic.txt:Total tests run: 90, Failures: 20, Skips: 69
+  // [ 'reports/gold-ldp-basic.txt:Total', 'tests', 'run:',
+  //   '90,', 'Failures:', '20,',
+  //   'Skips:', '69' ]
   const total = parseInt(parts[3])
   const failures = parseInt(parts[5])
   const skips = parseInt(parts[7])
@@ -52,20 +85,26 @@ function processLdpBasicLine (parts) {
 
 function processLine (line) {
   const parts = line.split(' ');
-  if (parts.length < 8) {
-    return;
-  }
-  if (parts[1] === 'tests') {
+  if (line.indexOf('ldp-basic') !== -1) {
+    if (parts.length < 8) {
+      return;
+    }
     processLdpBasicLine(parts)
+  } else if (line.indexOf('perl-based') !== -1) {
+    processPerlBasedLine(parts)
   } else {
+    if (parts.length < 8) {
+      return;
+    }
     processWebsocketsPubsubLine(parts)
   }
 }
 
 function writeOutput() {
-  console.log(['Server', 'LDP Basic', 'Websockets-pub-sub'].map(str => str.padEnd(PAD_LEN)).join('\t'))
+  console.log(['Server', 'LDP Basic', 'Websockets-pub-sub', 'Perl-based'].map(str => str.padEnd(PAD_LEN)).join('\t'))
   for (let serverName in table) {
-    console.log([serverName, table[serverName].ldpBasic, table[serverName].websocketsPubsub].map(str => str.padEnd(PAD_LEN)).join('\t'))
+    // console.log(table[serverName], serverName)
+    console.log([serverName, table[serverName].ldpBasic, table[serverName].websocketsPubsub, table[serverName].perlBased].map(str => str.padEnd(PAD_LEN)).join('\t'))
   }
 }
 
