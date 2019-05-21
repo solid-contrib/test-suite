@@ -1,5 +1,8 @@
 Test Suite for [Solid 0.7](https://github.com/solid/solid-spec/blob/c9a8214/README.md)
 
+[![Join the chat at https://gitter.im/solid/test-suite](https://badges.gitter.im/solid/test-suite.svg)](https://gitter.im/solid/test-suite?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+
 This project includes a fork of the W3C LDP testsuite.
 
 Prerequisites: [Docker](https://docs.docker.com/install/)
