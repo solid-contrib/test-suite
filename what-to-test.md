@@ -4,7 +4,7 @@ In general, we want to test the following things:
 Four big categories, basically:
 * LDP Basic Containers (see LDP test suite)
 * Web Access Control (including agent groups, trustedApps, and WAC-Allow headers)
-* Sparql-update, Sparql-GET, Globbing
+* "Solid specifics": Sparql-update, Sparql-GET, Globbing, CORS headers, ...
 * WebSockets-pubsub
 
 # Identity providers
