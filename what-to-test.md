@@ -1,11 +1,42 @@
-In general, we want to test the following things: 
+In general, we want to test the following things:
 
-# Storage servers
-Four big categories, basically:
-* LDP Basic Containers (see LDP test suite)
-* Web Access Control (including agent groups, trustedApps, and WAC-Allow headers)
-* "Solid specifics": Sparql-update, Sparql-GET, Globbing, CORS headers, ...
-* WebSockets-pubsub
+# Resource Servers
+
+## Linked Data Platform
+
+All `MUST` categories of the LDP test suite need to pass for:
+
+* LDP Basic Containers
+* LDP RDFSource
+* LDP NonRDFSource
+
+The following `SHOULD` and `MAY` categories of the LDP test suite need to pass for:
+
+* Support for `POST`
+* Support for `PATCH`
+* Support for `PUT`
+* Support for `DELETE`
+
+## Web Access Control
+
+* Enforcement of ACL resources
+* Presence of ACL link header
+* Presence of WAC-Allow header
+* Support for agent groups
+* Support for trustedApps
+
+## Solid requirements
+
+* SPARQL-Update to modify resources
+* SPARQL-GET to read resources
+* Globbing
+* CORS headers
+
+## WebSockets pubsub
+
+* Inclusion of `Updates-VIA` header
+* Support for `sub` requests
+* Support for `pub` responses
 
 # Identity providers
 * Webid-oidc
