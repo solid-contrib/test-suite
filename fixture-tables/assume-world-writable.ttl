@@ -5,10 +5,10 @@
 @prefix httph:<http://www.w3.org/2007/ont/httph#> .
 
 <#test-list> a test:FixtureTable ;
-    test:fixtures <#public-read-unauthn>, <#public-read-unauthn-cors> .
+    test:fixtures <#public-read-unauthn>, <#public-read-unauthn-cors-access-control> .
     
 <#public-read-unauthn> a test:Test ;
-    dc:description "Tests that all headers are the same for HEAD and GET request"@en .  
+    dc:description "Tests that all headers are the same for HEAD and GET request"@en ;
     test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
     test:param_base <http://example.org/my-parameters#> ;
     dc:identifier "http_read_unauthenticated" ;
@@ -16,7 +16,7 @@
 
 
 <#public-read-unauthn-cors-access-control> a test:Test ;
-    dc:description "Tests that the response headers for access control has the given value"@en .
+    dc:description "Tests that the response headers for access control has the given value"@en ;
     test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
     test:param_base <http://example.org/my-parameters#> ;
     dc:identifier "http_check_header_unauthenticated" ;
