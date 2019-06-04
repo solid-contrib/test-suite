@@ -1,0 +1,28 @@
+@prefix test: <http://example.org/test-fixtures#> .
+@prefix deps: <http://ontologi.es/doap-deps#>.
+@prefix dc:   <http://purl.org/dc/terms/> .
+@prefix my:   <http://example.org/my-parameters#> .
+@prefix httph:<http://www.w3.org/2007/ont/httph#> .
+
+<#test-list> a test:FixtureTable ;
+    test:fixtures <#public-read-unauthn>, <#public-read-unauthn-cors> .
+    
+<#public-read-unauthn> a test:Test ;
+    dc:description "Tests that all headers are the same for HEAD and GET request"@en .  
+    test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
+    test:param_base <http://example.org/my-parameters#> ;
+    dc:identifier "http_read_unauthenticated" ;
+    test:params [ my:url </public/> ] .
+
+
+<#public-read-unauthn-cors-access-control> a test:Test ;
+    dc:description "Tests that the response headers for access control has the given value"@en .
+    test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
+    test:param_base <http://example.org/my-parameters#> ;
+    dc:identifier "http_check_header_unauthenticated" ;
+    test:params [
+        my:url </public/> ;
+        httph:access_control_allow_credentials "true" ;
+        httph:access_control_expose_headers "Authorization, User, Location, Link, Vary, Last-Modified, ETag, Accept-Patch, Accept-Post, Updates-Via, Allow, WAC-Allow, Content-Length, WWW-Authenticate"
+
+        ] .
