@@ -40,6 +40,8 @@
         ] .
 
 <#public-read-unauthn-set-cors-req> a http:RequestMessage ;
+    http:method "GET" ;
+    http:requestURI </public/> ;
     httph:origin <https://example.org> .
 
 <#public-read-unauthn-set-cors-res> a http:ResponseMessage ;
