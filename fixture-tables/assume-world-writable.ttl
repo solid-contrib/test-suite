@@ -29,6 +29,16 @@
         ] .
 
 
+<#public-writeread-unauthn> a test:Test ;
+    dc:description "Tests that a PUT and then GET returns the same content"@en ;
+    test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
+    test:param_base <http://example.org/my-parameters#> ;
+    dc:identifier "http_write_read_unauthenticated" ;
+    test:params [
+        my:url </public/foobar.ttl> ;
+        ] .
+
+
 <#public-read-unauthn-set-cors> a test:Test ;
     dc:description "Tests that the response headers for a given Origin has the given value"@en ;
     test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
@@ -46,15 +56,4 @@
 
 <#public-read-unauthn-set-cors-res> a http:ResponseMessage ;
     httph:access_control_allow_origin "*" .
-
-
-
-<#public-writeread-unauthn> a test:Test ;
-    dc:description "Tests that a PUT and then GET returns the same content"@en ;
-    test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
-    test:param_base <http://example.org/my-parameters#> ;
-    dc:identifier "http_write_read_unauthenticated" ;
-    test:params [
-        my:url </public/foobar.ttl> ;
-        ] .
 
