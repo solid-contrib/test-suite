@@ -26,3 +26,14 @@
         httph:access_control_expose_headers "Authorization, User, Location, Link, Vary, Last-Modified, ETag, Accept-Patch, Accept-Post, Updates-Via, Allow, WAC-Allow, Content-Length, WWW-Authenticate"
 
         ] .
+
+
+<#public-writeread-unauthn> a test:Test ;
+    dc:description "Tests that a PUT and then GET returns the same content"@en ;
+    test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
+    test:param_base <http://example.org/my-parameters#> ;
+    dc:identifier "http_write_read_unauthenticated" ;
+    test:params [
+        my:url </public/foobar.ttl> ;
+        ] .
+
