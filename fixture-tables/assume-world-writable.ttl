@@ -57,3 +57,29 @@
 <#public-read-unauthn-set-cors-res> a http:ResponseMessage ;
     httph:access_control_allow_origin "*" .
 
+
+
+
+<#public-writeread-unauthn-alt> a test:Test ;
+    dc:description "More elaborate HTTP vocab for PUT then GET test"@en ;
+    test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
+    test:param_base <http://example.org/my-parameters#> ;
+    dc:identifier "http_req_res_list_unauthenticated" ;
+    test:requests ( <#public-writeread-unauthn-alt-put-req> <#public-writeread-unauthn-alt-get-req> ) ;
+    test:responses ( <#public-writeread-unauthn-alt-put-res> <#public-writeread-unauthn-alt-get-res> ) .
+
+<#public-writeread-unauthn-alt-put-req> a http:RequestMessage ;
+    http:method "PUT" ;
+    http:requestURI </public/foobar.ttl> .
+          
+<#public-writeread-unauthn-alt-put-res> a http:ResponseMessage ;
+    http:status 201 .
+
+<#public-writeread-unauthn-alt-get-req> a http:RequestMessage ;
+    http:method "GET" ;
+    http:requestURI </public/foobar.ttl> .
+            
+<#public-writeread-unauthn-alt-get-res> a http:ResponseMessage ;
+    httph:content_type "text/turtle" .
+            
+
