@@ -11,4 +11,4 @@ RUN apt-get install -yq git
 RUN git clone https://github.com/kjetilk/p5-web-solid-test-basic
 WORKDIR p5-web-solid-test-basic
 ENV SOLID_REMOTE_BASE http://server:8080/
-CMD prove -l tests/basic.t
+CMD prove -l tests/
