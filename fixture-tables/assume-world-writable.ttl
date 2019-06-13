@@ -71,7 +71,8 @@
 
 <#public-writeread-unauthn-alt-put-req> a http:RequestMessage ;
             http:method "PUT" ;
-            httph:accept "text/turtle" ;
+            httph:content_type "text/turtle" ;
+            http:content "</public/foobar.ttl#dahut> a <http://example.org/Cryptid> ." ;
             http:requestURI </public/verypublic/foobar.ttl> .
           
 <#public-writeread-unauthn-alt-put-res> a http:ResponseMessage ;
