@@ -13,7 +13,6 @@
 
 const PAD_LEN = 20
 const table = {};
-const numPerlBasedOkay = {};
 
 function processPerlBasedLine (parts) {
   const serverNameRegex = new RegExp('reports/(.+?)-perl-based.txt')
@@ -35,7 +34,6 @@ function processPerlBasedLine (parts) {
   }
 //  console.log(serverName, parts, totalNumberMatch)
   if (totalNumberMatch) {
-//    console.log("FOOO " + totalNumberMatch[1])
     table[serverName].perlBased.totalNumber = parseInt(totalNumberMatch[1])
   }
 
@@ -44,20 +42,7 @@ function processPerlBasedLine (parts) {
       table[serverName].perlBased.failedNumber += parseInt(parts[i+1])
     }
   }
-//  console.log(serverName, table[serverName])
-  // [ 'reports/trellis-perl-based.txt:tests/basic.t', '(Wstat:', '1024',
-  //   'Tests:', '6', 'Failed:',
-  //   '4)' ]
-/*  if (parts[4] === 'Failed:') {
-    const serverName = parts[0].substring('reports/'.length, parts[0].length - '-perl-based.txt:tests/basic.t'.length)
-    // console.log('tests', serverName, parts[4])
-    const result = `${numPerlBasedOkay[serverName]}/${parts[4]}`
-    table[serverName].perlBased = result;
-    return
-  }*/ 
-
-
-
+  return
 }
 
 function processWebsocketsPubsubLine (parts) {
@@ -116,10 +101,11 @@ function processLine (line) {
 }
 
 function writeOutput() {
-//  console.log(['Server', 'LDP Basic', 'Websockets-pub-sub', 'Perl-based'].map(str => str.padEnd(PAD_LEN)).join('\t'))
+  console.log(['Server', 'LDP Basic', 'Websockets-pub-sub', 'Perl-based'].map(str => str.padEnd(PAD_LEN)).join('\t'))
   for (let serverName in table) {
     // console.log(table[serverName], serverName)
-//    console.log([serverName, table[serverName].ldpBasic, table[serverName].websocketsPubsub, table[serverName].perlBased].map(str => str.padEnd(PAD_LEN)).join('\t'))
+    var perlBasedResult = `${table[serverName].perlBased.failedNumber}/${table[serverName].perlBased.totalNumber}`
+    console.log([serverName, table[serverName].ldpBasic, table[serverName].websocketsPubsub, perlBasedResult].map(str => str.padEnd(PAD_LEN)).join('\t'))
   }
 }
 
@@ -141,6 +127,6 @@ process.stdin.on('data', function(chunk) {
 
 process.stdin.on('end', function() {
   processLine(lingeringLine);
-  console.log(table)
-    writeOutput()
+//  console.log(table)
+  writeOutput()
 });
