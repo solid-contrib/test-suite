@@ -21,18 +21,18 @@ mkdir  -p reports
 ./runTests.sh inrupt-pod-server
 ./runTests.sh node-solid-server
 ./runTests.sh trellis
-./runTests.sh gold 
+./runTests.sh gold
 # ./runTests.sh rww-play
 
 grep [Tt]ests reports/* | docker run -i table-reporter
 ```
 The final output should look something like:
 ```sh
-Server              	LDP Basic           	Websockets-pub-sub  	Perl-based          
-gold                	1/90                	0/1                 	2/6                 
-inrupt-pod-server   	56/90               	1/1                 	2/6                 
-node-solid-server   	15/90               	0/1                 	2/6                 
-trellis             	52/90               	0/1                 	0/6            
+Server              	LDP Basic           	Websockets-pub-sub  	Perl-based
+gold                	1/90                	0/1                 	5/9
+inrupt-pod-server   	56/90               	1/1                 	3/9
+node-solid-server   	15/90               	0/1                 	4/9
+trellis             	53/90               	0/1                 	6/9
 ```
 
 Caveat 1: the qualities of a software product can of course not be counted with a simple number of passing tests, so this list only gives a rough idea of levels of Solid spec compliance.
