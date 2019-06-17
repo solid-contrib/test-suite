@@ -15,7 +15,7 @@ const PAD_LEN = 20
 const table = {};
 
 function processPerlBasedLine (parts) {
-  const serverNameRegex = new RegExp('reports/(.+?)-perl-based.txt')
+  const serverNameRegex = new RegExp('reports/(.+?)-rdf-fixtures.txt')
   const serverName = serverNameRegex.exec(parts[0])[1]
   const totalNumberRegex = new RegExp('^Tests=([0-9]+),$')
   var totalNumber = 0;
@@ -90,7 +90,7 @@ function processLine (line) {
       return;
     }
     processLdpBasicLine(parts)
-  } else if (line.indexOf('perl-based') !== -1) {
+  } else if (line.indexOf('rdf-fixtures') !== -1) {
     processPerlBasedLine(parts)
   } else {
     if (parts.length < 8) {
@@ -101,7 +101,7 @@ function processLine (line) {
 }
 
 function writeOutput() {
-  console.log(['Server', 'LDP Basic', 'Websockets-pub-sub', 'Perl-based'].map(str => str.padEnd(PAD_LEN)).join('\t'))
+  console.log(['Server', 'LDP Basic', 'Websockets-pub-sub', 'RDF-fixtures'].map(str => str.padEnd(PAD_LEN)).join('\t'))
   for (let serverName in table) {
     // console.log(table[serverName], serverName)
     var perlBasedResult = `${table[serverName].perlBased.failedNumber}/${table[serverName].perlBased.totalNumber}`

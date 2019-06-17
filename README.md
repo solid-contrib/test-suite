@@ -12,7 +12,7 @@ Run the following commands in your command line terminal:
 ```sh
 docker build -t ldp-basic testers/ldp-basic
 docker build -t websockets-pubsub testers/websockets-pubsub
-docker build -t perl-based testers/perl-based
+docker build -t rdf-fixtures testers/rdf-fixtures
 
 docker build -t table-reporter reporters/table
 docker network create testnet
@@ -28,7 +28,7 @@ grep [Tt]ests reports/* | docker run -i table-reporter
 ```
 The final output should look something like:
 ```sh
-Server              	LDP Basic           	Websockets-pub-sub  	Perl-based
+Server              	LDP Basic           	Websockets-pub-sub  	RDF-fixtures
 gold                	1/90                	0/1                 	5/9
 inrupt-pod-server   	56/90               	1/1                 	3/9
 node-solid-server   	15/90               	0/1                 	4/9
