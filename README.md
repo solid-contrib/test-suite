@@ -35,6 +35,15 @@ node-solid-server   	15/90               	0/1                 	2/7
 trellis             	53/90               	0/1                 	4/7
 ```
 
+To run one tester against one server interactively, you can do for instance:
+```sh
+./runTesterAgainstServer.sh rdf-fixtures inrupt-pod-server
+[...]
+root@f0c7e54fb1f3:/# prove -lv /opt/run-scripts/
+root@f0c7e54fb1f3:/# exit
+[...]
+```
+
 Caveat 1: the qualities of a software product can of course not be counted with a simple number of passing tests, so this list only gives a rough idea of levels of Solid spec compliance.
 
 Caveat 2: not all servers may have been configured optimally in these test runs; if you know of ways to improve the outcome for any of these servers, please provide a pull request.
