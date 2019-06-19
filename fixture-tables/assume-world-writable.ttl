@@ -1,63 +1,12 @@
 @prefix test: <http://example.org/test-fixtures#> .
 @prefix deps: <http://ontologi.es/doap-deps#>.
 @prefix dc:   <http://purl.org/dc/terms/> .
-@prefix my:   <http://example.org/my-parameters#> .
 @prefix httph:<http://www.w3.org/2007/ont/httph#> .
 @prefix http: <http://www.w3.org/2007/ont/http#> .
 
+
 <#test-list> a test:FixtureTable ;
-    test:fixtures <#public-read-unauthn>, <#public-read-unauthn-cors-access-control> .
-    
-<#public-read-unauthn> a test:Test ;
-    dc:description "Tests that all headers are the same for HEAD and GET request"@en ;
-    test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
-    test:param_base <http://example.org/my-parameters#> ;
-    dc:identifier "http_read_unauthenticated" ;
-    test:params [ my:url </public/> ] .
-
-
-<#public-read-unauthn-cors-access-control> a test:Test ;
-    dc:description "Tests that the response headers for access control has the given value"@en ;
-    test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
-    test:param_base <http://example.org/my-parameters#> ;
-    dc:identifier "http_check_header_unauthenticated" ;
-    test:params [
-        my:url </public/> ;
-        httph:access_control_allow_credentials "true" ;
-        httph:access_control_expose_headers "Authorization, User, Location, Link, Vary, Last-Modified, ETag, Accept-Patch, Accept-Post, Updates-Via, Allow, WAC-Allow, Content-Length, WWW-Authenticate"
-
-        ] .
-
-
-<#public-writeread-unauthn> a test:Test ;
-    dc:description "Tests that a PUT and then GET returns the same content"@en ;
-    test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
-    test:param_base <http://example.org/my-parameters#> ;
-    dc:identifier "http_write_read_unauthenticated" ;
-    test:params [
-        my:url </public/foobar.ttl> ;
-        ] .
-
-
-<#public-read-unauthn-set-cors> a test:Test ;
-    dc:description "Tests that the response headers for a given Origin has the given value"@en ;
-    test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
-    test:param_base <http://example.org/my-parameters#> ;
-    dc:identifier "http_check_header_req_res_unauthenticated" ;
-    test:params [
-        test:request <#public-read-unauthn-set-cors-req> ;
-        test:response <#public-read-unauthn-set-cors-res>
-        ] .
-
-<#public-read-unauthn-set-cors-req> a http:RequestMessage ;
-    http:method "GET" ;
-    http:requestURI </public/> ;
-    httph:origin <https://example.org> .
-
-<#public-read-unauthn-set-cors-res> a http:ResponseMessage ;
-    httph:access_control_allow_origin "*" .
-
-
+    test:fixtures <#public-writeread-unauthn-alt> .
 
 
 <#public-writeread-unauthn-alt> a test:Test ;
@@ -68,11 +17,12 @@
         test:requests ( <#public-writeread-unauthn-alt-put-req> <#public-writeread-unauthn-alt-get-req> ) ;
         test:responses ( <#public-writeread-unauthn-alt-put-res> <#public-writeread-unauthn-alt-get-res> ) 
                 ] .
+                
 
 <#public-writeread-unauthn-alt-put-req> a http:RequestMessage ;
             http:method "PUT" ;
             httph:content_type "text/turtle" ;
-            http:content "</public/foobar.ttl#dahut> a <http://example.org/Cryptid> ." ;
+            http:content "</public/verypublic/foobar.ttl#dahut> a <http://example.org/Cryptid> ." ;
             http:requestURI </public/verypublic/foobar.ttl> .
           
 <#public-writeread-unauthn-alt-put-res> a http:ResponseMessage ;
@@ -84,3 +34,5 @@
             
 <#public-writeread-unauthn-alt-get-res> a http:ResponseMessage ;
     httph:content_type "text/turtle" .
+            
+
