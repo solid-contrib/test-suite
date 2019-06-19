@@ -1,15 +1,22 @@
 FROM debian
-RUN apt-get update
-RUN apt-get install -yq perl build-essential
-RUN apt-get install -yq perlbrew
-RUN apt-get install -yq libxml-parser-perl libxml-simple-perl libplack-perl libmoose-perl libtypes-uri-perl libtest-modern-perl libtest-lwp-useragent-perl
-RUN apt-get install -yq libtest-rdf-perl
-RUN apt-get install -yq liblwp-protocol-https-perl
-RUN apt-get install -yq `apt-cache depends libattean-perl | awk '/Depends:/{print$2}'`
-RUN apt-get install -yq `apt-cache depends liburi-namespacemap-perl | awk '/Recommends:/{print$2}'`
+RUN apt-get update && apt-get install -yq build-essential \
+    liblwp-protocol-https-perl \
+    libmoose-perl \
+    libplack-perl \	   
+    libtest-lwp-useragent-perl \	
+    libtest-modern-perl \
+    libtest-rdf-perl \
+    libtypes-uri-perl \
+    libxml-parser-perl \
+    libxml-simple-perl \
+    perl \
+    perlbrew \
+    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -yq `apt-cache depends libattean-perl | awk '/Depends:/{print$2}'`
+RUN apt-get update && apt-get install -yq `apt-cache depends liburi-namespacemap-perl | awk '/Recommends:/{print$2}'`
 RUN perlbrew install-cpanm
 RUN /root/perl5/perlbrew/bin/cpanm install Test::FITesque::RDF
-RUN apt-get install -yq git
+RUN apt-get update && apt-get install -yq git
 RUN git clone https://github.com/kjetilk/p5-web-solid-test-basic
 ENV PERL5LIB /p5-web-solid-test-basic/lib
 ENV SOLID_REMOTE_BASE http://server:8080/
