@@ -1,7 +1,7 @@
 FROM node
 RUN git clone https://github.com/inrupt/pod-server
-RUN git checkout dev
 WORKDIR pod-server
+RUN git checkout dev
 RUN npm install
 RUN npm run build
 EXPOSE 8080/tcp
