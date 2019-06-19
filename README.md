@@ -29,10 +29,10 @@ grep [Tt]ests reports/* | docker run -i table-reporter
 The final output should look something like:
 ```sh
 Server              	LDP Basic           	Websockets-pub-sub  	RDF-fixtures
-gold                	1/90                	0/1                 	5/9
-inrupt-pod-server   	56/90               	1/1                 	3/9
-node-solid-server   	15/90               	0/1                 	4/9
-trellis             	53/90               	0/1                 	6/9
+gold                	1/90                	0/1                 	3/7
+inrupt-pod-server   	56/90               	1/1                 	3/7
+node-solid-server   	15/90               	0/1                 	2/7
+trellis             	53/90               	0/1                 	4/7
 ```
 
 Caveat 1: the qualities of a software product can of course not be counted with a simple number of passing tests, so this list only gives a rough idea of levels of Solid spec compliance.
