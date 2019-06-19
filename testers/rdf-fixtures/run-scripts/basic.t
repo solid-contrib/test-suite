@@ -26,11 +26,10 @@ use strict;
 use warnings;
 
 use Test::More;
-use FindBin qw($Bin);
 use Test::FITesque;
 use Test::FITesque::Test;
 
-my $file = $Bin . '/../../../fixture-tables/basic.ttl';
+my $file = '/opt/fixture-tables/basic.ttl';
 
 use Test::FITesque::RDF;
 
