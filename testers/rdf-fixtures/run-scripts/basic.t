@@ -29,13 +29,13 @@ use Test::More;
 use Test::FITesque;
 use Test::FITesque::Test;
 
-my $file = '/opt/fixture-tables/basic.ttl';
+my $path = $ENV{SOLID_FIXTURE_PATH} || '/opt/fixture-tables/';
 
 use Test::FITesque::RDF;
 
 BAIL_OUT("Set SOLID_REMOTE_BASE to the URL of the base of the server you are testing") unless $ENV{SOLID_REMOTE_BASE};
 
-my $suite = Test::FITesque::RDF->new(source => $file, base_uri => $ENV{SOLID_REMOTE_BASE})->suite;
+my $suite = Test::FITesque::RDF->new(source => $path . 'basic.ttl', base_uri => $ENV{SOLID_REMOTE_BASE})->suite;
 
 $suite->run_tests;
 
