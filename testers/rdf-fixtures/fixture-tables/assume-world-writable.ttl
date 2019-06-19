@@ -1,0 +1,38 @@
+@prefix test: <http://example.org/test-fixtures#> .
+@prefix deps: <http://ontologi.es/doap-deps#>.
+@prefix dc:   <http://purl.org/dc/terms/> .
+@prefix httph:<http://www.w3.org/2007/ont/httph#> .
+@prefix http: <http://www.w3.org/2007/ont/http#> .
+
+
+<#test-list> a test:FixtureTable ;
+    test:fixtures <#public-writeread-unauthn-alt> .
+
+
+<#public-writeread-unauthn-alt> a test:Test ;
+    dc:description "A simple test for PUT then GET"@en ;
+    test:handler "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
+    dc:identifier "http_req_res_list_unauthenticated" ;
+    test:params [
+        test:requests ( <#public-writeread-unauthn-alt-put-req> <#public-writeread-unauthn-alt-get-req> ) ;
+        test:responses ( <#public-writeread-unauthn-alt-put-res> <#public-writeread-unauthn-alt-get-res> ) 
+                ] .
+                
+
+<#public-writeread-unauthn-alt-put-req> a http:RequestMessage ;
+            http:method "PUT" ;
+            httph:content_type "text/turtle" ;
+            http:content "</public/verypublic/foobar.ttl#dahut> a <http://example.org/Cryptid> ." ;
+            http:requestURI </public/verypublic/foobar.ttl> .
+          
+<#public-writeread-unauthn-alt-put-res> a http:ResponseMessage ;
+    http:status 201 .
+
+<#public-writeread-unauthn-alt-get-req> a http:RequestMessage ;
+    http:method "GET" ;
+    http:requestURI </public/verypublic/foobar.ttl> .
+            
+<#public-writeread-unauthn-alt-get-res> a http:ResponseMessage ;
+    httph:content_type "text/turtle" .
+            
+

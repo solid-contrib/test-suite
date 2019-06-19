@@ -1,0 +1,32 @@
+@prefix test: <http://example.org/test-fixtures#> .
+@prefix deps: <http://ontologi.es/doap-deps#>.
+@prefix dc:   <http://purl.org/dc/terms/> .
+@prefix my:   <http://example.org/my-parameters#> .
+@prefix httph:<http://www.w3.org/2007/ont/httph#> .
+
+<#test-list> a test:FixtureTable ;
+    test:fixtures <#public-read-unauthn>, <#write-with-bearer>, <#put-with-bearer> . 
+
+<#public-read-unauthn> a test:Test ;
+    test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
+    test:param_base <http://example.org/my-parameters#> ;
+    dc:identifier "http_read_unauthenticated" ;
+    test:params [ my:url </public/> ] .
+
+
+<#write-with-bearer> a test:Test ;
+    test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
+    test:param_base <http://example.org/my-parameters#> ;
+    dc:identifier "http_write_with_bearer" ;
+    test:params [ my:url </private/foo.ttl> ] .
+
+<#put-with-bearer> a test:Test ;
+    test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
+    test:param_base <http://example.org/my-parameters#> ;
+    dc:identifier "http_methods_with_bearer" ;
+    test:params [
+        my:url </private/foo.ttl> ;
+        my:method "PUT" ;
+        my:body "" ;
+        my:code "201" 
+        ] .
