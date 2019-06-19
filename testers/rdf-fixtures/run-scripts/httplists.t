@@ -4,7 +4,17 @@
 
 =head1 PURPOSE
 
-Testing basic functionality of a Solid server
+Testing HTTP interface functionality of a Solid server
+
+=head1 ENVIRONMENT
+
+=head2 C<SOLID_FIXTURE_PATH>
+
+Set the path to where the Turtle files with fixture tables are. Defaults to C</opt/fixture-tables/>.
+
+=head2 C<SOLID_REMOTE_BASE>
+
+B<Required> Sets the base URL to resolve URLs in the Turtle fixture tables against.
 
 =head1 AUTHOR
 
