@@ -3,6 +3,7 @@ RUN git clone https://github.com/inrupt/pod-server
 WORKDIR pod-server
 RUN git checkout dev
 RUN npm install
+RUN npm run prepare
 RUN npm run build
 EXPOSE 8080/tcp
 ENV DEBUG *
