@@ -3,7 +3,7 @@
 @prefix dc:   <http://purl.org/dc/terms/> .
 @prefix httph:<http://www.w3.org/2007/ont/httph#> .
 @prefix http: <http://www.w3.org/2007/ont/http#> .
-
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 
 <#test-list> a test:FixtureTable ;
     test:fixtures ( <#public-writeread-unauthn-alt>  <#public-cors-origin-set> ) .
@@ -37,13 +37,14 @@
             
 
 <#public-cors-origin-set> a test:Test ;
-    dc:description "Testing CORS header when Origin is supplied by client"@en ;
-    test:handler "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
-    dc:identifier "http_req_res_list_unauthenticated" ;
-    test:params [
-        test:requests ( <#public-cors-origin-set-req> ) ;
-        test:responses ( <#public-cors-origin-set-res> )
-                ] .
+                dc:description "Testing CORS header when Origin is supplied by client"@en ;
+                rdfs:isDefinedBy <https://github.com/solid/solid-spec/blob/master/recommendations-server.md#cors---cross-origin-resource-sharing> ;
+                test:handler "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
+                dc:identifier "http_req_res_list_unauthenticated" ;
+                test:params [
+                    test:requests ( <#public-cors-origin-set-req> ) ;
+                    test:responses ( <#public-cors-origin-set-res> )
+                            ] .
 
 <#public-cors-origin-set-req> a http:RequestMessage ;
                     http:method "GET" ;
