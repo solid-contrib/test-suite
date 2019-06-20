@@ -6,7 +6,7 @@
 
 
 <#test-list> a test:FixtureTable ;
-    test:fixtures <#public-writeread-unauthn-alt> .
+    test:fixtures ( <#public-writeread-unauthn-alt>  <#public-cors-origin-set> ) .
 
 
 <#public-writeread-unauthn-alt> a test:Test ;
@@ -36,3 +36,21 @@
     httph:content_type "text/turtle" .
             
 
+<#public-cors-origin-set> a test:Test ;
+    dc:description "Testing CORS header when Origin is supplied by client"@en ;
+    test:handler "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
+    dc:identifier "http_req_res_list_unauthenticated" ;
+    test:params [
+        test:requests ( <#public-cors-origin-set-req> ) ;
+        test:responses ( <#public-cors-origin-set-res> )
+                ] .
+
+<#public-cors-origin-set-req> a http:RequestMessage ;
+                    http:method "GET" ;
+                    httph:origin <https://app.example> ;
+                    http:requestURI </public/verypublic/foobar.ttl> .
+
+<#public-cors-origin-set-res> a http:ResponseMessage ;
+                    http:status 200 ;
+                    httph:access_control_allow_origin <https://app.example> ;
+                    httph:content_type "text/turtle" .
