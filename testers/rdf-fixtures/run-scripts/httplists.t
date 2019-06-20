@@ -4,7 +4,17 @@
 
 =head1 PURPOSE
 
-Testing basic functionality of a Solid server
+Testing HTTP interface functionality of a Solid server
+
+=head1 ENVIRONMENT
+
+=head2 C<SOLID_FIXTURE_PATH>
+
+Set the path to where the Turtle files with fixture tables are. Defaults to C</opt/fixture-tables/>.
+
+=head2 C<SOLID_REMOTE_BASE>
+
+B<Required> Sets the base URL to resolve URLs in the Turtle fixture tables against.
 
 =head1 AUTHOR
 
@@ -29,13 +39,13 @@ use Test::More;
 use Test::FITesque;
 use Test::FITesque::Test;
 
-my $file = '/opt/fixture-tables/assume-world-writable.ttl';
+my $path = $ENV{SOLID_FIXTURE_PATH} || '/opt/fixture-tables/';
 
 use Test::FITesque::RDF;
 
 BAIL_OUT("Set SOLID_REMOTE_BASE to the URL of the base of the server you are testing") unless $ENV{SOLID_REMOTE_BASE};
 
-my $suite = Test::FITesque::RDF->new(source => $file, base_uri => $ENV{SOLID_REMOTE_BASE})->suite;
+my $suite = Test::FITesque::RDF->new(source => $path . 'assume-world-writable.ttl', base_uri => $ENV{SOLID_REMOTE_BASE})->suite;
 
 $suite->run_tests;
 
