@@ -6,7 +6,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 
 <#test-list> a test:FixtureTable ;
-    test:fixtures ( <#public-writeread-unauthn-alt>  <#public-cors-origin-set> ) .
+    test:fixtures ( <#public-writeread-unauthn-alt>  <#public-cors-origin-set> <#public-cors-origin-unset> ) .
 
 
 <#public-writeread-unauthn-alt> a test:Test ;
@@ -54,4 +54,23 @@
 <#public-cors-origin-set-res> a http:ResponseMessage ;
                     http:status 200 ;
                     httph:access_control_allow_origin <https://app.example> ;
+                    httph:content_type "text/turtle" .
+
+<#public-cors-origin-unset> a test:Test ;
+                dc:description "Testing CORS header when Origin is supplied by client"@en ;
+                rdfs:isDefinedBy <https://github.com/solid/solid-spec/blob/master/recommendations-server.md#cors---cross-origin-resource-sharing> ;
+                test:handler "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
+                dc:identifier "http_req_res_list_unauthenticated" ;
+                test:params [
+                    test:requests ( <#public-cors-origin-unset-req> ) ;
+                    test:responses ( <#public-cors-origin-unset-res> )
+                            ] .
+
+<#public-cors-origin-unset-req> a http:RequestMessage ;
+                    http:method "GET" ;
+                    http:requestURI </public/verypublic/foobar.ttl> .
+
+<#public-cors-origin-unset-res> a http:ResponseMessage ;
+                    http:status 200 ;
+                    httph:access_control_allow_origin "*" ;
                     httph:content_type "text/turtle" .
