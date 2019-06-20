@@ -38,7 +38,7 @@
 
 <#public-cors-origin-set> a test:Test ;
                 dc:description "Testing CORS header when Origin is supplied by client"@en ;
-                rdfs:isDefinedBy <https://github.com/solid/solid-spec/blob/master/recommendations-server.md#cors---cross-origin-resource-sharing> ;
+                rdfs:isDefinedBy <https://www.w3.org/TR/cors/#syntax>, <https://github.com/solid/solid-spec/blob/master/recommendations-server.md#cors---cross-origin-resource-sharing> ;
                 test:handler "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
                 dc:identifier "http_req_res_list_unauthenticated" ;
                 test:params [
@@ -53,12 +53,12 @@
 
 <#public-cors-origin-set-res> a http:ResponseMessage ;
                     http:status 200 ;
-                    httph:access_control_allow_origin <https://app.example> ;
-                    httph:content_type "text/turtle" .
+                    httph:access_control_allow_origin <https://app.example> .
+                        
 
 <#public-cors-origin-unset> a test:Test ;
                 dc:description "Testing CORS header when Origin is supplied by client"@en ;
-                rdfs:isDefinedBy <https://github.com/solid/solid-spec/blob/master/recommendations-server.md#cors---cross-origin-resource-sharing> ;
+                rdfs:isDefinedBy <https://www.w3.org/TR/cors/#syntax>, <https://github.com/solid/solid-spec/blob/master/recommendations-server.md#cors---cross-origin-resource-sharing> ;
                 test:handler "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
                 dc:identifier "http_req_res_list_unauthenticated" ;
                 test:params [
@@ -72,5 +72,6 @@
 
 <#public-cors-origin-unset-res> a http:ResponseMessage ;
                     http:status 200 ;
-                    httph:access_control_allow_origin "*" ;
-                    httph:content_type "text/turtle" .
+                    httph:access_control_allow_origin "*" .
+                                
+
