@@ -95,12 +95,12 @@
 
 <#public-options-res> a http:ResponseMessage ;
                     http:status 200 ; # TODO: For this, we need bag and possibly subset tests
-                    httph:accept_patch	"application/json, application/sparql-update" ;
-                    httph:accept_post	"text/turtle, application/ld+json" ;
+                    httph:accept_patch	"application/json", "application/sparql-update" ;
+                    httph:accept_post	"text/turtle", "application/ld+json" ;
                     httph:access_control_allow_credentials	"true" ;
-                    httph:access_control_allow_methods	"OPTIONS, HEAD, GET, PATCH, POST, PUT, DELETE" ;
+                    httph:access_control_allow_methods	"OPTIONS", "HEAD", "GET", "PATCH", "POST", "PUT", "DELETE" ;
                     httph:access_control_allow_origin	"*" ;
-                    httph:access_control_expose_headers	"User, Triples, Location, Link, Vary, Last-Modified, Content-Length" ;
-                    httph:allow	"OPTIONS, HEAD, GET, PATCH, POST, PUT, DELETE" .
+                    httph:access_control_expose_headers	"User", "Triples", "Location", "Link", "Vary", "Last-Modified", "Content-Length" ;
+                    httph:allow	"OPTIONS", "HEAD", "GET", "PATCH", "POST", "PUT", "DELETE" .
                                         
 
