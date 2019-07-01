@@ -3,10 +3,10 @@
 @prefix dc:   <http://purl.org/dc/terms/> .
 @prefix httph:<http://www.w3.org/2007/ont/httph#> .
 @prefix http: <http://www.w3.org/2007/ont/http#> .
-
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 
 <#test-list> a test:FixtureTable ;
-    test:fixtures <#public-writeread-unauthn-alt> .
+    test:fixtures ( <#public-writeread-unauthn-alt>  <#public-cors-origin-set> <#public-cors-origin-unset> ) .
 
 
 <#public-writeread-unauthn-alt> a test:Test ;
@@ -35,4 +35,43 @@
 <#public-writeread-unauthn-alt-get-res> a http:ResponseMessage ;
     httph:content_type "text/turtle" .
             
+
+<#public-cors-origin-set> a test:Test ;
+                dc:description "Testing CORS header when Origin is supplied by client"@en ;
+                rdfs:isDefinedBy <https://www.w3.org/TR/cors/#syntax>, <https://github.com/solid/solid-spec/blob/master/recommendations-server.md#cors---cross-origin-resource-sharing> ;
+                test:handler "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
+                dc:identifier "http_req_res_list_unauthenticated" ;
+                test:params [
+                    test:requests ( <#public-cors-origin-set-req> ) ;
+                    test:responses ( <#public-cors-origin-set-res> )
+                            ] .
+
+<#public-cors-origin-set-req> a http:RequestMessage ;
+                    http:method "GET" ;
+                    httph:origin <https://app.example> ;
+                    http:requestURI </public/verypublic/foobar.ttl> .
+
+<#public-cors-origin-set-res> a http:ResponseMessage ;
+                    http:status 200 ;
+                    httph:access_control_allow_origin <https://app.example> .
+                        
+
+<#public-cors-origin-unset> a test:Test ;
+                dc:description "Testing CORS header when Origin is supplied by client"@en ;
+                rdfs:isDefinedBy <https://www.w3.org/TR/cors/#syntax>, <https://github.com/solid/solid-spec/blob/master/recommendations-server.md#cors---cross-origin-resource-sharing> ;
+                test:handler "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
+                dc:identifier "http_req_res_list_unauthenticated" ;
+                test:params [
+                    test:requests ( <#public-cors-origin-unset-req> ) ;
+                    test:responses ( <#public-cors-origin-unset-res> )
+                            ] .
+
+<#public-cors-origin-unset-req> a http:RequestMessage ;
+                    http:method "GET" ;
+                    http:requestURI </public/verypublic/foobar.ttl> .
+
+<#public-cors-origin-unset-res> a http:ResponseMessage ;
+                    http:status 200 ;
+                    httph:access_control_allow_origin "*" .
+                                
 
