@@ -1,4 +1,5 @@
 @prefix test: <http://example.org/test-fixtures#> .
+@prefix hand: <http://example.org/handler#> .
 @prefix deps: <http://ontologi.es/doap-deps#>.
 @prefix dc:   <http://purl.org/dc/terms/> .
 @prefix httph:<http://www.w3.org/2007/ont/httph#> .
@@ -13,11 +14,13 @@
         <#public-options>
         ) .
 
+hand:HTTPLists rdfs:subClassOf test:ScriptClass ;
+    test:handler "Web::Solid::Test::HTTPLists"^^deps:CpanId .
 
-<#public-writeread-unauthn-alt> a test:Test ;
+
+<#public-writeread-unauthn-alt> a hand:HTTPLists ;
     dc:description "A simple test for PUT then GET"@en ;
-    test:handler "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
-    dc:identifier "http_req_res_list_unauthenticated" ;
+    test:script "http_req_res_list_unauthenticated" ;
     test:params [
         test:requests ( <#public-writeread-unauthn-alt-put-req> <#public-writeread-unauthn-alt-get-req> ) ;
         test:responses ( <#public-writeread-unauthn-alt-put-res> <#public-writeread-unauthn-alt-get-res> ) 
@@ -41,11 +44,11 @@
     httph:content_type "text/turtle" .
             
 
-<#public-cors-origin-set> a test:Test ;
+<#public-cors-origin-set> a hand:HTTPLists ;
                 dc:description "Testing CORS header when Origin is supplied by client"@en ;
                 rdfs:isDefinedBy <https://www.w3.org/TR/cors/#syntax>, <https://github.com/solid/solid-spec/blob/master/recommendations-server.md#cors---cross-origin-resource-sharing> ;
                 test:handler "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
-                dc:identifier "http_req_res_list_unauthenticated" ;
+                test:script "http_req_res_list_unauthenticated" ;
                 test:params [
                     test:requests ( <#public-cors-origin-set-req> ) ;
                     test:responses ( <#public-cors-origin-set-res> )
@@ -61,11 +64,11 @@
                     httph:access_control_allow_origin <https://app.example> .
                         
 
-<#public-cors-origin-unset> a test:Test ;
-                dc:description "Testing CORS header when Origin is supplied by client"@en ;
+<#public-cors-origin-unset> a hand:HTTPLists ;
+                dc:description "Testing CORS header when Origin is not supplied by client"@en ;
                 rdfs:isDefinedBy <https://www.w3.org/TR/cors/#syntax>, <https://github.com/solid/solid-spec/blob/master/recommendations-server.md#cors---cross-origin-resource-sharing> ;
                 test:handler "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
-                dc:identifier "http_req_res_list_unauthenticated" ;
+                test:script "http_req_res_list_unauthenticated" ;
                 test:params [
                     test:requests ( <#public-cors-origin-unset-req> ) ;
                     test:responses ( <#public-cors-origin-unset-res> )
@@ -79,11 +82,11 @@
                     http:status 200 ;
                     httph:access_control_allow_origin "*" .
 
-<#public-options> a test:Test ;
+<#public-options> a hand:HTTPLists ;
                 dc:description "Testing OPTIONS method"@en ;
                 rdfs:isDefinedBy <https://github.com/solid/solid-spec/blob/b941ff795acdedb7d7a24d40dabdfcce7efa9283/api-rest.md#discovering-server-capabilities---the-options-method>, <https://www.w3.org/TR/cors/#syntax> ;
                 test:handler "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
-                dc:identifier "http_req_res_list_unauthenticated" ;
+                test:script "http_req_res_list_unauthenticated" ;
                 test:params [
                     test:requests ( <#public-options-req> ) ;
                     test:responses ( <#public-options-res> )
