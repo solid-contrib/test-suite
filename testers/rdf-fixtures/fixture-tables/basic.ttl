@@ -3,27 +3,33 @@
 @prefix dc:   <http://purl.org/dc/terms/> .
 @prefix my:   <http://example.org/my-parameters#> .
 @prefix httph:<http://www.w3.org/2007/ont/httph#> .
+@prefix hand: <http://example.org/handler#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 
 <#test-list> a test:FixtureTable ;
     test:fixtures <#public-read-unauthn>, <#write-with-bearer>, <#put-with-bearer> . 
 
-<#public-read-unauthn> a test:Test ;
-    test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
+hand:Basic rdfs:subClassOf test:ScriptClass ;
+    deps:test-requirement "Web::Solid::Test::Basic"^^deps:CpanId .
+
+
+<#public-read-unauthn> a hand:Basic ;
+    dc:description "Test that GET and HEAD has the same headers" ;
     test:param_base <http://example.org/my-parameters#> ;
-    dc:identifier "http_read_unauthenticated" ;
+    test:script "http_read_unauthenticated" ;
     test:params [ my:url </public/> ] .
 
 
-<#write-with-bearer> a test:Test ;
-    test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
+<#write-with-bearer> a hand:Basic ;
+    dc:description "Test that a PUT can be done when using a environment Bearer Token" ;
     test:param_base <http://example.org/my-parameters#> ;
-    dc:identifier "http_write_with_bearer" ;
+    test:script "http_write_with_bearer" ;
     test:params [ my:url </private/foo.ttl> ] .
 
-<#put-with-bearer> a test:Test ;
-    test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
+<#put-with-bearer> a hand:Basic ;
+    dc:description "Test that a PUT can be done when using a environment Bearer Token returning 201" ;
     test:param_base <http://example.org/my-parameters#> ;
-    dc:identifier "http_methods_with_bearer" ;
+    test:script "http_methods_with_bearer" ;
     test:params [
         my:url </private/foo.ttl> ;
         my:method "PUT" ;
