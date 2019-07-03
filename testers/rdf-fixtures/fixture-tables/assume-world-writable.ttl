@@ -15,7 +15,7 @@
         ) .
 
 hand:HTTPLists rdfs:subClassOf test:ScriptClass ;
-    test:handler "Web::Solid::Test::HTTPLists"^^deps:CpanId .
+    deps:test-requirement "Web::Solid::Test::HTTPLists"^^deps:CpanId .
 
 
 <#public-writeread-unauthn-alt> a hand:HTTPLists ;
