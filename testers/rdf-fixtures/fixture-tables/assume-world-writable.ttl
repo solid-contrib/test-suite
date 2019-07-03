@@ -47,7 +47,6 @@ hand:HTTPLists rdfs:subClassOf test:ScriptClass ;
 <#public-cors-origin-set> a hand:HTTPLists ;
                 dc:description "Testing CORS header when Origin is supplied by client"@en ;
                 rdfs:isDefinedBy <https://www.w3.org/TR/cors/#syntax>, <https://github.com/solid/solid-spec/blob/master/recommendations-server.md#cors---cross-origin-resource-sharing> ;
-                test:handler "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
                 test:script "http_req_res_list_unauthenticated" ;
                 test:params [
                     test:requests ( <#public-cors-origin-set-req> ) ;
@@ -67,7 +66,6 @@ hand:HTTPLists rdfs:subClassOf test:ScriptClass ;
 <#public-cors-origin-unset> a hand:HTTPLists ;
                 dc:description "Testing CORS header when Origin is not supplied by client"@en ;
                 rdfs:isDefinedBy <https://www.w3.org/TR/cors/#syntax>, <https://github.com/solid/solid-spec/blob/master/recommendations-server.md#cors---cross-origin-resource-sharing> ;
-                test:handler "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
                 test:script "http_req_res_list_unauthenticated" ;
                 test:params [
                     test:requests ( <#public-cors-origin-unset-req> ) ;
@@ -85,7 +83,6 @@ hand:HTTPLists rdfs:subClassOf test:ScriptClass ;
 <#public-options> a hand:HTTPLists ;
                 dc:description "Testing OPTIONS method"@en ;
                 rdfs:isDefinedBy <https://github.com/solid/solid-spec/blob/b941ff795acdedb7d7a24d40dabdfcce7efa9283/api-rest.md#discovering-server-capabilities---the-options-method>, <https://www.w3.org/TR/cors/#syntax> ;
-                test:handler "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
                 test:script "http_req_res_list_unauthenticated" ;
                 test:params [
                     test:requests ( <#public-options-req> ) ;
