@@ -5,9 +5,10 @@
 @prefix httph:<http://www.w3.org/2007/ont/httph#> .
 @prefix http: <http://www.w3.org/2007/ont/http#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix nfo:   <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
 
 <#test-list> a test:FixtureTable ;
-    test:fixtures (
+    dc:hasPart (
         <#public-writeread-unauthn-alt>
         <#public-cors-origin-set>
         <#public-cors-origin-unset>
@@ -18,9 +19,13 @@ hand:HTTPLists rdfs:subClassOf test:ScriptClass ;
     deps:test-requirement "Web::Solid::Test::HTTPLists"^^deps:CpanId .
 
 
-<#public-writeread-unauthn-alt> a hand:HTTPLists ;
-    dc:description "A simple test for PUT then GET"@en ;
-    test:script "http_req_res_list_unauthenticated" ;
+<#public-writeread-unauthn-alt> a test:AutomatedTest ;
+    test:purpose "A simple test for PUT then GET"@en ;
+    test:test_script [
+        a nfo:SoftwareItem ;
+        deps:test-requirement "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
+        nfo:definesFunction "http_req_res_list_unauthenticated"
+        ] ;       
     test:params [
         test:requests ( <#public-writeread-unauthn-alt-put-req> <#public-writeread-unauthn-alt-get-req> ) ;
         test:responses ( <#public-writeread-unauthn-alt-put-res> <#public-writeread-unauthn-alt-get-res> ) 
