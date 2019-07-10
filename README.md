@@ -44,6 +44,16 @@ root@f0c7e54fb1f3:/# exit
 [...]
 ```
 
+or:
+
+```sh
+./runTesterAgainstServer.sh ldp-basic inrupt-pod-server
+[...]
+root@f0c7e54fb1f3:/# java -jar ldp-testsuite.jar --basic --server http://server:8080 --test PostContainer
+root@f0c7e54fb1f3:/# exit
+[...]
+```
+
 Caveat 1: the qualities of a software product can of course not be counted with a simple number of passing tests, so this list only gives a rough idea of levels of Solid spec compliance.
 
 Caveat 2: not all servers may have been configured optimally in these test runs; if you know of ways to improve the outcome for any of these servers, please provide a pull request.
