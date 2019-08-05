@@ -3,14 +3,15 @@
 @prefix httph:<http://www.w3.org/2007/ont/httph#> .
 @prefix http: <http://www.w3.org/2007/ont/http#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-@prefix nfo:   <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
+@prefix nfo:  <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
+@prefix :     <https://github.com/solid/test-suite/blob/master/testers/rdf-fixtures/fixture-tables/assume-world-writable.ttl#> .
 
-<#test-list> a test:FixtureTable ;
+:test_list a test:FixtureTable ;
     test:fixtures (
-        <#public-writeread-unauthn-alt>
-        <#public-cors-origin-set>
-        <#public-cors-origin-unset>
-        <#public-options>
+        :public_writeread_unauthn_alt
+        :public_cors_origin_set
+        :public_cors_origin_unset
+        :public_options
     ) .
 
 <http://example.org/httplist#http_req_res_list_unauthenticated>
@@ -19,82 +20,82 @@
     nfo:definesFunction "http_req_res_list_unauthenticated" .
 
 
-<#public-writeread-unauthn-alt> a test:AutomatedTest ;
+:public_writeread_unauthn_alt a test:AutomatedTest ;
     test:purpose "A simple test for PUT then GET"@en ;
     test:test_script <http://example.org/httplist#http_req_res_list_unauthenticated> ;
     test:params [
-        test:requests ( <public-writeread-unauthn-alt-put-req> <public-writeread-unauthn-alt-get-req> ) ;
-        test:responses ( <public-writeread-unauthn-alt-put-res> <public-writeread-unauthn-alt-get-res> ) 
+        test:requests ( :public_writeread_unauthn_alt_put_req :public_writeread_unauthn_alt_get_req ) ;
+        test:responses ( :public_writeread_unauthn_alt_put_res :public_writeread_unauthn_alt_get_res )
     ] .
 
 
-<#public-writeread-unauthn-alt-put-req> a http:RequestMessage ;
+:public_writeread_unauthn_alt_put_req a http:RequestMessage ;
     http:method "PUT" ;
     httph:content_type "text/turtle" ;
     http:content "</public/verypublic/foobar.ttl#dahut> a <http://example.org/Cryptid> ." ;
     http:requestURI </public/verypublic/foobar.ttl> .
 
-<#public-writeread-unauthn-alt-put-res> a http:ResponseMessage ;
+:public_writeread_unauthn_alt_put_res a http:ResponseMessage ;
     http:status 201 .
 
-<#public-writeread-unauthn-alt-get-req> a http:RequestMessage ;
+:public_writeread_unauthn_alt_get_req a http:RequestMessage ;
     http:method "GET" ;
     http:requestURI </public/verypublic/foobar.ttl> .
 
-<#public-writeread-unauthn-alt-get-res> a http:ResponseMessage ;
+:public_writeread_unauthn_alt_get_res a http:ResponseMessage ;
     httph:content_type "text/turtle" .
 
 
-<#public-cors-origin-set> a test:AutomatedTest ;
+:public_cors_origin_set a test:AutomatedTest ;
     test:purpose "Testing CORS header when Origin is supplied by client"@en ;
     rdfs:isDefinedBy <https://www.w3.org/TR/cors/#syntax>, <https://github.com/solid/solid-spec/blob/master/recommendations-server.md#cors---cross-origin-resource-sharing> ;
     test:test_script <http://example.org/httplist#http_req_res_list_unauthenticated> ;
     test:params [
-        test:requests ( <#public-cors-origin-set-req> ) ;
-        test:responses ( <#public-cors-origin-set-res> )
+        test:requests ( :public_cors_origin_set_req ) ;
+        test:responses ( :public_cors_origin_set_res )
     ] .
 
-<#public-cors-origin-set-req> a http:RequestMessage ;
+:public_cors_origin_set_req a http:RequestMessage ;
     http:method "GET" ;
     httph:origin <https://app.example> ;
     http:requestURI </public/verypublic/foobar.ttl> .
 
-<#public-cors-origin-set-res> a http:ResponseMessage ;
+:public_cors_origin_set_res a http:ResponseMessage ;
     http:status 200 ;
     httph:access_control_allow_origin <https://app.example> .
 
 
-<#public-cors-origin-unset> a test:AutomatedTest ;
+:public_cors_origin_unset a test:AutomatedTest ;
     test:purpose "Testing CORS header when Origin is not supplied by client"@en ;
     rdfs:isDefinedBy <https://www.w3.org/TR/cors/#syntax>, <https://github.com/solid/solid-spec/blob/master/recommendations-server.md#cors---cross-origin-resource-sharing> ;
     test:test_script <http://example.org/httplist#http_req_res_list_unauthenticated> ;
     test:params [
-        test:requests ( <#public-cors-origin-unset-req> ) ;
-        test:responses ( <#public-cors-origin-unset-res> )
+        test:requests ( :public_cors_origin_unset_req ) ;
+        test:responses ( :public_cors_origin_unset_res )
     ] .
 
-<#public-cors-origin-unset-req> a http:RequestMessage ;
+:public_cors_origin_unset_req a http:RequestMessage ;
     http:method "GET" ;
     http:requestURI </public/verypublic/foobar.ttl> .
 
-<#public-cors-origin-unset-res> a http:ResponseMessage ;
+:public_cors_origin_unset_res a http:ResponseMessage ;
     http:status 200 ;
     httph:access_control_allow_origin "*" .
 
-<#public-options> a test:AutomatedTest ;
+:public_options a test:AutomatedTest ;
     test:purpose "Testing OPTIONS method"@en ;
     rdfs:isDefinedBy <https://github.com/solid/solid-spec/blob/b941ff795acdedb7d7a24d40dabdfcce7efa9283/api-rest.md#discovering-server-capabilities---the-options-method>, <https://www.w3.org/TR/cors/#syntax> ;
     test:test_script <http://example.org/httplist#http_req_res_list_unauthenticated> ;
     test:params [
-        test:requests ( <#public-options-req> ) ;
-        test:responses ( <#public-options-res> )
+        test:requests ( :public_options_req ) ;
+        test:responses ( :public_options_res )
     ] .
 
-<#public-options-req> a http:RequestMessage ;
+:public_options_req a http:RequestMessage ;
     http:method "OPTIONS" ;
     http:requestURI </public/> .
 
-<#public-options-res> a http:ResponseMessage ;
+:public_options_res a http:ResponseMessage ;
     http:status 200 ; # TODO: For this, we need bag and possibly subset tests
     httph:accept_patch	"application/json", "application/sparql-update" ;
     httph:accept_post	"text/turtle", "application/ld+json" ;
