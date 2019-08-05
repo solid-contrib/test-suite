@@ -1,0 +1,54 @@
+@prefix test: <http://ontologi.es/doap-tests#> .
+@prefix deps: <http://ontologi.es/doap-deps#>.
+@prefix httph:<http://www.w3.org/2007/ont/httph#> .
+@prefix http: <http://www.w3.org/2007/ont/http#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix nfo:  <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
+@prefix dqm:  <http://purl.org/dqm-vocabulary/v1/dqm#> .
+@prefix :     <https://github.com/solid/test-suite/blob/master/testers/rdf-fixtures/fixture-tables/http-put-check-acl.ttl#> .
+
+:test_list a test:FixtureTable ;
+    test:fixtures (
+        :check_acl_location
+    ) .
+
+<http://example.org/httplist#http_req_res_list_location> a nfo:SoftwareItem ;
+    deps:test-requirement "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
+    nfo:definesFunction "http_req_res_list_location" .
+
+
+:check_acl_location a test:AutomatedTest ;
+    test:purpose "Determine location and write ACL document"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list_location> ;
+    test:params [
+        test:requests ( :check_acl_location_req :put_new_acl_req ) ;
+        test:responses ( :check_acl_location_res :put_new_acl_res )
+    ] .
+
+
+:check_acl_location_req a http:RequestMessage ;
+    http:method "HEAD" ;
+    http:requestURI </> .
+
+:check_acl_location_res a http:ResponseMessage ;
+    httph:link '<(.*?)>;\\s+rel="acl"'^^dqm:regex ;
+    httph:content_type "text/turtle" ;
+    http:status 200 .
+
+:put_new_acl_req a http:RequestMessage ;
+    http:method "PUT" ;
+    httph:content_type "text/turtle" ;
+http:content """
+@prefix acl: <http://www.w3.org/ns/auth/acl#>.
+<#owner> a acl:Authorization;
+acl:default </>;
+acl:accessTo </>;
+acl:agent <profile/card#me>;
+acl:mode acl:Read. """ .
+
+
+:put_new_acl_res a http:ResponseMessage ;
+    http:status "201" .
+
+
+
