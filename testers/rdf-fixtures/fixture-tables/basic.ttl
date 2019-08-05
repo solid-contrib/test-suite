@@ -6,7 +6,7 @@
 @prefix nfo:  <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
 
 <#test-list> a test:FixtureTable ;
-    test:fixtures <#public-read-unauthn>, <#write-with-bearer>, <#put-with-bearer> . 
+    test:fixtures <#public-read-unauthn>, <#write-with-bearer>, <#put-with-bearer> .
 
 <http://example.org/basic#http_methods_with_bearer> a nfo:SoftwareItem ;
     nfo:definesFunction "http_methods_with_bearer" ;
@@ -43,4 +43,4 @@
         my:method "PUT" ;
         my:body "" ;
         my:code "201" 
-        ] .
+    ] .
