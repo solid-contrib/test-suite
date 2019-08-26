@@ -1,0 +1,6 @@
+@prefix acl: <http://www.w3.org/ns/auth/acl#>.
+<#root_test_alice_auth> a acl:Authorization;
+    acl:default </>;
+    acl:accessTo </>;
+    acl:agent <https://alice.idp.test.solidproject.org/profile/card#me>;
+    acl:mode acl:Read, acl:Write, acl:Control.
