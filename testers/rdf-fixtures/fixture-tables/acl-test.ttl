@@ -10,6 +10,7 @@
 :test_list a test:FixtureTable ;
     test:fixtures (
         :bob_tries_get_put
+        :alice_tries_get_put
     ) .
 
 <http://example.org/httplist#http_req_res_list>
@@ -24,28 +25,48 @@
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ; # Means: Bob wants to see Alice's data
         test:requests (
-            :bob_simple_get_req
-            :bob_simple_put_req
+            :simple_get_req
+            :simple_put_req
         ) ;
         test:responses (
-            :bob_simple_get_res
+            :simple_get_res
             :bob_simple_put_res
         )
     ] .
 
-:bob_simple_get_req a http:RequestMessage ;
+
+:alice_tries_get_put a test:AutomatedTest ;
+    test:purpose "Alice checks root and puts fine"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ; # Means: Bob wants to see Alice's data
+        test:requests (
+            :simple_get_req
+            :simple_put_req
+        ) ;
+        test:responses (
+            :simple_get_res
+            :alice_simple_put_res
+        )
+    ] .
+
+
+:simple_get_req a http:RequestMessage ;
     http:method "GET" ;
     http:requestURI </> . # Will request index.html
 
-:bob_simple_get_res a http:ResponseMessage ;
+:simple_get_res a http:ResponseMessage ;
     http:status 200 ;
     httph:content_type "text/html" .
 
-:bob_simple_put_req a http:RequestMessage ;
+:simple_put_req a http:RequestMessage ;
     http:method "PUT" ;
     http:content "</foobar.ttl#dahut> a <http://example.org/Cryptid> ." ;
     http:requestURI </foobar.ttl> .
 
 :bob_simple_put_res a http:ResponseMessage ;
     http:status 403 .
+
+:alice_simple_put_res a http:ResponseMessage ;
+    http:status 201 .
 
