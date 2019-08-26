@@ -45,7 +45,7 @@ use Test::FITesque::RDF;
 
 BAIL_OUT("Set SOLID_REMOTE_BASE to the URL of the base of the server you are testing") unless $ENV{SOLID_REMOTE_BASE};
 
-my $suite = Test::FITesque::RDF->new(source => $path . 'assume-world-writable.ttl', base_uri => $ENV{SOLID_REMOTE_BASE})->suite;
+my $suite = Test::FITesque::RDF->new(source => $path . 'acl-test.ttl', base_uri => $ENV{SOLID_REMOTE_BASE})->suite;
 
 $suite->run_tests;
 

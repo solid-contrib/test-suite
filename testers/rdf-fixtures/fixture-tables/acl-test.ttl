@@ -1,0 +1,37 @@
+@prefix test: <http://ontologi.es/doap-tests#> .
+@prefix deps: <http://ontologi.es/doap-deps#>.
+@prefix httph:<http://www.w3.org/2007/ont/httph#> .
+@prefix http: <http://www.w3.org/2007/ont/http#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix nfo:  <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
+@prefix my:   <http://example.org/my-parameters#> .
+@prefix :     <https://github.com/solid/test-suite/blob/master/testers/rdf-fixtures/fixture-tables/acl-test.ttl#> .
+
+:test_list a test:FixtureTable ;
+    test:fixtures (
+        :get_basic_auth
+    ) .
+
+<http://example.org/httplist#http_req_res_list>
+    a nfo:SoftwareItem ;
+    deps:test-requirement "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
+    nfo:definesFunction "http_req_res_list" .
+
+
+:get_basic_auth a test:AutomatedTest ;
+    test:purpose "A simple test for PUT then GET"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ; # Means: Bob wants to see Alice's data
+        test:requests ( :bob_simple_get_req ) ;
+        test:responses ( :bob_simple_get_res )
+    ] .
+
+:bob_simple_get_req a http:RequestMessage ;
+    http:method "GET" ;
+    http:requestURI </> . # Will request index.html
+
+:bob_simple_get_res a http:ResponseMessage ;
+    http:status 200 ;
+    httph:content_type "text/html" .
+
