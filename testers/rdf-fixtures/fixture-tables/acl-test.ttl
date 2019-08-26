@@ -9,7 +9,7 @@
 
 :test_list a test:FixtureTable ;
     test:fixtures (
-        :get_basic_auth
+        :bob_tries_get_put
     ) .
 
 <http://example.org/httplist#http_req_res_list>
@@ -18,7 +18,7 @@
     nfo:definesFunction "http_req_res_list" .
 
 
-:get_basic_auth a test:AutomatedTest ;
+:bob_tries_get_put a test:AutomatedTest ;
     test:purpose "Bob checks root and puts illegally"@en ;
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
