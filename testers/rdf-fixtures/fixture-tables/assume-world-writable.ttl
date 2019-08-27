@@ -14,15 +14,15 @@
         :public_options
     ) .
 
-<http://example.org/httplist#http_req_res_list_unauthenticated>
+<http://example.org/httplist#http_req_res_list>
     a nfo:SoftwareItem ;
     deps:test-requirement "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
-    nfo:definesFunction "http_req_res_list_unauthenticated" .
+    nfo:definesFunction "http_req_res_list" .
 
 
 :public_writeread_unauthn_alt a test:AutomatedTest ;
     test:purpose "A simple test for PUT then GET"@en ;
-    test:test_script <http://example.org/httplist#http_req_res_list_unauthenticated> ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         test:requests ( :public_writeread_unauthn_alt_put_req :public_writeread_unauthn_alt_get_req ) ;
         test:responses ( :public_writeread_unauthn_alt_put_res :public_writeread_unauthn_alt_get_res )
@@ -49,7 +49,7 @@
 :public_cors_origin_set a test:AutomatedTest ;
     test:purpose "Testing CORS header when Origin is supplied by client"@en ;
     rdfs:isDefinedBy <https://www.w3.org/TR/cors/#syntax>, <https://github.com/solid/solid-spec/blob/master/recommendations-server.md#cors---cross-origin-resource-sharing> ;
-    test:test_script <http://example.org/httplist#http_req_res_list_unauthenticated> ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         test:requests ( :public_cors_origin_set_req ) ;
         test:responses ( :public_cors_origin_set_res )
@@ -68,7 +68,7 @@
 :public_cors_origin_unset a test:AutomatedTest ;
     test:purpose "Testing CORS header when Origin is not supplied by client"@en ;
     rdfs:isDefinedBy <https://www.w3.org/TR/cors/#syntax>, <https://github.com/solid/solid-spec/blob/master/recommendations-server.md#cors---cross-origin-resource-sharing> ;
-    test:test_script <http://example.org/httplist#http_req_res_list_unauthenticated> ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         test:requests ( :public_cors_origin_unset_req ) ;
         test:responses ( :public_cors_origin_unset_res )
@@ -85,7 +85,7 @@
 :public_options a test:AutomatedTest ;
     test:purpose "Testing OPTIONS method"@en ;
     rdfs:isDefinedBy <https://github.com/solid/solid-spec/blob/b941ff795acdedb7d7a24d40dabdfcce7efa9283/api-rest.md#discovering-server-capabilities---the-options-method>, <https://www.w3.org/TR/cors/#syntax> ;
-    test:test_script <http://example.org/httplist#http_req_res_list_unauthenticated> ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         test:requests ( :public_options_req ) ;
         test:responses ( :public_options_res )
