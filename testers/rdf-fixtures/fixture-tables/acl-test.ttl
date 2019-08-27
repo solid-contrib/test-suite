@@ -12,6 +12,8 @@
         :bob_tries_get_put
         :alice_tries_get_put
         :alice_sets_bob_acl
+        :bob_tries_put_again
+        :teardown
     ) .
 
 <http://example.org/httplist#http_req_res_list>
@@ -40,7 +42,7 @@
     test:purpose "Alice checks root and puts fine"@en ;
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
-        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ; # Means: Bob wants to see Alice's data
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
         test:requests (
             :simple_get_req
             :simple_put_req
@@ -56,12 +58,43 @@
     test:purpose "Alice sets ACL for Bob"@en ;
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
-        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ; # Means: Bob wants to see Alice's data
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
         test:requests (
             :bob_put_acl_req
         ) ;
         test:responses (
             :bob_put_acl_res
+        )
+    ] .
+
+
+:bob_tries_put_again a test:AutomatedTest ;
+    test:purpose "Bob puts again and checks it is there"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
+        test:requests (
+            :simple_put_req
+            :simple_get_bob_req
+        ) ;
+        test:responses (
+            :bob_ok_put_res
+            :bob_simple_get_res
+        )
+    ] .
+
+:teardown a test:AutomatedTest ;
+    test:purpose "Teardown test to reset to initial state"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:requests (
+            :delete_bob_foobar_req
+            :delete_bob_req
+        ) ;
+        test:responses (
+            :delete_bob_res
+            :delete_bob_res
         )
     ] .
 
@@ -77,8 +110,8 @@
 :simple_put_req a http:RequestMessage ;
     http:method "PUT" ;
     httph:content_type "text/turtle" ;
-    http:content "</foobar.ttl#dahut> a <http://example.org/Cryptid> ." ;
-    http:requestURI </foobar.ttl> .
+    http:content "</bob/foobar.ttl#dahut> a <http://example.org/Cryptid> ." ;
+    http:requestURI </bob/foobar.ttl> .
 
 :bob_simple_put_res a http:ResponseMessage ;
     http:status 403 .
@@ -92,9 +125,34 @@
     httph:content_type "text/turtle" ;
     http:content """@prefix acl: <http://www.w3.org/ns/auth/acl#>.
     <#bob> a acl:Authorization;
-    acl:agent <https://bobwebid.idp.test.solidproject.org/profile/card#me>;
+    acl:agent <https://bobwebid.idp.test.solidproject.org/profile/card#me>,
+              <https://alice.idp.test.solidproject.org/profile/card#me>;
     acl:default </bob/>;
+    acl:accessTo </bob/>;
     acl:mode acl:Read, acl:Write.""" .
 
 :bob_put_acl_res a http:ResponseMessage ;
     http:status 201 .
+
+:bob_ok_put_res a http:ResponseMessage ;
+    http:status 201 .
+
+:simple_get_bob_req a http:RequestMessage ;
+    http:method "GET" ;
+    http:requestURI </bob/foobar.ttl> .
+
+:bob_simple_get_res a http:ResponseMessage ;
+    http:status 200 ;
+    httph:content_type "text/turtle" .
+
+
+:delete_bob_foobar_req a http:RequestMessage ;
+    http:method "DELETE" ;
+    http:requestURI </bob/foobar.ttl> .
+
+:delete_bob_req a http:RequestMessage ;
+    http:method "DELETE" ;
+    http:requestURI </bob/> .
+
+:delete_bob_res a http:ResponseMessage ;
+    http:status 200 .
