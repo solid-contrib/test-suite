@@ -11,6 +11,7 @@
     test:fixtures (
         :bob_tries_get_put
         :alice_tries_get_put
+        :alice_sets_bob_acl
     ) .
 
 <http://example.org/httplist#http_req_res_list>
@@ -51,6 +52,20 @@
     ] .
 
 
+:alice_sets_bob_acl a test:AutomatedTest ;
+    test:purpose "Alice sets ACL for Bob"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ; # Means: Bob wants to see Alice's data
+        test:requests (
+            :bob_put_acl_req
+        ) ;
+        test:responses (
+            :bob_put_acl_res
+        )
+    ] .
+
+
 :simple_get_req a http:RequestMessage ;
     http:method "GET" ;
     http:requestURI </> . # Will request index.html
@@ -61,6 +76,7 @@
 
 :simple_put_req a http:RequestMessage ;
     http:method "PUT" ;
+    httph:content_type "text/turtle" ;
     http:content "</foobar.ttl#dahut> a <http://example.org/Cryptid> ." ;
     http:requestURI </foobar.ttl> .
 
@@ -70,3 +86,15 @@
 :alice_simple_put_res a http:ResponseMessage ;
     http:status 201 .
 
+:bob_put_acl_req a http:RequestMessage ;
+    http:method "PUT" ;
+    http:requestURI </bob/.acl> ;
+    httph:content_type "text/turtle" ;
+    http:content """@prefix acl: <http://www.w3.org/ns/auth/acl#>.
+    <#bob> a acl:Authorization;
+    acl:agent <https://bobwebid.idp.test.solidproject.org/profile/card#me>;
+    acl:default </bob/>;
+    acl:mode acl:Read, acl:Write.""" .
+
+:bob_put_acl_res a http:ResponseMessage ;
+    http:status 201 .
