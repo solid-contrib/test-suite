@@ -83,4 +83,18 @@ acl:mode acl:Read. """ .
     http:status "201" .
 
 
+:teardown a test:AutomatedTest ;
+    test:purpose "Teardown test to reset to initial state"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:requests ( :delete_container_req ) ;
+        test:responses ( :delete_container_res )
+    ] .
 
+:delete_container_req a http:RequestMessage ;
+    http:method "DELETE" ;
+    http:requestURI </test/> .
+
+:delete_container_res a http:ResponseMessage ;
+    http:status 200 .
