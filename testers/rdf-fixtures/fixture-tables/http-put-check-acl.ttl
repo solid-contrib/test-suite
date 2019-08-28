@@ -9,6 +9,7 @@
 
 :test_list a test:FixtureTable ;
     test:fixtures (
+        :create_test_container
         :check_acl_location
     ) .
 
@@ -16,11 +17,41 @@
     deps:test-requirement "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
     nfo:definesFunction "http_req_res_list_location" .
 
+<http://example.org/httplist#http_req_res_list> a nfo:SoftwareItem ;
+    deps:test-requirement "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
+    nfo:definesFunction "http_req_res_list" .
+
+
+:create_test_container a test:AutomatedTest ;
+    test:purpose "Create test container."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:requests ( :post_container_req ) ;
+        test:responses ( :post_container_res )
+    ] .
+
+:post_container_req  a http:RequestMessage ;
+    http:method "POST" ;
+    http:requestURI </> ;
+    httph:content_type "text/turtle";
+    httph:link '<http://www.w3.org/ns/ldp#BasicContainer>; rel="type"' ;
+    httph:slug "test" ;
+    http:content """@prefix ldp: <http://www.w3.org/ns/ldp#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+<> a ldp:Container, ldp:BasicContainer;
+   dcterms:title "Test Directory" .""".
+
+
+:post_container_res a http:ResponseMessage ;
+    http:status 201 .
+
 
 :check_acl_location a test:AutomatedTest ;
     test:purpose "Determine location and write ACL document"@en ;
     test:test_script <http://example.org/httplist#http_req_res_list_location> ;
     test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
         test:requests ( :check_acl_location_req :put_new_acl_req ) ;
         test:responses ( :check_acl_location_res :put_new_acl_res )
     ] .
@@ -28,11 +59,11 @@
 
 :check_acl_location_req a http:RequestMessage ;
     http:method "HEAD" ;
-    http:requestURI </> .
+    http:requestURI </test/> .
 
 :check_acl_location_res a http:ResponseMessage ;
     httph:link '<(.*?)>;\\s+rel="acl"'^^dqm:regex ;
-    httph:content_type "text/turtle" ;
+    #    httph:content_type "text/turtle" ;
     http:status 200 .
 
 :put_new_acl_req a http:RequestMessage ;
