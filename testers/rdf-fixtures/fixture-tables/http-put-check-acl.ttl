@@ -74,7 +74,7 @@ http:content """
 <#owner> a acl:Authorization;
 acl:default </>;
 acl:accessTo </>;
-acl:agent <profile/card#me>;
+acl:agent <https://bobwebid.idp.test.solidproject.org/profile/card#me>;
 acl:mode acl:Read. """ .
 
 
