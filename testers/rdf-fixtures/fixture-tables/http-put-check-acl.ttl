@@ -11,6 +11,7 @@
     test:fixtures (
         :create_test_container
         :check_acl_location
+        :teardown
     ) .
 
 <http://example.org/httplist#http_req_res_list_location> a nfo:SoftwareItem ;
@@ -72,8 +73,8 @@
 http:content """
 @prefix acl: <http://www.w3.org/ns/auth/acl#>.
 <#owner> a acl:Authorization;
-acl:default </>;
-acl:accessTo </>;
+acl:default </test/>;
+acl:accessTo </test/>;
 acl:agent <https://bobwebid.idp.test.solidproject.org/profile/card#me>;
 acl:mode acl:Read. """ .
 
