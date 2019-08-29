@@ -12,6 +12,8 @@
     test:fixtures (
         :setup
         :get_unauth
+        :get_auth_alice
+        :get_auth_bob
     ) .
 
 <http://example.org/httplist#http_req_res_list>
@@ -82,10 +84,43 @@
         )
     ] .
 
+:get_auth_alice a test:AutomatedTest ;
+    test:purpose "Authenticated as Alice GET operations on resources."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:requests (
+            :get_private_for_alice_req
+        ) ;
+        test:responses (
+            :get_ok_res
+        )
+    ] .
+
+:get_auth_bob a test:AutomatedTest ;
+    test:purpose "Authenticated as Bob GET operations on resources."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
+        test:requests (
+            :get_private_for_alice_req
+        ) ;
+        test:responses (
+            :user_unauthz_res
+        )
+    ] .
+
+
 :get_private_for_alice_req a http:RequestMessage ;
     http:method "GET" ;
     http:requestURI </test-auth/private-for-alice.txt> .
 
 
+:get_ok_res a http:ResponseMessage ;
+    http:status 200 .
+
 :user_unauthn_res a http:ResponseMessage ;
     http:status 401 .
+
+:user_unauthz_res a http:ResponseMessage ;
+    http:status 403 .
