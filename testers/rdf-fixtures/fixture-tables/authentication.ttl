@@ -25,12 +25,34 @@
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ; # Means: Bob wants to see Alice's data
         test:requests (
+            :setup_alices_private_req
+            :setup_alices_private_acl_req
             :setup_alice_acl_req
+
        ) ;
         test:responses (
             :created_ok
+            :created_ok
+            :created_ok
         )
     ] .
+
+:setup_alices_private_req a http:RequestMessage ;
+    http:method "PUT" ;
+    http:requestURI </test-auth/private-for-alice.txt> ;
+    httph:content_type "text/plain" ;
+    http:content "protected contents for alice" .
+
+
+:setup_alices_private_acl_req a http:RequestMessage ;
+    http:method "PUT" ;
+    http:requestURI </test-auth/private-for-alice.txt.acl> ;
+    httph:content_type "text/turtle" ;
+    http:content """@prefix acl: <http://www.w3.org/ns/auth/acl#>.
+<#owner> a acl:Authorization;
+  acl:agent <https://alice.idp.test.solidproject.org/profile/card#me>;
+  acl:accessTo </test-auth/private-for-alice.txt>;
+  acl:mode acl:Read, acl:Write, acl:Control.""" .
 
 :setup_alice_acl_req a http:RequestMessage ;
     http:method "PUT" ;
@@ -40,7 +62,8 @@
 <#owner> a acl:Authorization;
   acl:agent <https://alice.idp.test.solidproject.org/profile/card#me>;
   acl:accessTo </test-auth/>;
-  acl:mode acl:Read, acl:Write, acl:Control.""" .
+  acl:mode acl:Read, acl:Write, acl:Control.""" . # TODO: Should this have a default?
+
 
 :created_ok a http:ResponseMessage ;
     http:status 201 .
