@@ -6,6 +6,7 @@ RUN npm install
 RUN npm run prepare
 RUN npm run build
 EXPOSE 8080/tcp
+COPY config.json .
 ENV DEBUG *
 ENV SKIP_WAC true
 ENV AUD http://server:8080
