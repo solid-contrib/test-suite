@@ -79,8 +79,12 @@
         test:requests (
             :get_private_for_alice_req
             :get_own_origin_private_for_alice_req
+            :get_alice_trust_origin_private_for_alice_req
+            :get_other_origin_private_for_alice_req
         ) ;
         test:responses (
+            :user_unauthn_res
+            :user_unauthn_res
             :user_unauthn_res
             :user_unauthn_res
         )
@@ -94,10 +98,14 @@
         test:requests (
             :get_private_for_alice_req
             :get_own_origin_private_for_alice_req
+            :get_alice_trust_origin_private_for_alice_req
+            :get_other_origin_private_for_alice_req
         ) ;
         test:responses (
             :get_ok_res
             :get_ok_res
+            :get_ok_res
+            :origin_unauthz_res
         )
     ] .
 
@@ -109,8 +117,12 @@
         test:requests (
             :get_private_for_alice_req
             :get_own_origin_private_for_alice_req
+            :get_alice_trust_origin_private_for_alice_req
+            :get_other_origin_private_for_alice_req
         ) ;
         test:responses (
+            :user_unauthz_res
+            :user_unauthz_res
             :user_unauthz_res
             :user_unauthz_res
         )
@@ -138,3 +150,12 @@
 :origin_unauthz_res a http:ResponseMessage ;
     http:status 403 .
 
+:get_other_origin_private_for_alice_req a http:RequestMessage ;
+    http:method "GET" ;
+    httph:origin <https://other.test> ;
+    http:requestURI </test-auth/private-for-alice.txt> .
+
+:get_alice_trust_origin_private_for_alice_req a http:RequestMessage ;
+    http:method "GET" ;
+    httph:origin <https://goodapp.example> ; # Given in Alice's profile as trusted
+    http:requestURI </test-auth/private-for-alice.txt> .
