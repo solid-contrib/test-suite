@@ -21,6 +21,6 @@
       "type": "filesystem",
       "rootFolder": "./.db"
     },
-    "keystore": "/home/jackson/pod-server/sample-keystore.json",
+    "keystore": "/home/jackson/pod-server/sample-keystore.json"
   }
 }

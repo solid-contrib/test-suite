@@ -29,10 +29,10 @@ grep [Tt]ests reports/* | docker run -i table-reporter
 The final output should look something like:
 ```sh
 Server              	LDP Basic           	Websockets-pub-sub  	RDF-fixtures
-gold                	1/90                	0/1                 	3/7
-inrupt-pod-server   	56/90               	1/1                 	3/7
-node-solid-server   	15/90               	0/1                 	2/7
-trellis             	53/90               	0/1                 	4/7
+gold                	1/90                	0/1                 	0/0
+inrupt-pod-server   	7/90                	0/1                 	0/0
+node-solid-server   	15/90               	0/1                 	0/0
+trellis             	53/90               	0/1                 	0/0
 ```
 
 To run one tester against one server interactively, you can do for instance:
