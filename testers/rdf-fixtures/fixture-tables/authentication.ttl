@@ -14,6 +14,7 @@
         :get_unauth
         :get_auth_alice
         :get_auth_bob
+        :teardown
     ) .
 
 <http://example.org/httplist#http_req_res_list>
@@ -43,6 +44,7 @@
 :setup_alices_private_req a http:RequestMessage ;
     http:method "PUT" ;
     http:requestURI </test-auth/private-for-alice.txt> ;
+    rdfs:comment "Is this expected behaviour, i.e. putting a resource will create an empty container?"@en ;
     httph:content_type "text/plain" ;
     http:content "protected contents for alice" .
 
@@ -159,3 +161,40 @@
     http:method "GET" ;
     httph:origin <https://goodapp.example> ; # Given in Alice's profile as trusted
     http:requestURI </test-auth/private-for-alice.txt> .
+
+
+:teardown a test:AutomatedTest ;
+    test:purpose "Delete resources that were set up in these tests"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ; # Means: Bob wants to see Alice's data
+        test:requests (
+            :teardown_alices_private_req
+            :teardown_alices_private_acl_req
+            :teardown_test_dir
+
+       ) ;
+        test:responses (
+            :deleted_ok_res
+            :deleted_ok_res
+            :deleted_ok_res
+        )
+    ] .
+
+
+:teardown_alices_private_req a http:RequestMessage ;
+    http:method "DELETE" ;
+    http:requestURI </test-auth/private-for-alice.txt> .
+
+:teardown_alices_private_acl_req a http:RequestMessage ;
+    rdfs:comment "Open issue: https://github.com/solid/solid-spec/issues/187"@en ; # TODO, we should have a predicate for this... :-)
+    http:method "DELETE" ;
+    http:requestURI </test-auth/private-for-alice.txt.acl> .
+
+:teardown_test_dir a http:RequestMessage ;
+    rdfs:comment "Open issue: https://github.com/solid/solid-spec/issues/187"@en ; # TODO, we should have a predicate for this... :-)
+    http:method "DELETE" ;
+    http:requestURI </test-auth/> .
+
+:deleted_ok_res a http:ResponseMessage ;
+    http:status 200 .
