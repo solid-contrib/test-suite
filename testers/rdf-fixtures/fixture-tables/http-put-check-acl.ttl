@@ -10,7 +10,9 @@
 :test_list a test:FixtureTable ;
     test:fixtures (
         :create_test_container
+        :bob_puts_no_authz
         :check_acl_location
+        :bob_puts_with_authz
         :teardown
     ) .
 
@@ -47,6 +49,24 @@
 :post_container_res a http:ResponseMessage ;
     http:status 201 .
 
+:bob_puts_no_authz  a test:AutomatedTest ;
+    test:purpose "Check that Bob cannot write without authorization."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
+        test:requests ( :put_resource_req ) ;
+        test:responses ( :put_no_authz_res )
+    ] .
+
+:put_resource_req a http:RequestMessage ;
+    http:method "PUT" ;
+    http:requestURI </test/foobar.txt> ;
+    httph:content_type "text/plain" ;
+    http:content "Some text here" .
+
+:put_no_authz_res a http:ResponseMessage ;
+    http:status 403 .
+
 
 :check_acl_location a test:AutomatedTest ;
     test:purpose "Determine location and write ACL document"@en ;
@@ -75,12 +95,33 @@ http:content """
 <#owner> a acl:Authorization;
 acl:default </test/>;
 acl:accessTo </test/>;
-acl:agent <https://bobwebid.idp.test.solidproject.org/profile/card#me>;
-acl:mode acl:Read. """ .
+acl:agent <https://bobwebid.idp.test.solidproject.org/profile/card#me>, <https://alice.idp.test.solidproject.org/profile/card#me>;
+acl:mode acl:Read, acl:Write. """ .
 
 
 :put_new_acl_res a http:ResponseMessage ;
     http:status "201" .
+
+:bob_puts_with_authz  a test:AutomatedTest ;
+    test:purpose "Check that Bob can write now that he is authorized."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
+        test:requests ( :put_resource_req :get_resource_req ) ;
+        test:responses ( :put_created :check_resource )
+    ] .
+
+:put_created a http:ResponseMessage ;
+    http:status 201 .
+
+:get_resource_req a http:RequestMessage ;
+    http:method "GET" ;
+    http:requestURI </test/foobar.txt> .
+
+:check_resource a http:ResponseMessage ;
+    http:status 200 ;
+    httph:content_type "text/plain" ;
+    http:content "Some text here" .
 
 
 :teardown a test:AutomatedTest ;
@@ -88,13 +129,17 @@ acl:mode acl:Read. """ .
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
-        test:requests ( :delete_container_req ) ;
-        test:responses ( :delete_container_res )
+        test:requests ( :delete_resource_req :delete_container_req ) ;
+        test:responses ( :delete_res :delete_res )
     ] .
+
+:delete_resource_req a http:RequestMessage ;
+    http:method "DELETE" ;
+    http:requestURI </test/foobar.txt> .
 
 :delete_container_req a http:RequestMessage ;
     http:method "DELETE" ;
     http:requestURI </test/> .
 
-:delete_container_res a http:ResponseMessage ;
+:delete_res a http:ResponseMessage ;
     http:status 200 .
