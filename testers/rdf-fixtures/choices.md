@@ -106,19 +106,6 @@ verbose:
             :user_unauthn_res
         )
     ] .
-:get_unauth a test:AutomatedTest ;
-    test:purpose "Unauthenticated GET operations on resources."@en ;
-    test:test_script <http://example.org/httplist#http_req_res_list> ;
-    test:params [
-        test:requests (
-            :get_private_for_alice_req
-            :get_own_origin_private_for_alice_req
-        ) ;
-        test:responses (
-            :user_unauthn_res
-            :user_unauthn_res
-        )
-    ] .
 ```
 
 These will run exactly the same tests, so the main difference is that
