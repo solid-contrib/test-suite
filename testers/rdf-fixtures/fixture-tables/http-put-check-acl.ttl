@@ -16,9 +16,9 @@
         :teardown
     ) .
 
-<http://example.org/httplist#http_req_res_list_location> a nfo:SoftwareItem ;
+<http://example.org/httplist#http_req_res_list_regex_reuser> a nfo:SoftwareItem ;
     deps:test-requirement "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
-    nfo:definesFunction "http_req_res_list_location" .
+    nfo:definesFunction "http_req_res_list_regex_reuser" .
 
 <http://example.org/httplist#http_req_res_list> a nfo:SoftwareItem ;
     deps:test-requirement "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
@@ -30,8 +30,12 @@
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
-        test:requests ( :post_container_req ) ;
-        test:responses ( :post_container_res )
+        test:steps (
+            [
+                test:request :post_container_req ;
+                test:response_assertion :post_container_res
+            ]
+        )
     ] .
 
 :post_container_req  a http:RequestMessage ;
@@ -54,8 +58,12 @@
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
-        test:requests ( :put_resource_req ) ;
-        test:responses ( :put_no_authz_res )
+        test:steps (
+            [
+                test:request :put_resource_req ;
+                test:response_assertion :put_no_authz_res
+            ]
+        )
     ] .
 
 :put_resource_req a http:RequestMessage ;
@@ -70,11 +78,19 @@
 
 :check_acl_location a test:AutomatedTest ;
     test:purpose "Determine location and write ACL document"@en ;
-    test:test_script <http://example.org/httplist#http_req_res_list_location> ;
+    test:test_script <http://example.org/httplist#http_req_res_list_regex_reuser> ;
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
-        test:requests ( :check_acl_location_req :put_new_acl_req ) ;
-        test:responses ( :check_acl_location_res :put_new_acl_res )
+        test:steps (
+            [
+                test:request :check_acl_location_req ;
+                test:response_assertion :check_acl_location_res
+            ]
+            [
+                test:request :put_new_acl_req ;
+                test:response_assertion :put_new_acl_res
+            ]
+        )
     ] .
 
 
@@ -107,8 +123,16 @@ acl:mode acl:Read, acl:Write. """ .
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
-        test:requests ( :put_resource_req :get_resource_req ) ;
-        test:responses ( :put_created :check_resource )
+        test:steps (
+            [
+                test:request :put_resource_req ;
+                test:response_assertion :put_created
+            ]
+            [
+                test:request :get_resource_req ;
+                test:response_assertion :check_resource
+            ]
+        )
     ] .
 
 :put_created a http:ResponseMessage ;
@@ -129,8 +153,16 @@ acl:mode acl:Read, acl:Write. """ .
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
-        test:requests ( :delete_resource_req :delete_container_req ) ;
-        test:responses ( :delete_res :delete_res )
+        test:steps (
+            [
+                test:request :delete_resource_req ;
+                test:response_assertion :delete_res
+            ]
+            [
+                test:request :delete_container_req ;
+                test:response_assertion :delete_res
+            ]
+        )
     ] .
 
 :delete_resource_req a http:RequestMessage ;
