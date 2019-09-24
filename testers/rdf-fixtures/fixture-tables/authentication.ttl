@@ -28,16 +28,19 @@
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ; # Means: Bob wants to see Alice's data
-        test:requests (
-            :setup_alices_private_req
-            :setup_alices_private_acl_req
-            :setup_alice_acl_req
-
-       ) ;
-        test:responses (
-            :created_ok_res
-            :created_ok_res
-            :created_ok_res
+        test:steps (
+            [
+                test:request :setup_alices_private_req ;
+                test:response_assertion :created_ok_res
+            ]
+            [
+                test:request :setup_alices_private_acl_req ;
+                test:response_assertion :created_ok_res
+            ]
+            [
+                test:request :setup_alice_acl_req ;
+                test:response_assertion :created_ok_res
+            ]
         )
     ] .
 
@@ -78,17 +81,23 @@
     test:purpose "Unauthenticated GET operations on resources."@en ;
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
-        test:requests (
-            :get_private_for_alice_req
-            :get_own_origin_private_for_alice_req
-            :get_alice_trust_origin_private_for_alice_req
-            :get_other_origin_private_for_alice_req
-        ) ;
-        test:responses (
-            :user_unauthn_res
-            :user_unauthn_res
-            :user_unauthn_res
-            :user_unauthn_res
+        test:steps (
+            [
+                test:request :get_private_for_alice_req ;
+                test:response_assertion :user_unauthn_res
+            ]
+            [
+                test:request :get_own_origin_private_for_alice_req ;
+                test:response_assertion :user_unauthn_res
+            ]
+            [
+                test:request :get_alice_trust_origin_private_for_alice_req ;
+                test:response_assertion :user_unauthn_res
+            ]
+            [
+                test:request :get_other_origin_private_for_alice_req ;
+                test:response_assertion :user_unauthn_res
+            ]
         )
     ] .
 
@@ -97,17 +106,23 @@
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
-        test:requests (
-            :get_private_for_alice_req
-            :get_own_origin_private_for_alice_req
-            :get_alice_trust_origin_private_for_alice_req
-            :get_other_origin_private_for_alice_req
-        ) ;
-        test:responses (
-            :get_ok_res
-            :get_ok_res
-            :get_ok_res
-            :origin_unauthz_res
+        test:steps (
+            [
+                test:request :get_private_for_alice_req ;
+                test:response_assertion :get_ok_res
+            ]
+            [
+                test:request :get_own_origin_private_for_alice_req ;
+                test:response_assertion :get_ok_res
+            ]
+            [
+                test:request :get_alice_trust_origin_private_for_alice_req ;
+                test:response_assertion :get_ok_res
+            ]
+            [
+                test:request :get_other_origin_private_for_alice_req ;
+                test:response_assertion :origin_unauthz_res
+            ]
         )
     ] .
 
@@ -116,17 +131,23 @@
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
-        test:requests (
-            :get_private_for_alice_req
-            :get_own_origin_private_for_alice_req
-            :get_alice_trust_origin_private_for_alice_req
-            :get_other_origin_private_for_alice_req
-        ) ;
-        test:responses (
-            :user_unauthz_res
-            :user_unauthz_res
-            :user_unauthz_res
-            :user_unauthz_res
+        test:steps (
+            [
+                test:request :get_private_for_alice_req ;
+                test:response_assertion :user_unauthz_res
+            ]
+            [
+                test:request :get_own_origin_private_for_alice_req ;
+                test:response_assertion :user_unauthz_res
+            ]
+            [
+                test:request :get_alice_trust_origin_private_for_alice_req ;
+                test:response_assertion :user_unauthz_res
+            ]
+            [
+                test:request :get_other_origin_private_for_alice_req ;
+                test:response_assertion :user_unauthz_res
+            ]
         )
     ] .
 
@@ -168,16 +189,19 @@
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ; # Means: Bob wants to see Alice's data
-        test:requests (
-            :teardown_alices_private_req
-            :teardown_alices_private_acl_req
-            :teardown_test_dir
-
-       ) ;
-        test:responses (
-            :deleted_ok_res
-            :deleted_ok_res
-            :deleted_ok_res
+        test:steps (
+            [
+                test:request :teardown_alices_private_req ;
+                test:response_assertion :deleted_ok_res
+            ]
+            [
+                test:request :teardown_alices_private_acl_req ;
+                test:response_assertion :deleted_ok_res
+            ]
+            [
+                test:request :teardown_test_dir ;
+                test:response_assertion :deleted_ok_res
+            ]
         )
     ] .
 
