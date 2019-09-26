@@ -1,9 +1,44 @@
-Test Suite for [Solid 0.7](https://github.com/solid/solid-spec/blob/c9a8214/README.md)
+# Test Suite for Solid
 
 [![Join the chat at https://gitter.im/solid/test-suite](https://badges.gitter.im/solid/test-suite.svg)](https://gitter.im/solid/test-suite?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+## Introduction
 
-This project includes a fork of the W3C LDP testsuite.
+The goal of the test suite project is to produce test suites that can
+be used to verify the compliance of any server implementation to the
+Solid specifications.
+
+To accomplish this, the project will in part reuse existing test
+suites that have been developed for technologies Solid depends on, for
+example the W3C LDP testsuite. 
+
+In part, the project will develop test suites specifically for Solid
+technologies. Since most Solid specifications do not require extensive
+program flow to be tested, the main line of work is to develop a
+system that uses RDF to describe the tests, so that most of the
+tests are developed using RDF. This does not exclude the possibility
+of writing a test framework using a conventional programming language
+for parts of Solid that would be better served by it.
+
+## RDF-based Test Fixtures
+
+This consists of Turtle files that formulates the tests by referencing
+their implementation and parameterizes the tests. This is then
+implemented in a *framework* that can be used to formulate tests in a
+generic manner, i.e. not Solid-specific, and several *test scripts*
+that implement the concrete tests.
+
+The framework is implemented in Perl as
+[Test::FITesque::RDF](https://metacpan.org/pod/Test::FITesque::RDF),
+see its documentation for details. Tests scripts are in independent
+modules, but the most important scripts are currently in
+[Web::Solid::Test::HTTPLists](https://metacpan.org/pod/Web::Solid::Test::HTTPLists]
+
+## Test Suite Summary in Docker
+
+To summarize the test results, we have opted to build them in Docker,
+and to run them within that. This also includes a fork of the W3C LDP
+testsuite. This documents how to run it.
 
 Prerequisites: [Docker](https://docs.docker.com/install/)
 

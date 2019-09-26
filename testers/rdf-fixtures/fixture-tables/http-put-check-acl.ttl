@@ -1,0 +1,177 @@
+@prefix test: <http://ontologi.es/doap-tests#> .
+@prefix deps: <http://ontologi.es/doap-deps#>.
+@prefix httph:<http://www.w3.org/2007/ont/httph#> .
+@prefix http: <http://www.w3.org/2007/ont/http#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix nfo:  <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
+@prefix dqm:  <http://purl.org/dqm-vocabulary/v1/dqm#> .
+@prefix :     <https://github.com/solid/test-suite/blob/master/testers/rdf-fixtures/fixture-tables/http-put-check-acl.ttl#> .
+
+:test_list a test:FixtureTable ;
+    test:fixtures (
+        :create_test_container
+        :bob_puts_no_authz
+        :check_acl_location
+        :bob_puts_with_authz
+        :teardown
+    ) .
+
+<http://example.org/httplist#http_req_res_list_regex_reuser> a nfo:SoftwareItem ;
+    deps:test-requirement "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
+    nfo:definesFunction "http_req_res_list_regex_reuser" .
+
+<http://example.org/httplist#http_req_res_list> a nfo:SoftwareItem ;
+    deps:test-requirement "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
+    nfo:definesFunction "http_req_res_list" .
+
+
+:create_test_container a test:AutomatedTest ;
+    test:purpose "Create test container."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :post_container_req ;
+                test:response_assertion :post_container_res
+            ]
+        )
+    ] .
+
+:post_container_req  a http:RequestMessage ;
+    http:method "POST" ;
+    http:requestURI </> ;
+    httph:content_type "text/turtle";
+    httph:link '<http://www.w3.org/ns/ldp#BasicContainer>; rel="type"' ;
+    httph:slug "test" ;
+    http:content """@prefix ldp: <http://www.w3.org/ns/ldp#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+<> a ldp:Container, ldp:BasicContainer;
+   dcterms:title "Test Directory" .""".
+
+
+:post_container_res a http:ResponseMessage ;
+    http:status 201 .
+
+:bob_puts_no_authz  a test:AutomatedTest ;
+    test:purpose "Check that Bob cannot write without authorization."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :put_resource_req ;
+                test:response_assertion :put_no_authz_res
+            ]
+        )
+    ] .
+
+:put_resource_req a http:RequestMessage ;
+    http:method "PUT" ;
+    http:requestURI </test/foobar.txt> ;
+    httph:content_type "text/plain" ;
+    http:content "Some text here" .
+
+:put_no_authz_res a http:ResponseMessage ;
+    http:status 403 .
+
+
+:check_acl_location a test:AutomatedTest ;
+    test:purpose "Determine location and write ACL document"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list_regex_reuser> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :check_acl_location_req ;
+                test:response_assertion :check_acl_location_res
+            ]
+            [
+                test:request :put_new_acl_req ;
+                test:response_assertion :put_new_acl_res
+            ]
+        )
+    ] .
+
+
+:check_acl_location_req a http:RequestMessage ;
+    http:method "HEAD" ;
+    http:requestURI </test/> .
+
+:check_acl_location_res a http:ResponseMessage ;
+    httph:link '<(.*?)>;\\s+rel="acl"'^^dqm:regex ;
+    #    httph:content_type "text/turtle" ;
+    http:status 200 .
+
+:put_new_acl_req a http:RequestMessage ;
+    http:method "PUT" ;
+    httph:content_type "text/turtle" ;
+http:content """
+@prefix acl: <http://www.w3.org/ns/auth/acl#>.
+<#owner> a acl:Authorization;
+acl:default </test/>;
+acl:accessTo </test/>;
+acl:agent <https://bobwebid.idp.test.solidproject.org/profile/card#me>, <https://alice.idp.test.solidproject.org/profile/card#me>;
+acl:mode acl:Read, acl:Write. """ .
+
+
+:put_new_acl_res a http:ResponseMessage ;
+    http:status "201" .
+
+:bob_puts_with_authz  a test:AutomatedTest ;
+    test:purpose "Check that Bob can write now that he is authorized."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :put_resource_req ;
+                test:response_assertion :put_created
+            ]
+            [
+                test:request :get_resource_req ;
+                test:response_assertion :check_resource
+            ]
+        )
+    ] .
+
+:put_created a http:ResponseMessage ;
+    http:status 201 .
+
+:get_resource_req a http:RequestMessage ;
+    http:method "GET" ;
+    http:requestURI </test/foobar.txt> .
+
+:check_resource a http:ResponseMessage ;
+    http:status 200 ;
+    httph:content_type "text/plain" ;
+    http:content "Some text here" .
+
+
+:teardown a test:AutomatedTest ;
+    test:purpose "Teardown test to reset to initial state"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :delete_resource_req ;
+                test:response_assertion :delete_res
+            ]
+            [
+                test:request :delete_container_req ;
+                test:response_assertion :delete_res
+            ]
+        )
+    ] .
+
+:delete_resource_req a http:RequestMessage ;
+    http:method "DELETE" ;
+    http:requestURI </test/foobar.txt> .
+
+:delete_container_req a http:RequestMessage ;
+    http:method "DELETE" ;
+    http:requestURI </test/> .
+
+:delete_res a http:ResponseMessage ;
+    http:status 200 .
