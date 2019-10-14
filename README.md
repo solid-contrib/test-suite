@@ -32,7 +32,7 @@ The framework is implemented in Perl as
 [Test::FITesque::RDF](https://metacpan.org/pod/Test::FITesque::RDF),
 see its documentation for details. Tests scripts are in independent
 modules, but the most important scripts are currently in
-[Web::Solid::Test::HTTPLists](https://metacpan.org/pod/Web::Solid::Test::HTTPLists]
+[Web::Solid::Test::HTTPLists](https://metacpan.org/pod/Web::Solid::Test::HTTPLists)
 
 ## Test Suite Summary in Docker
 
