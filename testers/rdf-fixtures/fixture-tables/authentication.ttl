@@ -4,7 +4,6 @@
 @prefix http: <http://www.w3.org/2007/ont/http#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix nfo:  <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
-@prefix my:   <http://example.org/my-parameters#> .
 @prefix :     <https://github.com/solid/test-suite/blob/master/testers/rdf-fixtures/fixture-tables/authentication.ttl#> .
 
 :test_list a test:FixtureTable ;
