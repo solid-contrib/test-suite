@@ -12,6 +12,9 @@
     test:fixtures (
         :setup
         :get_unauth
+        :get_unauth_own_origin
+        :get_unauth_trusted_origin
+        :get_unauth_other_origin
         :get_auth_alice
         :get_auth_bob
         :teardown
@@ -78,7 +81,7 @@
 
 
 :get_unauth a test:AutomatedTest ;
-    test:purpose "Unauthenticated GET operations on resources."@en ;
+    test:purpose "Unauthenticated GET operation on resource should fail."@en ;
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         test:steps (
@@ -86,14 +89,38 @@
                 test:request :get_private_for_alice_req ;
                 test:response_assertion :user_unauthn_res
             ]
+        )
+    ] .
+
+:get_unauth_own_origin a test:AutomatedTest ;
+    test:purpose "Unauthenticated GET operation on resources with Alice's own origin should fail."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        test:steps (
             [
                 test:request :get_own_origin_private_for_alice_req ;
                 test:response_assertion :user_unauthn_res
             ]
+        )
+    ] .
+
+:get_unauth_trusted_origin a test:AutomatedTest ;
+    test:purpose "Unauthenticated GET operation on resources with system trusted origin should fail."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        test:steps (
             [
                 test:request :get_alice_trust_origin_private_for_alice_req ;
                 test:response_assertion :user_unauthn_res
             ]
+        )
+    ] .
+
+:get_unauth_other_origin a test:AutomatedTest ;
+    test:purpose "Unauthenticated GET operations on resources with some other origin should fail."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        test:steps (
             [
                 test:request :get_other_origin_private_for_alice_req ;
                 test:response_assertion :user_unauthn_res
