@@ -15,6 +15,9 @@
         :get_unauth_trusted_origin
         :get_unauth_other_origin
         :get_auth_alice
+        :get_auth_alice_own_origin
+        :get_auth_alice_trusted_origin
+        :get_auth_alice_other_origin
         :get_auth_bob
         :teardown
     ) .
@@ -128,7 +131,7 @@
     ] .
 
 :get_auth_alice a test:AutomatedTest ;
-    test:purpose "Authenticated as Alice GET operations on resources."@en ;
+    test:purpose "Authenticated as Alice GET operation on resource should fail."@en ;
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
@@ -137,14 +140,41 @@
                 test:request :get_private_for_alice_req ;
                 test:response_assertion :get_ok_res
             ]
+        )
+    ] .
+
+:get_auth_alice_own_origin a test:AutomatedTest ;
+    test:purpose "Authenticated as Alice GET operation on resource with Alice's own origin should fail.."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
             [
                 test:request :get_own_origin_private_for_alice_req ;
                 test:response_assertion :get_ok_res
             ]
+        )
+    ] .
+
+:get_auth_alice_trusted_origin a test:AutomatedTest ;
+    test:purpose "Authenticated as Alice GET operation on resource with system trusted origin should fail."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
             [
                 test:request :get_alice_trust_origin_private_for_alice_req ;
                 test:response_assertion :get_ok_res
             ]
+        )
+    ] .
+
+:get_auth_alice_other_origin a test:AutomatedTest ;
+    test:purpose "Authenticated as Alice GET operation on resource with some other origin should fail.."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
             [
                 test:request :get_other_origin_private_for_alice_req ;
                 test:response_assertion :origin_unauthz_res
