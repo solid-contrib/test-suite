@@ -19,6 +19,9 @@
         :get_auth_alice_trusted_origin
         :get_auth_alice_other_origin
         :get_auth_bob
+        :get_auth_bob_own_origin
+        :get_auth_bob_alice_trust_origin
+        :get_auth_bob_other_origin
         :teardown
     ) .
 
@@ -183,7 +186,7 @@
     ] .
 
 :get_auth_bob a test:AutomatedTest ;
-    test:purpose "Authenticated as Bob GET operations on resources."@en ;
+    test:purpose "Authenticated as Bob GET operation on resource belonging to Alice."@en ;
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
@@ -192,14 +195,41 @@
                 test:request :get_private_for_alice_req ;
                 test:response_assertion :user_unauthz_res
             ]
+        )
+    ] .
+
+:get_auth_bob_own_origin a test:AutomatedTest ;
+    test:purpose "Authenticated as Bob GET operation on resource belonging to Alice, with their own origin."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
+        test:steps (
             [
                 test:request :get_own_origin_private_for_alice_req ;
                 test:response_assertion :user_unauthz_res
             ]
+        )
+    ] .
+
+:get_auth_bob_alice_trust_origin a test:AutomatedTest ;
+    test:purpose "Authenticated as Bob GET operation on resource belonging to Alice, with Alice's trusted origin."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
+        test:steps (
             [
                 test:request :get_alice_trust_origin_private_for_alice_req ;
                 test:response_assertion :user_unauthz_res
             ]
+        )
+    ] .
+
+:get_auth_bob_other_origin a test:AutomatedTest ;
+    test:purpose "Authenticated as Bob GET operation on resource belonging to Alice with other origin."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
+        test:steps (
             [
                 test:request :get_other_origin_private_for_alice_req ;
                 test:response_assertion :user_unauthz_res
