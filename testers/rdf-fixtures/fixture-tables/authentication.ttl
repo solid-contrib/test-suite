@@ -35,7 +35,7 @@
     test:purpose "Set up resources as needed by the rest of the tests"@en ;
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
-        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ; # Means: Bob wants to see Alice's data
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
         test:steps (
             [
                 test:request :setup_alices_private_req ;
@@ -55,7 +55,6 @@
 :setup_alices_private_req a http:RequestMessage ;
     http:method "PUT" ;
     http:requestURI </test-auth/private-for-alice.txt> ;
-    rdfs:comment "Is this expected behaviour, i.e. putting a resource will create an empty container?"@en ;
     httph:content_type "text/plain" ;
     http:content "protected contents for alice" .
 
