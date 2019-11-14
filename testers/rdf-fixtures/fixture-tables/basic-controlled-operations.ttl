@@ -10,7 +10,7 @@
     rdfs:comment "These tests exist to provide a high-level overview of allowed manipulations controlled by the ACL system."@en ;
     test:fixtures (
         :setup
-        :test_bob_r
+        :test_bob_r_nr
         :teardown
     ) .
 
@@ -26,24 +26,26 @@
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
         test:steps (
             [
-                test:request :setup_alice_share_bob_r_req ;
+                test:request :setup_alice_share_bob_r_nr_req ;
                 test:response_assertion :created_ok_res
             ]
             [
-                test:request :setup_alice_share_bob_r_acl_req ;
+                test:request :setup_alice_share_bob_r_nr_acl_req ;
                 test:response_assertion :created_ok_res
             ]
         )
     ] .
 
-:setup_alice_share_bob_r_req a http:RequestMessage ;
+:setup_alice_share_bob_r_nr_req a http:RequestMessage ;
+    rdfs:comment "Set up Non-RDF resource for Bob to read.";
     http:method "PUT" ;
     http:requestURI </test-auth/alice_share_bob_r.txt> ;
     httph:content_type "text/plain" ;
     http:content "protected contents, that Alice gives Bob Read to." .
 
 
-:setup_alice_share_bob_r_acl_req a http:RequestMessage ;
+:setup_alice_share_bob_r_nr_acl_req a http:RequestMessage ;
+    rdfs:comment "Set up ACL for Non-RDF resource for Bob to read.";
     http:method "PUT" ;
     http:requestURI </test-auth/alice_share_bob_r.txt.acl> ;
     httph:content_type "text/turtle" ;
@@ -58,67 +60,67 @@
   acl:mode acl:Read.
 """ .
 
-:test_bob_r a test:AutomatedTest ;
-    test:purpose "Check that Bob can only read when he is authorized read only."@en ;
+:test_bob_r_nr a test:AutomatedTest ;
+    test:purpose "Check that Bob can only read Non-RDF resource when he is authorized read only."@en ;
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
         test:steps (
             [
-                test:request :test_bob_r_r_req ;
+                test:request :test_bob_r_nr_r_req ;
                 test:response_assertion :ok_res ;
             ]
             [
-                test:request :test_bob_r_w_req ;
+                test:request :test_bob_r_nr_w_req ;
                 test:response_assertion :forbidden_res ;
             ]
             [
-                test:request :test_bob_r_p_req ;
+                test:request :test_bob_r_nr_p_req ;
                 test:response_assertion :forbidden_res ;
             ]
             [
-                test:request :test_bob_r_a_req ;
+                test:request :test_bob_r_nr_a_req ;
                 test:response_assertion :forbidden_res ;
             ]
             [
-                test:request :test_bob_r_d_req ;
+                test:request :test_bob_r_nr_d_req ;
                 test:response_assertion :forbidden_res ;
             ]
             [
-                test:request :test_bob_r_o_req ;
+                test:request :test_bob_r_nr_o_req ;
                 test:response_assertion :invalid_req_res ;
             ]
         )
     ] .
 
 
-:test_bob_r_r_req a http:RequestMessage ;
+:test_bob_r_nr_r_req a http:RequestMessage ;
     http:method "GET" ;
     http:requestURI </test-auth/alice_share_bob_r.txt> .
 
-:test_bob_r_w_req a http:RequestMessage ;
+:test_bob_r_nr_w_req a http:RequestMessage ;
     http:method "PUT" ;
     http:content "Bob's replacement"@en ;
     httph:content_type "text/plain" ;
     http:requestURI </test-auth/alice_share_bob_r.txt> .
 
-:test_bob_r_p_req a http:RequestMessage ;
+:test_bob_r_nr_p_req a http:RequestMessage ;
     http:method "PATCH" ;
     http:content "+Bob's patch"@en ;
     httph:content_type "text/plain" ;
     http:requestURI </test-auth/alice_share_bob_r.txt> .
 
-:test_bob_r_a_req a http:RequestMessage ;
+:test_bob_r_nr_a_req a http:RequestMessage ;
     http:method "POST" ;
     http:content "Bob's addition"@en ;
     httph:content_type "text/plain" ;
     http:requestURI </test-auth/alice_share_bob_r.txt> .
 
-:test_bob_r_d_req a http:RequestMessage ;
+:test_bob_r_nr_d_req a http:RequestMessage ;
     http:method "DELETE" ;
     http:requestURI </test-auth/alice_share_bob_r.txt> .
 
-:test_bob_r_o_req a http:RequestMessage ;
+:test_bob_r_nr_o_req a http:RequestMessage ;
     http:method "DAHU" ;
     http:requestURI </test-auth/alice_share_bob_r.txt> .
 
