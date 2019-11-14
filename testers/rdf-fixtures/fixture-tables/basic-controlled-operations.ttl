@@ -71,6 +71,10 @@
                 test:response_assertion :ok_res ;
             ]
             [
+                test:request :test_bob_r_nr_h_req ;
+                test:response_assertion :ok_res ;
+            ]
+            [
                 test:request :test_bob_r_nr_w_req ;
                 test:response_assertion :forbidden_res ;
             ]
@@ -96,6 +100,10 @@
 
 :test_bob_r_nr_r_req a http:RequestMessage ;
     http:method "GET" ;
+    http:requestURI </test-auth/alice_share_bob_r.txt> .
+
+:test_bob_r_nr_h_req a http:RequestMessage ;
+    http:method "HEAD" ;
     http:requestURI </test-auth/alice_share_bob_r.txt> .
 
 :test_bob_r_nr_w_req a http:RequestMessage ;
