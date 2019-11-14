@@ -39,7 +39,7 @@
 :setup_alice_share_bob_r_nr_req a http:RequestMessage ;
     rdfs:comment "Set up Non-RDF resource for Bob to read.";
     http:method "PUT" ;
-    http:requestURI </test-auth/alice_share_bob_r.txt> ;
+    http:requestURI </test-auth/alice_share_bob.txt> ;
     httph:content_type "text/plain" ;
     http:content "protected contents, that Alice gives Bob Read to." .
 
@@ -47,16 +47,16 @@
 :setup_alice_share_bob_r_nr_acl_req a http:RequestMessage ;
     rdfs:comment "Set up ACL for Non-RDF resource for Bob to read.";
     http:method "PUT" ;
-    http:requestURI </test-auth/alice_share_bob_r.txt.acl> ;
+    http:requestURI </test-auth/alice_share_bob.txt.acl> ;
     httph:content_type "text/turtle" ;
     http:content """@prefix acl: <http://www.w3.org/ns/auth/acl#>.
 <#owner> a acl:Authorization;
   acl:agent <https://alice.idp.test.solidproject.org/profile/card#me>;
-  acl:accessTo </test-auth/alice_share_bob_r.txt>;
+  acl:accessTo </test-auth/alice_share_bob.txt>;
   acl:mode acl:Read, acl:Write, acl:Control.
 <#bob> a acl:Authorization;
   acl:agent <https://bobwebid.idp.test.solidproject.org/profile/card#me>;
-  acl:accessTo </test-auth/alice_share_bob_r.txt>;
+  acl:accessTo </test-auth/alice_share_bob.txt>;
   acl:mode acl:Read.
 """ .
 
@@ -104,41 +104,41 @@
 
 :test_bob_r_nr_read_req a http:RequestMessage ;
     http:method "GET" ;
-    http:requestURI </test-auth/alice_share_bob_r.txt> .
+    http:requestURI </test-auth/alice_share_bob.txt> .
 
 :test_bob_r_nr_head_req a http:RequestMessage ;
     http:method "HEAD" ;
-    http:requestURI </test-auth/alice_share_bob_r.txt> .
+    http:requestURI </test-auth/alice_share_bob.txt> .
 
 :test_bob_r_nr_options_req a http:RequestMessage ;
     http:method "OPTIONS" ;
-    http:requestURI </test-auth/alice_share_bob_r.txt> .
+    http:requestURI </test-auth/alice_share_bob.txt> .
 
 :test_bob_r_nr_write_req a http:RequestMessage ;
     http:method "PUT" ;
     http:content "Bob's replacement"@en ;
     httph:content_type "text/plain" ;
-    http:requestURI </test-auth/alice_share_bob_r.txt> .
+    http:requestURI </test-auth/alice_share_bob.txt> .
 
 :test_bob_r_nr_patch_req a http:RequestMessage ;
     http:method "PATCH" ;
     http:content "+Bob's patch"@en ;
     httph:content_type "text/plain" ;
-    http:requestURI </test-auth/alice_share_bob_r.txt> .
+    http:requestURI </test-auth/alice_share_bob.txt> .
 
 :test_bob_r_nr_append_req a http:RequestMessage ;
     http:method "POST" ;
     http:content "Bob's addition"@en ;
     httph:content_type "text/plain" ;
-    http:requestURI </test-auth/alice_share_bob_r.txt> .
+    http:requestURI </test-auth/alice_share_bob.txt> .
 
 :test_bob_r_nr_delete_req a http:RequestMessage ;
     http:method "DELETE" ;
-    http:requestURI </test-auth/alice_share_bob_r.txt> .
+    http:requestURI </test-auth/alice_share_bob.txt> .
 
 :test_bob_r_nr_other_req a http:RequestMessage ;
     http:method "DAHU" ;
-    http:requestURI </test-auth/alice_share_bob_r.txt> .
+    http:requestURI </test-auth/alice_share_bob.txt> .
 
 
 :created_ok_res a http:ResponseMessage ;
@@ -184,12 +184,12 @@
 
 :teardown_alice_share_bob_r_req a http:RequestMessage ;
     http:method "DELETE" ;
-    http:requestURI </test-auth/alice_share_bob_r.txt> .
+    http:requestURI </test-auth/alice_share_bob.txt> .
 
 :teardown_alice_share_bob_r_acl_req a http:RequestMessage ;
     rdfs:comment "Open issue: https://github.com/solid/specification/issues/58"@en ; # TODO, we should have a predicate for this... :-)
     http:method "DELETE" ;
-    http:requestURI </test-auth/alice_share_bob_r.txt.acl> .
+    http:requestURI </test-auth/alice_share_bob.txt.acl> .
 
 :teardown_test_dir a http:RequestMessage ;
     rdfs:comment "Open issue: https://github.com/solid/specification/issues/58"@en ; # TODO, we should have a predicate for this... :-)
