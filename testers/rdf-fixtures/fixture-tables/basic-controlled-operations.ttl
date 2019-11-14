@@ -67,68 +67,68 @@
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
         test:steps (
             [
-                test:request :test_bob_r_nr_r_req ;
+                test:request :test_bob_r_nr_read_req ;
                 test:response_assertion :ok_res ;
             ]
             [
-                test:request :test_bob_r_nr_h_req ;
+                test:request :test_bob_r_nr_head_req ;
                 test:response_assertion :ok_res ;
             ]
             [
-                test:request :test_bob_r_nr_w_req ;
+                test:request :test_bob_r_nr_write_req ;
                 test:response_assertion :forbidden_res ;
             ]
             [
-                test:request :test_bob_r_nr_p_req ;
+                test:request :test_bob_r_nr_patch_req ;
                 test:response_assertion :forbidden_res ;
             ]
             [
-                test:request :test_bob_r_nr_a_req ;
+                test:request :test_bob_r_nr_append_req ;
                 test:response_assertion :forbidden_res ;
             ]
             [
-                test:request :test_bob_r_nr_d_req ;
+                test:request :test_bob_r_nr_delete_req ;
                 test:response_assertion :forbidden_res ;
             ]
             [
-                test:request :test_bob_r_nr_o_req ;
+                test:request :test_bob_r_nr_other_req ;
                 test:response_assertion :invalid_req_res ;
             ]
         )
     ] .
 
 
-:test_bob_r_nr_r_req a http:RequestMessage ;
+:test_bob_r_nr_read_req a http:RequestMessage ;
     http:method "GET" ;
     http:requestURI </test-auth/alice_share_bob_r.txt> .
 
-:test_bob_r_nr_h_req a http:RequestMessage ;
+:test_bob_r_nr_head_req a http:RequestMessage ;
     http:method "HEAD" ;
     http:requestURI </test-auth/alice_share_bob_r.txt> .
 
-:test_bob_r_nr_w_req a http:RequestMessage ;
+:test_bob_r_nr_write_req a http:RequestMessage ;
     http:method "PUT" ;
     http:content "Bob's replacement"@en ;
     httph:content_type "text/plain" ;
     http:requestURI </test-auth/alice_share_bob_r.txt> .
 
-:test_bob_r_nr_p_req a http:RequestMessage ;
+:test_bob_r_nr_patch_req a http:RequestMessage ;
     http:method "PATCH" ;
     http:content "+Bob's patch"@en ;
     httph:content_type "text/plain" ;
     http:requestURI </test-auth/alice_share_bob_r.txt> .
 
-:test_bob_r_nr_a_req a http:RequestMessage ;
+:test_bob_r_nr_append_req a http:RequestMessage ;
     http:method "POST" ;
     http:content "Bob's addition"@en ;
     httph:content_type "text/plain" ;
     http:requestURI </test-auth/alice_share_bob_r.txt> .
 
-:test_bob_r_nr_d_req a http:RequestMessage ;
+:test_bob_r_nr_delete_req a http:RequestMessage ;
     http:method "DELETE" ;
     http:requestURI </test-auth/alice_share_bob_r.txt> .
 
-:test_bob_r_nr_o_req a http:RequestMessage ;
+:test_bob_r_nr_other_req a http:RequestMessage ;
     http:method "DAHU" ;
     http:requestURI </test-auth/alice_share_bob_r.txt> .
 
