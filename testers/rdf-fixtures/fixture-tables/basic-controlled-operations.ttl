@@ -75,6 +75,10 @@
                 test:response_assertion :ok_res ;
             ]
             [
+                test:request :test_bob_r_nr_options_req ;
+                test:response_assertion :no_content_res ;
+            ]
+            [
                 test:request :test_bob_r_nr_write_req ;
                 test:response_assertion :forbidden_res ;
             ]
@@ -106,6 +110,10 @@
     http:method "HEAD" ;
     http:requestURI </test-auth/alice_share_bob_r.txt> .
 
+:test_bob_r_nr_options_req a http:RequestMessage ;
+    http:method "OPTIONS" ;
+    http:requestURI </test-auth/alice_share_bob_r.txt> .
+
 :test_bob_r_nr_write_req a http:RequestMessage ;
     http:method "PUT" ;
     http:content "Bob's replacement"@en ;
@@ -135,6 +143,9 @@
 
 :created_ok_res a http:ResponseMessage ;
     http:status 201 .
+
+:no_content_res a http:ResponseMessage ;
+    http:status 204 .
 
 :ok_res a http:ResponseMessage ;
     http:status 200 .
