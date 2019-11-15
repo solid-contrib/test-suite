@@ -30,7 +30,7 @@
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
         test:steps (
             [
-                test:request :setup_alice_share_bob_r_nr_req ;
+                test:request :setup_alice_share_bob_nr_req ;
                 test:response_assertion :created_ok_res
             ]
             [
@@ -40,8 +40,8 @@
         )
     ] .
 
-:setup_alice_share_bob_r_nr_req a http:RequestMessage ;
-    rdfs:comment "Set up Non-RDF resource for Bob to read.";
+:setup_alice_share_bob_nr_req a http:RequestMessage ;
+    rdfs:comment "Set up Non-RDF resource for Bob.";
     http:method "PUT" ;
     http:requestURI </test-auth/alice_share_bob.txt> ;
     httph:content_type "text/plain" ;
