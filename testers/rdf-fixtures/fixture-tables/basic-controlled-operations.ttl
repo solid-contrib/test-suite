@@ -13,6 +13,8 @@
         :test_bob_r_nr
         :setup_append
         :test_bob_a_nr
+        :setup_read_append
+        :test_bob_ar_nr
         :teardown
     ) .
 
@@ -119,7 +121,7 @@
     ] .
 
 :setup_alice_share_bob_a_nr_acl_req a http:RequestMessage ;
-    rdfs:comment "Set up ACL for Non-RDF resource for Bob to read.";
+    rdfs:comment "Set up ACL for Non-RDF resource for Bob to append.";
     http:method "PUT" ;
     http:requestURI </test-auth/alice_share_bob.txt.acl> ;
     httph:content_type "text/turtle" ;
@@ -148,6 +150,79 @@
             [
                 test:request :test_bob_r_nr_head_req ;
                 test:response_assertion :forbidden_res ;
+            ]
+            [
+                test:request :test_bob_r_nr_options_req ;
+                test:response_assertion :no_content_res ;
+            ]
+            [
+                test:request :test_bob_r_nr_write_req ;
+                test:response_assertion :forbidden_res ;
+            ]
+            [
+                test:request :test_bob_r_nr_patch_req ;
+                test:response_assertion :unsupported_media_type_res ;
+            ]
+            [
+                test:request :test_bob_r_nr_append_req ;
+                test:response_assertion :not_found_res ; # TODO: Doesn't support hierarchy, should be :no_content_res ;
+            ]
+            [
+                test:request :test_bob_r_nr_delete_req ;
+                test:response_assertion :forbidden_res ;
+            ]
+            [
+                test:request :test_bob_r_nr_other_req ;
+                test:response_assertion :invalid_req_res ;
+            ]
+        )
+    ] .
+
+
+
+:setup_read_append a test:AutomatedTest ;
+    test:purpose "Modify ACL to add append and read to resources as needed by the rest of the tests"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :setup_alice_share_bob_ar_nr_acl_req ;
+                test:response_assertion :created_ok_res
+            ]
+        )
+    ] .
+
+:setup_alice_share_bob_ar_nr_acl_req a http:RequestMessage ;
+    rdfs:comment "Set up ACL for Non-RDF resource for Bob to read and append.";
+    http:method "PUT" ;
+    http:requestURI </test-auth/alice_share_bob.txt.acl> ;
+    httph:content_type "text/turtle" ;
+    http:content """@prefix acl: <http://www.w3.org/ns/auth/acl#>.
+<#owner> a acl:Authorization;
+  acl:agent <https://alice.idp.test.solidproject.org/profile/card#me>;
+  acl:accessTo </test-auth/alice_share_bob.txt>;
+  acl:mode acl:Read, acl:Write, acl:Control.
+<#bob> a acl:Authorization;
+  acl:agent <https://bobwebid.idp.test.solidproject.org/profile/card#me>;
+  acl:accessTo </test-auth/alice_share_bob.txt>;
+  acl:mode acl:Read, acl:Append.
+""" .
+
+
+:test_bob_ar_nr a test:AutomatedTest ;
+    test:purpose "Check that Bob can read and append to Non-RDF resource when he is authorized read-append."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :test_bob_r_nr_read_req ;
+                test:response_assertion :ok_res ;
+            ]
+            [
+                test:request :test_bob_r_nr_head_req ;
+                test:response_assertion :ok_res ;
             ]
             [
                 test:request :test_bob_r_nr_options_req ;
