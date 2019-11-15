@@ -71,35 +71,35 @@
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
         test:steps (
             [
-                test:request :test_bob_r_nr_read_req ;
+                test:request :test_bob_nr_read_req ;
                 test:response_assertion :ok_res ;
             ]
             [
-                test:request :test_bob_r_nr_head_req ;
+                test:request :test_bob_nr_head_req ;
                 test:response_assertion :ok_res ;
             ]
             [
-                test:request :test_bob_r_nr_options_req ;
+                test:request :test_bob_nr_options_req ;
                 test:response_assertion :no_content_res ;
             ]
             [
-                test:request :test_bob_r_nr_write_req ;
+                test:request :test_bob_nr_write_req ;
                 test:response_assertion :forbidden_res ;
             ]
             [
-                test:request :test_bob_r_nr_patch_req ;
+                test:request :test_bob_nr_patch_req ;
                 test:response_assertion :forbidden_res ;
             ]
             [
-                test:request :test_bob_r_nr_append_req ;
+                test:request :test_bob_nr_append_req ;
                 test:response_assertion :forbidden_res ;
             ]
             [
-                test:request :test_bob_r_nr_delete_req ;
+                test:request :test_bob_nr_delete_req ;
                 test:response_assertion :forbidden_res ;
             ]
             [
-                test:request :test_bob_r_nr_other_req ;
+                test:request :test_bob_nr_other_req ;
                 test:response_assertion :invalid_req_res ;
             ]
         )
@@ -144,35 +144,35 @@
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
         test:steps (
             [
-                test:request :test_bob_r_nr_read_req ;
+                test:request :test_bob_nr_read_req ;
                 test:response_assertion :forbidden_res ;
             ]
             [
-                test:request :test_bob_r_nr_head_req ;
+                test:request :test_bob_nr_head_req ;
                 test:response_assertion :forbidden_res ;
             ]
             [
-                test:request :test_bob_r_nr_options_req ;
+                test:request :test_bob_nr_options_req ;
                 test:response_assertion :no_content_res ;
             ]
             [
-                test:request :test_bob_r_nr_write_req ;
+                test:request :test_bob_nr_write_req ;
                 test:response_assertion :forbidden_res ;
             ]
             [
-                test:request :test_bob_r_nr_patch_req ;
+                test:request :test_bob_nr_patch_req ;
                 test:response_assertion :unsupported_media_type_res ;
             ]
             [
-                test:request :test_bob_r_nr_append_req ;
+                test:request :test_bob_nr_append_req ;
                 test:response_assertion :not_found_res ; # TODO: Doesn't support hierarchy, should be :no_content_res ;
             ]
             [
-                test:request :test_bob_r_nr_delete_req ;
+                test:request :test_bob_nr_delete_req ;
                 test:response_assertion :forbidden_res ;
             ]
             [
-                test:request :test_bob_r_nr_other_req ;
+                test:request :test_bob_nr_other_req ;
                 test:response_assertion :invalid_req_res ;
             ]
         )
@@ -217,76 +217,76 @@
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
         test:steps (
             [
-                test:request :test_bob_r_nr_read_req ;
+                test:request :test_bob_nr_read_req ;
                 test:response_assertion :ok_res ;
             ]
             [
-                test:request :test_bob_r_nr_head_req ;
+                test:request :test_bob_nr_head_req ;
                 test:response_assertion :ok_res ;
             ]
             [
-                test:request :test_bob_r_nr_options_req ;
+                test:request :test_bob_nr_options_req ;
                 test:response_assertion :no_content_res ;
             ]
             [
-                test:request :test_bob_r_nr_write_req ;
+                test:request :test_bob_nr_write_req ;
                 test:response_assertion :forbidden_res ;
             ]
             [
-                test:request :test_bob_r_nr_patch_req ;
+                test:request :test_bob_nr_patch_req ;
                 test:response_assertion :unsupported_media_type_res ;
             ]
             [
-                test:request :test_bob_r_nr_append_req ;
+                test:request :test_bob_nr_append_req ;
                 test:response_assertion :not_found_res ; # TODO: Doesn't support hierarchy, should be :no_content_res ;
             ]
             [
-                test:request :test_bob_r_nr_delete_req ;
+                test:request :test_bob_nr_delete_req ;
                 test:response_assertion :forbidden_res ;
             ]
             [
-                test:request :test_bob_r_nr_other_req ;
+                test:request :test_bob_nr_other_req ;
                 test:response_assertion :invalid_req_res ;
             ]
         )
     ] .
 
 
-:test_bob_r_nr_read_req a http:RequestMessage ;
+:test_bob_nr_read_req a http:RequestMessage ;
     http:method "GET" ;
     http:requestURI </test-auth/alice_share_bob.txt> .
 
-:test_bob_r_nr_head_req a http:RequestMessage ;
+:test_bob_nr_head_req a http:RequestMessage ;
     http:method "HEAD" ;
     http:requestURI </test-auth/alice_share_bob.txt> .
 
-:test_bob_r_nr_options_req a http:RequestMessage ;
+:test_bob_nr_options_req a http:RequestMessage ;
     http:method "OPTIONS" ;
     http:requestURI </test-auth/alice_share_bob.txt> .
 
-:test_bob_r_nr_write_req a http:RequestMessage ;
+:test_bob_nr_write_req a http:RequestMessage ;
     http:method "PUT" ;
     http:content "Bob's replacement"@en ;
     httph:content_type "text/plain" ;
     http:requestURI </test-auth/alice_share_bob.txt> .
 
-:test_bob_r_nr_patch_req a http:RequestMessage ;
+:test_bob_nr_patch_req a http:RequestMessage ;
     http:method "PATCH" ;
     http:content "+Bob's patch"@en ;
     httph:content_type "text/plain" ;
     http:requestURI </test-auth/alice_share_bob.txt> .
 
-:test_bob_r_nr_append_req a http:RequestMessage ;
+:test_bob_nr_append_req a http:RequestMessage ;
     http:method "POST" ;
     http:content "Bob's addition"@en ;
     httph:content_type "text/plain" ;
     http:requestURI </test-auth/alice_share_bob.txt> .
 
-:test_bob_r_nr_delete_req a http:RequestMessage ;
+:test_bob_nr_delete_req a http:RequestMessage ;
     http:method "DELETE" ;
     http:requestURI </test-auth/alice_share_bob.txt> .
 
-:test_bob_r_nr_other_req a http:RequestMessage ;
+:test_bob_nr_other_req a http:RequestMessage ;
     http:method "DAHU" ;
     http:requestURI </test-auth/alice_share_bob.txt> .
 
@@ -320,11 +320,11 @@
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
         test:steps (
             [
-                test:request :teardown_alice_share_bob_r_req ;
+                test:request :teardown_alice_share_bob_req ;
                 test:response_assertion :deleted_ok_res
             ]
             [
-                test:request :teardown_alice_share_bob_r_acl_req ;
+                test:request :teardown_alice_share_bob_acl_req ;
                 test:response_assertion :deleted_ok_res
             ]
             [
@@ -335,11 +335,11 @@
         )
     ] .
 
-:teardown_alice_share_bob_r_req a http:RequestMessage ;
+:teardown_alice_share_bob_req a http:RequestMessage ;
     http:method "DELETE" ;
     http:requestURI </test-auth/alice_share_bob.txt> .
 
-:teardown_alice_share_bob_r_acl_req a http:RequestMessage ;
+:teardown_alice_share_bob_acl_req a http:RequestMessage ;
     rdfs:comment "Open issue: https://github.com/solid/specification/issues/58"@en ; # TODO, we should have a predicate for this... :-)
     http:method "DELETE" ;
     http:requestURI </test-auth/alice_share_bob.txt.acl> .
