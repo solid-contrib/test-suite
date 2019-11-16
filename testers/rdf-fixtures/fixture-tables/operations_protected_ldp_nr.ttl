@@ -429,6 +429,9 @@
 :unsupported_media_type_res a http:ResponseMessage ;
     http:status 415 .
 
+:deleted_ok_res a http:ResponseMessage ;
+    http:status 200 .
+
 
 :teardown a test:AutomatedTest ;
     test:purpose "Delete resources that were set up in these tests"@en ;
@@ -443,6 +446,10 @@
             [
                 test:request :teardown_test_dir ;
                 test:response_assertion :deleted_ok_res
+            ]
+            [
+                test:request :teardown_verify_its_gone ;
+                test:response_assertion :not_found_res
             ]
 
         )
@@ -462,5 +469,6 @@
     http:method "DELETE" ;
     http:requestURI </test-auth/> .
 
-:deleted_ok_res a http:ResponseMessage ;
-    http:status 200 .
+:teardown_verify_its_gone a http:RequestMessage ;
+    http:method "GET" ;
+    http:requestURI </test-auth/> .
