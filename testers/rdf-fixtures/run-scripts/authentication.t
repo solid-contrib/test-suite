@@ -39,6 +39,11 @@ use Test::More;
 use Test::FITesque;
 use Test::FITesque::Test;
 
+BEGIN {
+  $ENV{PERL_NET_HTTPS_SSL_SOCKET_CLASS} = 'IO::Socket::SSL';
+}
+
+
 my $path = $ENV{SOLID_FIXTURE_PATH} || '/opt/fixture-tables/';
 
 use Test::FITesque::RDF;
