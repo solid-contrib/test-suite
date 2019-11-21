@@ -97,6 +97,10 @@
                 test:response_assertion :forbidden_res ;
             ]
             [
+                test:request :test_bob_rs_patch_req ;
+                test:response_assertion :forbidden_res ;
+            ]
+            [
                 test:request :test_bob_rs_append_req ;
                 test:response_assertion :forbidden_res ;
             ]
@@ -167,7 +171,11 @@
             ]
             [
                 test:request :test_bob_rs_patch_req ;
-                test:response_assertion :ok_res ; # TODO: Check deletes
+                test:response_assertion :ok_res ;
+            ]
+            [
+                test:request :test_bob_rs_patch_with_delete_req ;
+                test:response_assertion :forbidden_res ;
             ]
             [
                 test:request :test_bob_rs_append_req ;
@@ -240,9 +248,12 @@
             ]
             [
                 test:request :test_bob_rs_patch_req ;
-                test:response_assertion :ok_res ; # TODO: Check deletes
+                test:response_assertion :ok_res ;
             ]
             [
+                test:request :test_bob_rs_patch_with_delete_req ;
+                test:response_assertion :forbidden_res ;
+            ]            [
                 test:request :test_bob_rs_append_req ;
                 test:response_assertion :not_found_res ; # TODO: Doesn't support hierarchy, should be :no_content_res ;
             ]
@@ -312,6 +323,10 @@
             [
                 test:request :test_bob_rs_patch_req ;
                 test:response_assertion :ok_res ; # TODO: Check deletes
+            ]
+            [
+                test:request :test_bob_rs_patch_with_delete_req ;
+                test:response_assertion :ok_res ;
             ]
             [
                 test:request :test_bob_rs_append_req ;
@@ -393,7 +408,14 @@
 
 :test_bob_rs_patch_req a http:RequestMessage ;
     http:method "PATCH" ;
-    http:content "INSERT DATA { <> a <http://example.org/foo> . }" ;
+    http:content "INSERT DATA { <> a <http://example.org/Foo> . }" ;
+    httph:content_type "application/sparql-update" ;
+    http:requestURI </test-auth-rs/alice_share_bob.ttl> .
+
+:test_bob_rs_patch_with_delete_req a http:RequestMessage ;
+    http:method "PATCH" ;
+    http:content """DELETE { ?s a ?o . } INSERT { <> a <http://example.org/Bar> . }
+WHERE  { ?s a ?o . }""" ;
     httph:content_type "application/sparql-update" ;
     http:requestURI </test-auth-rs/alice_share_bob.ttl> .
 
