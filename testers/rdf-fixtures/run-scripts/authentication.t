@@ -48,7 +48,7 @@ my $path = $ENV{SOLID_FIXTURE_PATH} || '/opt/fixture-tables/';
 
 use Test::FITesque::RDF;
 
-my @files = ('authentication.ttl','operations_protected_ldp_nr.ttl');
+my @files = ('authentication.ttl','operations_protected_ldp_nr.ttl','operations_protected_ldp_rs.ttl');
 
 
 BAIL_OUT("Set SOLID_REMOTE_BASE to the URL of the base of the server you are testing") unless $ENV{SOLID_REMOTE_BASE};
