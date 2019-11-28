@@ -447,7 +447,7 @@ WHERE  { ?s a ?o . }""" ;
                 test:response_assertion :deleted_ok_res
             ]
             [
-                test:request :teardown_alice_share_bob_acl_req ;
+                test:request :teardown_alice_share_bob_req ;
                 test:response_assertion :not_found_res
             ]
             [
@@ -458,14 +458,15 @@ WHERE  { ?s a ?o . }""" ;
         )
     ] .
 
-:teardown_alice_share_bob_req a http:RequestMessage ;
-    http:method "DELETE" ;
-    http:requestURI </test-auth-bc/> .
-
 :teardown_alice_share_bob_acl_req a http:RequestMessage ;
     rdfs:comment "Open issue: https://github.com/solid/specification/issues/58"@en ; # TODO, we should have a predicate for this... :-)
     http:method "DELETE" ;
     http:requestURI </test-auth-bc/.acl> .
+
+:teardown_alice_share_bob_req a http:RequestMessage ;
+    http:method "DELETE" ;
+    http:requestURI </test-auth-bc/> .
+
 
 :teardown_verify_its_gone a http:RequestMessage ;
     http:method "GET" ;
