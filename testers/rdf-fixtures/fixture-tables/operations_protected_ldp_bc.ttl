@@ -466,10 +466,6 @@ WHERE  { ?s a ?o . }""" ;
     rdfs:comment "Open issue: https://github.com/solid/specification/issues/58"@en ; # TODO, we should have a predicate for this... :-)
     http:method "DELETE" ;
     http:requestURI </test-auth-bc/.acl> .
-:teardown_alice_share_bob_acl_req a http:RequestMessage ;
-    rdfs:comment "Open issue: https://github.com/solid/specification/issues/58"@en ; # TODO, we should have a predicate for this... :-)
-    http:method "DELETE" ;
-    http:requestURI </test-auth-bc/.acl> .
 
 :teardown_verify_its_gone a http:RequestMessage ;
     http:method "GET" ;
