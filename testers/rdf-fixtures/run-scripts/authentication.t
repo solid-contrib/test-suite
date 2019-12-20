@@ -39,13 +39,27 @@ use Test::More;
 use Test::FITesque;
 use Test::FITesque::Test;
 
+BEGIN {
+  $ENV{PERL_NET_HTTPS_SSL_SOCKET_CLASS} = 'IO::Socket::SSL';
+}
+
+
 my $path = $ENV{SOLID_FIXTURE_PATH} || '/opt/fixture-tables/';
 
 use Test::FITesque::RDF;
 
+my @files = ('authentication.ttl','operations_protected_ldp_nr.ttl','operations_protected_ldp_rs.ttl');
+
+
 BAIL_OUT("Set SOLID_REMOTE_BASE to the URL of the base of the server you are testing") unless $ENV{SOLID_REMOTE_BASE};
 
-my $suite = Test::FITesque::RDF->new(source => $path . 'authentication.ttl', base_uri => $ENV{SOLID_REMOTE_BASE})->suite;
+
+my $suite = Test::FITesque::Suite->new;
+
+foreach my $file (@files) {
+  note("Reading tests from $path$file");
+  $suite->add(Test::FITesque::RDF->new(source => $path . $file, base_uri => $ENV{SOLID_REMOTE_BASE})->suite);
+}
 
 $suite->run_tests;
 

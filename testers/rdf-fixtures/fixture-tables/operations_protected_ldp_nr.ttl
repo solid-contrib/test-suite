@@ -1,0 +1,474 @@
+@prefix test: <http://ontologi.es/doap-tests#> .
+@prefix deps: <http://ontologi.es/doap-deps#>.
+@prefix httph:<http://www.w3.org/2007/ont/httph#> .
+@prefix http: <http://www.w3.org/2007/ont/http#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix nfo:  <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
+@prefix :     <https://github.com/solid/test-suite/blob/master/testers/rdf-fixtures/fixture-tables/operations_protected_ldp_nr.ttl#> .
+
+:test_list a test:FixtureTable ;
+    rdfs:comment "These tests exist to provide a high-level overview of allowed manipulations on an LDP-NR controlled by the ACL system."@en ;
+    test:fixtures (
+        :setup_init
+        :test_bob_r_nr
+        :setup_append
+        :test_bob_a_nr
+        :setup_read_append
+        :test_bob_ar_nr
+        :setup_read_write
+        :test_bob_rw_nr
+        :setup_read_write_container
+        :test_bob_delete_nr
+        :teardown
+    ) .
+
+<http://example.org/httplist#http_req_res_list>
+    a nfo:SoftwareItem ;
+    deps:test-requirement "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
+    nfo:definesFunction "http_req_res_list" .
+
+:setup_init a test:AutomatedTest ;
+    test:purpose "Set up initial resources as needed by the rest of the tests"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :setup_alice_share_bob_nr_req ;
+                test:response_assertion :created_ok_res
+            ]
+            [
+                test:request :setup_alice_share_bob_r_nr_acl_req ;
+                test:response_assertion :created_ok_res
+            ]
+        )
+    ] .
+
+:setup_alice_share_bob_nr_req a http:RequestMessage ;
+    rdfs:comment "Set up Non-RDF resource for Bob.";
+    http:method "PUT" ;
+    http:requestURI </test-auth-nr/alice_share_bob.txt> ;
+    httph:content_type "text/plain" ;
+    http:content "protected contents, that Alice gives Bob Read to." .
+
+
+:setup_alice_share_bob_r_nr_acl_req a http:RequestMessage ;
+    rdfs:comment "Set up ACL for Non-RDF resource for Bob to read.";
+    http:method "PUT" ;
+    http:requestURI </test-auth-nr/alice_share_bob.txt.acl> ;
+    httph:content_type "text/turtle" ;
+    http:content """@prefix acl: <http://www.w3.org/ns/auth/acl#>.
+<#owner> a acl:Authorization;
+  acl:agent <https://alice.idp.test.solidproject.org/profile/card#me>;
+  acl:accessTo </test-auth-nr/alice_share_bob.txt>;
+  acl:mode acl:Read, acl:Write, acl:Control.
+<#bob> a acl:Authorization;
+  acl:agent <https://bobwebid.idp.test.solidproject.org/profile/card#me>;
+  acl:accessTo </test-auth-nr/alice_share_bob.txt>;
+  acl:mode acl:Read.
+""" .
+
+:test_bob_r_nr a test:AutomatedTest ;
+    test:purpose "Check that Bob can only read Non-RDF resource when he is authorized read only."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :test_bob_nr_read_req ;
+                test:response_assertion :ok_res ;
+            ]
+            [
+                test:request :test_bob_nr_head_req ;
+                test:response_assertion :ok_res ;
+            ]
+            [
+                test:request :test_bob_nr_options_req ;
+                test:response_assertion :no_content_res ;
+            ]
+            [
+                test:request :test_bob_nr_write_req ;
+                test:response_assertion :forbidden_res ;
+            ]
+            [
+                test:request :test_bob_nr_patch_req ;
+                test:response_assertion :forbidden_res ;
+            ]
+            [
+                test:request :test_bob_nr_append_req ;
+                test:response_assertion :forbidden_res ;
+            ]
+            [
+                test:request :test_bob_nr_delete_req ;
+                test:response_assertion :forbidden_res ;
+            ]
+            [
+                test:request :test_bob_nr_other_req ;
+                test:response_assertion :invalid_req_res ;
+            ]
+        )
+    ] .
+
+
+
+:setup_append a test:AutomatedTest ;
+    test:purpose "Modify ACL to add append only to resources as needed by the rest of the tests"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :setup_alice_share_bob_a_nr_acl_req ;
+                test:response_assertion :created_ok_res
+            ]
+        )
+    ] .
+
+:setup_alice_share_bob_a_nr_acl_req a http:RequestMessage ;
+    rdfs:comment "Set up ACL for Non-RDF resource for Bob to append.";
+    http:method "PUT" ;
+    http:requestURI </test-auth-nr/alice_share_bob.txt.acl> ;
+    httph:content_type "text/turtle" ;
+    http:content """@prefix acl: <http://www.w3.org/ns/auth/acl#>.
+<#owner> a acl:Authorization;
+  acl:agent <https://alice.idp.test.solidproject.org/profile/card#me>;
+  acl:accessTo </test-auth-nr/alice_share_bob.txt>;
+  acl:mode acl:Read, acl:Write, acl:Control.
+<#bob> a acl:Authorization;
+  acl:agent <https://bobwebid.idp.test.solidproject.org/profile/card#me>;
+  acl:accessTo </test-auth-nr/alice_share_bob.txt>;
+  acl:mode acl:Append.
+""" .
+
+
+:test_bob_a_nr a test:AutomatedTest ;
+    test:purpose "Check that Bob can only append to Non-RDF resource when he is authorized append only."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :test_bob_nr_read_req ;
+                test:response_assertion :forbidden_res ;
+            ]
+            [
+                test:request :test_bob_nr_head_req ;
+                test:response_assertion :forbidden_res ;
+            ]
+            [
+                test:request :test_bob_nr_options_req ;
+                test:response_assertion :no_content_res ;
+            ]
+            [
+                test:request :test_bob_nr_write_req ;
+                test:response_assertion :forbidden_res ;
+            ]
+            [
+                test:request :test_bob_nr_patch_req ;
+                test:response_assertion :unsupported_media_type_res ;
+            ]
+            [
+                test:request :test_bob_nr_append_req ;
+                test:response_assertion :not_found_res ; # TODO: Doesn't support hierarchy, should be :no_content_res ;
+            ]
+            [
+                test:request :test_bob_nr_delete_req ;
+                test:response_assertion :forbidden_res ;
+            ]
+            [
+                test:request :test_bob_nr_other_req ;
+                test:response_assertion :invalid_req_res ;
+            ]
+        )
+    ] .
+
+
+
+:setup_read_append a test:AutomatedTest ;
+    test:purpose "Modify ACL to add append and read to resources as needed by the rest of the tests"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :setup_alice_share_bob_ar_nr_acl_req ;
+                test:response_assertion :created_ok_res
+            ]
+        )
+    ] .
+
+:setup_alice_share_bob_ar_nr_acl_req a http:RequestMessage ;
+    rdfs:comment "Set up ACL for Non-RDF resource for Bob to read and append.";
+    http:method "PUT" ;
+    http:requestURI </test-auth-nr/alice_share_bob.txt.acl> ;
+    httph:content_type "text/turtle" ;
+    http:content """@prefix acl: <http://www.w3.org/ns/auth/acl#>.
+<#owner> a acl:Authorization;
+  acl:agent <https://alice.idp.test.solidproject.org/profile/card#me>;
+  acl:accessTo </test-auth-nr/alice_share_bob.txt>;
+  acl:mode acl:Read, acl:Write, acl:Control.
+<#bob> a acl:Authorization;
+  acl:agent <https://bobwebid.idp.test.solidproject.org/profile/card#me>;
+  acl:accessTo </test-auth-nr/alice_share_bob.txt>;
+  acl:mode acl:Read, acl:Append.
+""" .
+
+
+:test_bob_ar_nr a test:AutomatedTest ;
+    test:purpose "Check that Bob can read and append to Non-RDF resource when he is authorized read-append."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :test_bob_nr_read_req ;
+                test:response_assertion :ok_res ;
+            ]
+            [
+                test:request :test_bob_nr_head_req ;
+                test:response_assertion :ok_res ;
+            ]
+            [
+                test:request :test_bob_nr_options_req ;
+                test:response_assertion :no_content_res ;
+            ]
+            [
+                test:request :test_bob_nr_write_req ;
+                test:response_assertion :forbidden_res ;
+            ]
+            [
+                test:request :test_bob_nr_patch_req ;
+                test:response_assertion :unsupported_media_type_res ;
+            ]
+            [
+                test:request :test_bob_nr_append_req ;
+                test:response_assertion :not_found_res ; # TODO: Doesn't support hierarchy, should be :no_content_res ;
+            ]
+            [
+                test:request :test_bob_nr_delete_req ;
+                test:response_assertion :forbidden_res ;
+            ]
+            [
+                test:request :test_bob_nr_other_req ;
+                test:response_assertion :invalid_req_res ;
+            ]
+        )
+    ] .
+
+:setup_read_write a test:AutomatedTest ;
+    test:purpose "Modify ACL to add write and read to resources as needed by the rest of the tests"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :setup_alice_share_bob_rw_nr_acl_req ;
+                test:response_assertion :created_ok_res
+            ]
+        )
+    ] .
+
+:setup_alice_share_bob_rw_nr_acl_req a http:RequestMessage ;
+    rdfs:comment "Set up ACL for Non-RDF resource for Bob to read and write.";
+    http:method "PUT" ;
+    http:requestURI </test-auth-nr/alice_share_bob.txt.acl> ;
+    httph:content_type "text/turtle" ;
+    http:content """@prefix acl: <http://www.w3.org/ns/auth/acl#>.
+<#owner> a acl:Authorization;
+  acl:agent <https://alice.idp.test.solidproject.org/profile/card#me>;
+  acl:accessTo </test-auth-nr/alice_share_bob.txt>;
+  acl:mode acl:Read, acl:Write, acl:Control.
+<#bob> a acl:Authorization;
+  acl:agent <https://bobwebid.idp.test.solidproject.org/profile/card#me>;
+  acl:accessTo </test-auth-nr/alice_share_bob.txt>;
+  acl:mode acl:Read, acl:Write.
+""" .
+
+
+:test_bob_rw_nr a test:AutomatedTest ;
+    test:purpose "Check that Bob can read and write to Non-RDF resource when he is authorized read-write."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :test_bob_nr_read_req ;
+                test:response_assertion :ok_res ;
+            ]
+            [
+                test:request :test_bob_nr_head_req ;
+                test:response_assertion :ok_res ;
+            ]
+            [
+                test:request :test_bob_nr_options_req ;
+                test:response_assertion :no_content_res ;
+            ]
+            [
+                test:request :test_bob_nr_write_req ;
+                test:response_assertion :created_res ; # TODO: Really?
+            ]
+            [
+                test:request :test_bob_nr_patch_req ;
+                test:response_assertion :unsupported_media_type_res ;
+            ]
+            [
+                test:request :test_bob_nr_append_req ;
+                test:response_assertion :not_found_res ; # TODO: Doesn't support hierarchy, should be :no_content_res ;
+            ]
+            [
+                test:request :test_bob_nr_other_req ;
+                test:response_assertion :invalid_req_res ;
+            ]
+            [
+                test:request :test_bob_nr_delete_req ;
+                test:response_assertion :forbidden_res ; # Because Bob doesn't have write permission on the container
+            ]
+        )
+    ] .
+
+
+:setup_read_write_container a test:AutomatedTest ;
+    test:purpose "Modify ACL to add write and read to the container as needed to delete resource"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :setup_alice_share_bob_rw_container_nr_acl_req ;
+                test:response_assertion :created_ok_res
+            ]
+        )
+    ] .
+
+:setup_alice_share_bob_rw_container_nr_acl_req a http:RequestMessage ;
+    rdfs:comment "Set up ACL for Non-RDF resource for Bob to read and write.";
+    http:method "PUT" ;
+    http:requestURI </test-auth-nr/.acl> ;
+    httph:content_type "text/turtle" ;
+    http:content """@prefix acl: <http://www.w3.org/ns/auth/acl#>.
+<#owner> a acl:Authorization;
+  acl:agent <https://alice.idp.test.solidproject.org/profile/card#me>;
+  acl:accessTo </test-auth-nr/>;
+  acl:mode acl:Read, acl:Write, acl:Control.
+<#bob> a acl:Authorization;
+  acl:agent <https://bobwebid.idp.test.solidproject.org/profile/card#me>;
+  acl:accessTo </test-auth-nr/>;
+  acl:mode acl:Read, acl:Write.
+""" .
+
+:test_bob_delete_nr a test:AutomatedTest ;
+    test:purpose "Check that Bob can delete Non-RDF resource when he is authorized read-write on the container."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :test_bob_nr_delete_req ;
+                test:response_assertion :deleted_ok_res ;
+            ]
+        )
+    ] .
+
+:test_bob_nr_read_req a http:RequestMessage ;
+    http:method "GET" ;
+    http:requestURI </test-auth-nr/alice_share_bob.txt> .
+
+:test_bob_nr_head_req a http:RequestMessage ;
+    http:method "HEAD" ;
+    http:requestURI </test-auth-nr/alice_share_bob.txt> .
+
+:test_bob_nr_options_req a http:RequestMessage ;
+    http:method "OPTIONS" ;
+    http:requestURI </test-auth-nr/alice_share_bob.txt> .
+
+:test_bob_nr_write_req a http:RequestMessage ;
+    http:method "PUT" ;
+    http:content "Bob's replacement"@en ;
+    httph:content_type "text/plain" ;
+    http:requestURI </test-auth-nr/alice_share_bob.txt> .
+
+:test_bob_nr_patch_req a http:RequestMessage ;
+    http:method "PATCH" ;
+    http:content "+Bob's patch"@en ;
+    httph:content_type "text/plain" ;
+    http:requestURI </test-auth-nr/alice_share_bob.txt> .
+
+:test_bob_nr_append_req a http:RequestMessage ;
+    http:method "POST" ;
+    http:content "Bob's addition"@en ;
+    httph:content_type "text/plain" ;
+    http:requestURI </test-auth-nr/alice_share_bob.txt> .
+
+:test_bob_nr_delete_req a http:RequestMessage ;
+    http:method "DELETE" ;
+    http:requestURI </test-auth-nr/alice_share_bob.txt> .
+
+:test_bob_nr_other_req a http:RequestMessage ;
+    http:method "DAHU" ;
+    http:requestURI </test-auth-nr/alice_share_bob.txt> .
+
+
+:created_ok_res a http:ResponseMessage ;
+    http:status 201 .
+
+:no_content_res a http:ResponseMessage ;
+    http:status 204 .
+
+:ok_res a http:ResponseMessage ;
+    http:status 200 .
+
+:forbidden_res a http:ResponseMessage ;
+    http:status 403 .
+
+:not_found_res a http:ResponseMessage ;
+    http:status 404 .
+
+:invalid_req_res a http:ResponseMessage ;
+    http:status 400 . # https://github.com/solid/specification/issues/117
+
+:unsupported_media_type_res a http:ResponseMessage ;
+    http:status 415 .
+
+:deleted_ok_res a http:ResponseMessage ;
+    http:status 200 .
+
+
+:teardown a test:AutomatedTest ;
+    test:purpose "Delete resources that were set up in these tests"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :teardown_alice_share_bob_acl_req ;
+                test:response_assertion :deleted_ok_res
+            ]
+            [
+                test:request :teardown_test_dir ;
+                test:response_assertion :deleted_ok_res
+            ]
+            [
+                test:request :teardown_verify_its_gone ;
+                test:response_assertion :not_found_res
+            ]
+
+        )
+    ] .
+
+:teardown_alice_share_bob_req a http:RequestMessage ;
+    http:method "DELETE" ;
+    http:requestURI </test-auth-nr/alice_share_bob.txt> .
+
+:teardown_alice_share_bob_acl_req a http:RequestMessage ;
+    rdfs:comment "Open issue: https://github.com/solid/specification/issues/58"@en ; # TODO, we should have a predicate for this... :-)
+    http:method "DELETE" ;
+    http:requestURI </test-auth-nr/alice_share_bob.txt.acl> .
+
+:teardown_test_dir a http:RequestMessage ;
+    rdfs:comment "Open issue: https://github.com/solid/specification/issues/58"@en ; # TODO, we should have a predicate for this... :-)
+    http:method "DELETE" ;
+    http:requestURI </test-auth-nr/> .
+
+:teardown_verify_its_gone a http:RequestMessage ;
+    http:method "GET" ;
+    http:requestURI </test-auth-nr/> .
