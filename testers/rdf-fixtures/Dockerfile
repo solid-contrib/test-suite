@@ -22,4 +22,5 @@ ENV PERL5LIB /p5-web-solid-test-basic/lib
 ENV SOLID_REMOTE_BASE http://server:8080/
 COPY run-scripts/ /opt/run-scripts/
 COPY fixture-tables/ /opt/fixture-tables/
-CMD prove -l /opt/run-scripts/
+RUN /root/perl5/perlbrew/bin/cpanm install TAP::Formatter::EARL
+CMD prove --formatter TAP::Formatter::EARL -l /opt/run-scripts/

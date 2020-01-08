@@ -17,9 +17,6 @@ const table = {};
 function processPerlBasedLine (parts) {
   const serverNameRegex = new RegExp('reports/(.+?)-rdf-fixtures.txt')
   const serverName = serverNameRegex.exec(parts[0])[1]
-  const totalNumberRegex = new RegExp('^Tests=([0-9]+),$')
-  var totalNumber = 0;
-  var totalNumberMatch = totalNumberRegex.exec(parts[1])
   if (!table[serverName]) { // The next few if sentences look bizarre, I don't know how to do without them
     table[serverName] = {}
   }
@@ -32,17 +29,15 @@ function processPerlBasedLine (parts) {
   if (!table[serverName]['perlBased']['failedNumber']) {
     table[serverName]['perlBased']['failedNumber'] = 0
   }
-//  console.log(serverName, parts, totalNumberMatch)
-  if (totalNumberMatch) {
-    table[serverName].perlBased.totalNumber = parseInt(totalNumberMatch[1])
+  if (parts.indexOf('earl:failed') !== -1) {
+      table[serverName].perlBased.failedNumber++
+      table[serverName].perlBased.totalNumber++
+  } else if (parts.indexOf('earl:passed') !== -1) {
+      table[serverName].perlBased.totalNumber++
+  } else if (parts.indexOf('earl:skipped') !== -1) {
+      table[serverName].perlBased.failedNumber++
+      table[serverName].perlBased.totalNumber++
   }
-
-  for (var i = 4; i < parts.length; i++) {
-    if (parts[i] === 'Failed:') { // We don't know where in the array the failed number of tests will be, just not early. Might always be the two last?
-      table[serverName].perlBased.failedNumber += parseInt(parts[i+1])
-    }
-  }
-  return
 }
 
 function processWebsocketsPubsubLine (parts) {

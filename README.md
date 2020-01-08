@@ -59,7 +59,7 @@ mkdir  -p reports
 ./runTests.sh gold
 # ./runTests.sh rww-play
 
-grep [Tt]ests reports/* | docker run -i table-reporter
+egrep '[Tt]ests|earl:outcome' reports/* | docker run -i table-reporter
 ```
 The final output should look something like:
 ```sh
