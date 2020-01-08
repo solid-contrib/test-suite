@@ -34,7 +34,7 @@ function processPerlBasedLine (parts) {
   } else if (parts.indexOf('earl:passed') !== -1) {
       table[serverName].perlBased.passedNumber++
       table[serverName].perlBased.totalNumber++
-  } else if (parts.indexOf('earl:skipped') !== -1) {
+  } else if (parts.indexOf('earl:untested') !== -1) {
       table[serverName].perlBased.totalNumber++
   }
 }

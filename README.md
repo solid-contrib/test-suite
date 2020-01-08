@@ -64,10 +64,10 @@ egrep '[Tt]ests|earl:outcome' reports/* | docker run -i table-reporter
 The final output should look something like:
 ```sh
 Server              	LDP Basic           	Websockets-pub-sub  	RDF-fixtures
-gold                	0/90                	0/1                 	2/45
-inrupt-pod-server   	0/90                	0/1                 	2/45
-node-solid-server   	15/90               	0/1                 	22/47
-trellis             	47/90               	0/1                 	10/43
+gold                	0/90                	0/1                 	2/47
+inrupt-pod-server   	0/90                	0/1                 	2/47
+node-solid-server   	15/90               	0/1                 	22/49
+trellis             	47/90               	0/1                 	10/45
 ```
 
 To run one tester against one server interactively, you can do for instance:
