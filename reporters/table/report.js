@@ -26,16 +26,15 @@ function processPerlBasedLine (parts) {
   if (!table[serverName]['perlBased']['totalNumber']) {
     table[serverName]['perlBased']['totalNumber'] = 0
   }
-  if (!table[serverName]['perlBased']['failedNumber']) {
-    table[serverName]['perlBased']['failedNumber'] = 0
+  if (!table[serverName]['perlBased']['passedNumber']) {
+    table[serverName]['perlBased']['passedNumber'] = 0
   }
   if (parts.indexOf('earl:failed') !== -1) {
-      table[serverName].perlBased.failedNumber++
       table[serverName].perlBased.totalNumber++
   } else if (parts.indexOf('earl:passed') !== -1) {
+      table[serverName].perlBased.passedNumber++
       table[serverName].perlBased.totalNumber++
   } else if (parts.indexOf('earl:skipped') !== -1) {
-      table[serverName].perlBased.failedNumber++
       table[serverName].perlBased.totalNumber++
   }
 }
@@ -99,7 +98,7 @@ function writeOutput() {
   console.log(['Server', 'LDP Basic', 'Websockets-pub-sub', 'RDF-fixtures'].map(str => str.padEnd(PAD_LEN)).join('\t'))
   for (let serverName in table) {
     // console.log(table[serverName], serverName)
-    var perlBasedResult = `${table[serverName].perlBased.failedNumber}/${table[serverName].perlBased.totalNumber}`
+    var perlBasedResult = `${table[serverName].perlBased.passedNumber}/${table[serverName].perlBased.totalNumber}`
     console.log([serverName, table[serverName].ldpBasic, table[serverName].websocketsPubsub, perlBasedResult].map(str => str.padEnd(PAD_LEN)).join('\t'))
   }
 }
