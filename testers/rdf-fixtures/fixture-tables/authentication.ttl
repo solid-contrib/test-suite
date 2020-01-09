@@ -22,6 +22,13 @@
         :get_auth_bob_own_origin
         :get_auth_bob_alice_trust_origin
         :get_auth_bob_other_origin
+        :get_auth_bob_alice_trust_origin
+        :get_auth_bob_other_origin
+        :get_auth_alice_good_pop
+        :get_auth_alice_good_pop_trusted_origin
+        :get_auth_alice_bad_pop_trusted_origin
+        :get_auth_bob_good_pop_alice_trust_origin
+        :get_auth_bob_bad_pop_alice_trust_origin
         :teardown
     ) .
 
@@ -236,6 +243,71 @@
         )
     ] .
 
+
+:get_auth_alice_good_pop a test:AutomatedTest ;
+    test:purpose "Authenticated as Alice with good PoP token and GET operation on resource should return."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_POP_FOR_GOOD_APP_GOOD> ;
+        test:steps (
+            [
+                test:request :get_private_for_alice_req ;
+                test:response_assertion :get_ok_res
+            ]
+        )
+    ] .
+
+:get_auth_alice_good_pop_trusted_origin a test:AutomatedTest ;
+    test:purpose "Authenticated as Alice with good PoP token and GET operation on resource with system trusted origin should return."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_POP_FOR_GOOD_APP_GOOD> ;
+        test:steps (
+            [
+                test:request :get_alice_trust_origin_private_for_alice_req ;
+                test:response_assertion :get_ok_res
+            ]
+        )
+    ] .
+
+:get_auth_alice_bad_pop_trusted_origin a test:AutomatedTest ;
+    test:purpose "Authenticated as Alice with bad PoP token and GET operation on resource with system trusted origin should fail."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_POP_FOR_BAD_APP_GOOD> ;
+        test:steps (
+            [
+                test:request :get_alice_trust_origin_private_for_alice_req ;
+                test:response_assertion :user_unauthz_res # TODO: Is it Origin or User who fails? Should it be an invalid request?
+            ]
+        )
+    ] .
+
+:get_auth_bob_good_pop_alice_trust_origin a test:AutomatedTest ;
+    test:purpose "Authenticated as Bob with good PoP token and GET operation on resource belonging to Alice, with Alice's trusted origin."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_POP_FOR_GOOD_APP_GOOD> ;
+        test:steps (
+            [
+                test:request :get_alice_trust_origin_private_for_alice_req ;
+                test:response_assertion :user_unauthz_res
+            ]
+        )
+    ] .
+
+:get_auth_bob_bad_pop_alice_trust_origin a test:AutomatedTest ;
+    test:purpose "Authenticated as Bob with bad PoP token and GET operation on resource belonging to Alice, with Alice's trusted origin."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/BOB_POP_FOR_BAD_APP_GOOD> ;
+        test:steps (
+            [
+                test:request :get_alice_trust_origin_private_for_alice_req ;
+                test:response_assertion :user_unauthz_res
+            ]
+        )
+    ] .
 
 :get_private_for_alice_req a http:RequestMessage ;
     http:method "GET" ;
