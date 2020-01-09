@@ -13,7 +13,7 @@ beforeEach(async () => {
   })
   await new Promise((resolve) => {
     wsClient.on('open', function open () {
-      wsClient.send('sub root/asdf/')
+      wsClient.send('sub http://server:8080/asdf/')
       resolve(undefined)
     })
   })
@@ -28,5 +28,5 @@ test('publishes a change event', async () => {
     body:  'hello'
   })
   const notif = await received
-  expect(notif).toEqual('pub root/asdf/test.txt')
+  expect(notif).toEqual('pub http://server:8080/asdf/test.txt')
 })
