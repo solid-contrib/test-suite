@@ -25,7 +25,10 @@ afterEach(() => {
 test('publishes a change event', async () => {
   await fetch('http://server:8080/asdf/test.txt', {
     method: 'PUT',
-    body:  'hello'
+    body:  'hello',
+    headers: {
+      'if-none-match': '*'
+    }
   })
   const notif = await received
   expect(notif).toEqual('pub http://server:8080/asdf/test.txt')
