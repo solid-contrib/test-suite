@@ -53,10 +53,10 @@ docker build -t table-reporter reporters/table
 docker network create testnet
 mkdir  -p reports
 
+./runTests.sh gold
 ./runTests.sh inrupt-pod-server
 ./runTests.sh node-solid-server
 ./runTests.sh trellis
-./runTests.sh gold
 # ./runTests.sh rww-play
 
 egrep '[Tt]ests|earl:outcome' reports/* | docker run -i table-reporter
