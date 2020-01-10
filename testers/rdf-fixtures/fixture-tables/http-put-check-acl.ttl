@@ -41,6 +41,7 @@
 :post_container_req  a http:RequestMessage ;
     http:method "POST" ;
     http:requestURI </> ;
+    httph:if_none_match "*";
     httph:content_type "text/turtle";
     httph:link '<http://www.w3.org/ns/ldp#BasicContainer>; rel="type"' ;
     httph:slug "test" ;
@@ -70,6 +71,7 @@
     http:method "PUT" ;
     http:requestURI </test/foobar.txt> ;
     httph:content_type "text/plain" ;
+    httph:if_none_match "*";
     http:content "Some text here" .
 
 :put_no_authz_res a http:ResponseMessage ;
@@ -106,6 +108,7 @@
 :put_new_acl_req a http:RequestMessage ;
     http:method "PUT" ;
     httph:content_type "text/turtle" ;
+    httph:if_none_match "*";
 http:content """
 @prefix acl: <http://www.w3.org/ns/auth/acl#>.
 <#owner> a acl:Authorization;
