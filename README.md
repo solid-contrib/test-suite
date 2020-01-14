@@ -69,14 +69,14 @@ gold                	0/90                	0/1                 	2/47
 inrupt-pod-server   	0/90                	0/1                 	2/47
 node-solid-server   	15/90               	0/1                 	22/49
 trellis             	47/90               	0/1                 	10/45
-wac-ldp             	57/90               	1/1                 	3/48
+wac-ldp             	57/90               	1/1                 	8/50
 ```
 
 To run one tester against one server interactively, you can do for instance:
 ```sh
 ./runTesterAgainstServer.sh rdf-fixtures inrupt-pod-server
 [...]
-root@f0c7e54fb1f3:/# prove -lv /opt/run-scripts/
+root@f0c7e54fb1f3:/# prove --formatter TAP::Formatter::EARL -l /opt/run-scripts/
 root@f0c7e54fb1f3:/# exit
 [...]
 ```
