@@ -41,7 +41,6 @@
 :post_container_req  a http:RequestMessage ;
     http:method "POST" ;
     http:requestURI </> ;
-    httph:if_none_match "*";
     httph:content_type "text/turtle";
     httph:link '<http://www.w3.org/ns/ldp#BasicContainer>; rel="type"' ;
     httph:slug "test" ;
