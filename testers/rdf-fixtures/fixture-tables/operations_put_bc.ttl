@@ -1,0 +1,209 @@
+@prefix test: <http://ontologi.es/doap-tests#> .
+@prefix deps: <http://ontologi.es/doap-deps#>.
+@prefix httph:<http://www.w3.org/2007/ont/httph#> .
+@prefix http: <http://www.w3.org/2007/ont/http#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix nfo:  <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
+@prefix dqm:  <http://purl.org/dqm-vocabulary/v1/dqm#> .
+@prefix :     <https://github.com/solid/test-suite/blob/master/testers/rdf-fixtures/fixture-tables/operations_put_bc.ttl#> .
+
+:test_list a test:FixtureTable ;
+    rdfs:comment "These tests exist to provide a high-level overview of allowed PUT manipulations on different resources with unspecified interaction model."@en ;
+    test:fixtures (
+        :setup_init
+        :put_ttl_resources
+        :teardown
+    ) .
+
+<http://example.org/httplist#http_req_res_list>
+    a nfo:SoftwareItem ;
+    deps:test-requirement "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
+    nfo:definesFunction "http_req_res_list" .
+
+:setup_init a test:AutomatedTest ;
+    test:purpose "Set up initial resources as needed by the rest of the tests"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :setup_alice_bc_req ;
+                test:response_assertion :created_ok_res
+            ]
+        )
+    ] .
+
+
+:setup_alice_bc_req a http:RequestMessage ;
+    rdfs:comment "Set up RDF BC resource for Bob.";
+    http:method "POST" ;
+    http:requestURI </> ;
+    httph:slug "test-put-bc" ;
+    httph:content_type "text/turtle";
+    httph:link """<http://www.w3.org/ns/ldp#BasicContainer>; rel=\"type\"""";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+@prefix ldp: <http://www.w3.org/ns/ldp#>.
+<> a ldp:BasicContainer ;
+   dc:title "Initial container for Alice stuff"@en .""" .
+
+
+:put_ttl_resources a test:AutomatedTest ;
+    test:purpose "PUT Turtle resources to container."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :put_ttl_resource_bc_im_req ;
+                test:response_assertion :conflict_res
+            ]
+            [
+                test:request :put_ttl_resource_nr_im_req ;
+                test:response_assertion :conflict_res
+            ]
+            [
+                test:request :put_ttl_resource_no_im_req ;
+                test:response_assertion :created_ok_res
+            ]
+            [
+                test:request :put_ttl_resource_no_im_pre_with_ifn_req ;
+                test:response_assertion :precond_fail_res
+            ]
+            [
+                test:request :put_ttl_resource_no_im_with_ifn_req ;
+                test:response_assertion :created_ok_res
+            ]
+        )
+    ] .
+
+
+
+:put_ttl_resource_bc_im_req a http:RequestMessage ;
+    rdfs:comment "PUT Turtle resource with Container interaction model.";
+    http:method "PUT" ;
+    http:requestURI </test-put-bc/dahut-bc.ttl> ;
+    httph:content_type "text/turtle";
+    httph:link """<http://www.w3.org/ns/ldp#BasicContainer>; rel=\"type\"""";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+<> dc:title "Container Interaction Model"@en .""" .
+
+:put_ttl_resource_nr_im_req a http:RequestMessage ;
+    rdfs:comment "PUT Turtle resource with Non-RDF source interaction model.";
+    http:method "PUT" ;
+    http:requestURI </test-put-bc/dahut-nr.ttl> ;
+    httph:content_type "text/turtle";
+    httph:link """<http://www.w3.org/ns/ldp#NonRDFSource>; rel=\"type\"""";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+<> dc:title "Non-RDF source Interaction Model"@en .""" .
+
+
+:put_ttl_resource_no_im_req a http:RequestMessage ;
+    rdfs:comment "PUT Turtle resource without interaction model.";
+    http:method "PUT" ;
+    http:requestURI </test-put-bc/dahut-no.ttl> ;
+    httph:content_type "text/turtle";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+<> dc:title "No Interaction Model"@en .""" .
+
+
+:put_ttl_resource_no_im_pre_with_ifn_req a http:RequestMessage ;
+    rdfs:comment "PUT Turtle resource without interaction model, pre-existing resource, but with if-none-match.";
+    http:method "PUT" ;
+    http:requestURI </test-put-bc/dahut-no.ttl> ;
+    httph:content_type "text/turtle";
+    httph:if_none_match "*";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+<> dc:title "No Interaction Model, but if-none-match"@en .""" .
+
+
+:put_ttl_resource_no_im_with_ifn_req a http:RequestMessage ;
+    rdfs:comment "PUT Turtle resource without interaction model, no pre-existing resource, but with if-none-match.";
+    http:method "PUT" ;
+    http:requestURI </test-put-bc/dahut-no-nr.ttl> ;
+    httph:content_type "text/turtle";
+    httph:if_none_match "*";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+<> dc:title "No Interaction Model, but if-none-match"@en .""" .
+
+
+
+
+
+
+:created_ok_res a http:ResponseMessage ;
+    http:status 201 .
+
+:deleted_ok_res a http:ResponseMessage ;
+    http:status 200 .
+
+:not_found_res a http:ResponseMessage ;
+    http:status 404 .
+
+:conflict_res a http:ResponseMessage ;
+    http:status 409 .
+
+:precond_fail_res a http:ResponseMessage ;
+    http:status 412 .
+
+
+:teardown a test:AutomatedTest ;
+    test:purpose "Delete resources that were set up in these tests"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :teardown_ttl_resource_bc_req ;
+                test:response_assertion :teardown_delete_res
+            ]
+            [
+                test:request :teardown_ttl_resource_nr_req ;
+                test:response_assertion :teardown_delete_res
+            ]
+            [
+                test:request :teardown_ttl_resource_no_req ;
+                test:response_assertion :teardown_delete_res
+            ]
+            [
+                test:request :teardown_ttl_resource_no_nr_req ;
+                test:response_assertion :teardown_delete_res
+            ]
+            [
+                test:request :teardown_test_dir ;
+                test:response_assertion :deleted_ok_res
+            ]
+            [
+                test:request :teardown_verify_its_gone ;
+                test:response_assertion :not_found_res
+            ]
+
+        )
+    ] .
+
+:teardown_ttl_resource_bc_req a http:RequestMessage ;
+    http:method "DELETE" ;
+    http:requestURI </test-put-bc/dahut-bc.ttl> .
+
+:teardown_ttl_resource_nr_req a http:RequestMessage ;
+    http:method "DELETE" ;
+    http:requestURI </test-put-bc/dahut-nr.ttl> .
+
+:teardown_ttl_resource_no_req a http:RequestMessage ;
+    http:method "DELETE" ;
+    http:requestURI </test-put-bc/dahut-no.ttl> .
+
+:teardown_ttl_resource_no_nr_req a http:RequestMessage ;
+    http:method "DELETE" ;
+    http:requestURI </test-put-bc/dahut-no-nr.ttl> .
+
+:teardown_test_dir a http:RequestMessage ;
+    rdfs:comment "Open issue: https://github.com/solid/specification/issues/58"@en ; # TODO, we should have a predicate for this... :-)
+    http:method "DELETE" ;
+    http:requestURI </test-put-bc/> .
+
+:teardown_verify_its_gone a http:RequestMessage ;
+    http:method "GET" ;
+    http:requestURI </test-put-bc/> .
+
+:teardown_delete_res a http:ResponseMessage ;
+    http:status "200|204|404"^^dqm:regex .
