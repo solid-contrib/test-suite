@@ -67,8 +67,16 @@
                 test:response_assertion :created_ok_res
             ]
             [
+                test:request :get_ttl_resource_rs_im_req ;
+                test:response_assertion :ok_res
+            ]
+            [
                 test:request :put_ttl_resource_no_im_req ;
                 test:response_assertion :created_ok_res
+            ]
+            [
+                test:request :get_ttl_resource_no_im_req ;
+                test:response_assertion :ok_res
             ]
         )
     ] .
@@ -86,6 +94,10 @@
             [
                 test:request :put_ttl_resource_no_im_with_ifn_req ;
                 test:response_assertion :created_ok_res
+            ]
+            [
+                test:request :get_ttl_resource_no_nr_im_req ;
+                test:response_assertion :ok_res
             ]
         )
     ] .
@@ -128,6 +140,18 @@
     http:content """@prefix dc: <http://purl.org/dc/terms/>.
 <> dc:title "No Interaction Model"@en .""" .
 
+:get_ttl_resource_rs_im_req a http:RequestMessage ;
+    rdfs:comment "GET Turtle resource created with RDF source interaction model.";
+    http:method "GET" ;
+    http:requestURI </test-put-bc/dahut-rs.ttl> .
+
+
+:get_ttl_resource_no_im_req a http:RequestMessage ;
+    rdfs:comment "GET Turtle resource created without interaction model.";
+    http:method "GET" ;
+    http:requestURI </test-put-bc/dahut-no.ttl> .
+
+
 
 :put_ttl_resource_no_im_pre_with_ifn_req a http:RequestMessage ;
     rdfs:comment "PUT Turtle resource without interaction model, pre-existing resource, but with if-none-match.";
@@ -148,6 +172,11 @@
     http:content """@prefix dc: <http://purl.org/dc/terms/>.
 <> dc:title "No Interaction Model, but if-none-match"@en .""" .
 
+:get_ttl_resource_no_nr_im_req a http:RequestMessage ;
+    rdfs:comment "GET Turtle resource created without interaction model but with if-none-match.";
+    http:method "GET" ;
+    http:requestURI </test-put-bc/dahut-no-nr.ttl> .
+
 
 
 
@@ -157,6 +186,9 @@
     http:status 201 .
 
 :deleted_ok_res a http:ResponseMessage ;
+    http:status 200 .
+
+:ok_res a http:ResponseMessage ;
     http:status 200 .
 
 :not_found_res a http:ResponseMessage ;
