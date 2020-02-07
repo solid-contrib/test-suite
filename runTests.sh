@@ -1,47 +1,58 @@
+:
+#Should work in any Bourne shell descendant, tested with dash and bash.
+
+
 set -o errexit -o nounset
-echo Testing $1 ...
+server="$1"
+
+#Stops and removes the docker container named "server", reporting this with the arguments.
+cleanServer () {
+  echo INT, TERM, or EXIT trapped with status $?
+  echo Stopping server "$@" ...
+  docker stop server
+
+  echo Removing server "$@" ...
+  docker rm server
+}
+
+waitIfTrellis () {
+  case "$server" in 
+    trellis)
+      docker logs server
+      echo Waiting for ten seconds ...
+      sleep 10
+      docker logs server 
+      ;; 
+  esac
+}
+
+#Install clean up action:
+trap "cleanServer on exit; exit" INT TERM EXIT
+
+echo Testing $server ...
 echo Building image ...
-docker build -t $1 servers/$1
+docker build -t $server servers/$server
 
 echo Starting server without WAC ...
-docker run -d --name=server --env SKIP_WAC=true --network=testnet $1
+docker run -d --name=server --env SKIP_WAC=true --network=testnet $server
 
-if [[ "$1" == trellis ]]
-  then
-    docker logs server
-    echo Waiting for ten seconds ...
-    sleep 10
-    docker logs server
-fi
+waitIfTrellis
 
 echo Running ldp-basic tester ...
-docker run --network=testnet ldp-basic > reports/$1-ldp-basic.txt
+docker run --network=testnet ldp-basic > reports/$server-ldp-basic.txt || echo ... Errors in ldp-basic tester
 
-echo Stopping server without WAC ...
-docker stop server
-
-echo Removing server without WAC ...
-docker rm server
+cleanServer without WAC
 
 echo Starting server with WAC ...
-docker run -d --name=server --network=testnet $1
+docker run -d --name=server --network=testnet $server
 
-if [[ "$1" == trellis ]]
-  then
-    docker logs server
-    echo Waiting for ten seconds ...
-    sleep 10
-    docker logs server
-fi
+waitIfTrellis
 
 echo Running websockets-pubsub tester ...
-docker run --network=testnet websockets-pubsub 2> reports/$1-websockets-pubsub.txt
+docker run --network=testnet websockets-pubsub 2> reports/$server-websockets-pubsub.txt || echo ... Errors in websockets-pubsub tester
 
 echo Running rdf-fixtures tester ...
-docker run --network=testnet rdf-fixtures > reports/$1-rdf-fixtures.txt
+docker run --network=testnet rdf-fixtures > reports/$server-rdf-fixtures.txt || echo ... Errors in rdf-fixtures tester
 
-echo Stopping server with WAC ...
-docker stop server
+cleanServer with WAC
 
-echo Removing server with WAC ...
-docker rm server
