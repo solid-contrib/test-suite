@@ -12,6 +12,7 @@
     test:fixtures (
         :setup_init
         :put_ttl_resources
+        :put_ttl_resources_with_ifn
         :teardown
     ) .
 
@@ -35,7 +36,7 @@
 
 
 :setup_alice_bc_req a http:RequestMessage ;
-    rdfs:comment "Set up RDF BC resource for Bob.";
+    rdfs:comment "Set up RDF BC resource.";
     http:method "POST" ;
     http:requestURI </> ;
     httph:slug "test-put-bc" ;
@@ -48,7 +49,7 @@
 
 
 :put_ttl_resources a test:AutomatedTest ;
-    test:purpose "PUT Turtle resources to container."@en ;
+    test:purpose "PUT Turtle resources to container with varying LDP Interaction Models."@en ;
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
@@ -69,6 +70,15 @@
                 test:request :put_ttl_resource_no_im_req ;
                 test:response_assertion :created_ok_res
             ]
+        )
+    ] .
+
+:put_ttl_resources_with_ifn a test:AutomatedTest ;
+    test:purpose "PUT Turtle resources to container with If-None-Match: * headers."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
             [
                 test:request :put_ttl_resource_no_im_pre_with_ifn_req ;
                 test:response_assertion :precond_fail_res
