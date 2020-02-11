@@ -11,8 +11,8 @@
     rdfs:comment "These tests exist to provide a high-level overview of allowed PUT manipulations on different resources with unspecified interaction model."@en ;
     test:fixtures (
         :setup_init
-        :put_ttl_resources
-        :put_ttl_resources_with_ifn
+        :create_ttl_resources
+        :create_ttl_resources_with_ifn
         :teardown
     ) .
 
@@ -48,8 +48,8 @@
    dc:title "Initial container for Alice stuff"@en .""" .
 
 
-:put_ttl_resources a test:AutomatedTest ;
-    test:purpose "PUT Turtle resources to container with varying LDP Interaction Models."@en ;
+:create_ttl_resources a test:AutomatedTest ;
+    test:purpose "Create: PUT Turtle resources to container with varying LDP Interaction Models."@en ;
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
@@ -81,8 +81,8 @@
         )
     ] .
 
-:put_ttl_resources_with_ifn a test:AutomatedTest ;
-    test:purpose "PUT Turtle resources to container with If-None-Match: * headers."@en ;
+:create_ttl_resources_with_ifn a test:AutomatedTest ;
+    test:purpose "Create: PUT Turtle resources to container with If-None-Match: * headers."@en ;
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
