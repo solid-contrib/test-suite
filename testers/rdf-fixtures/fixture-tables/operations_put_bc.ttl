@@ -300,13 +300,13 @@
     http:status 201 .
 
 :deleted_ok_res a http:ResponseMessage ;
-    http:status 200 .
+    http:status "200|204"^^dqm:regex .
 
 :ok_res a http:ResponseMessage ;
     http:status 200 .
 
 :updated_ok_res a http:ResponseMessage ;
-    http:status 204 .
+    http:status "200|204"^^dqm:regex .
 
 :not_found_res a http:ResponseMessage ;
     http:status 404 .
