@@ -314,7 +314,7 @@
                 test:response_assertion :not_found_res
             ]
             [
-                test:request :get_ttl_resource_deep_con_bc_im_req ;
+                test:request :get_ttl_resource_deep_con_im_req ;
                 test:response_assertion :not_found_res
             ]
             [
@@ -326,11 +326,19 @@
                 test:response_assertion :ok_res
             ]
             [
+                test:request :get_ttl_resource_deep_con_im_req ;
+                test:response_assertion :ok_res
+            ]
+            [
                 test:request :put_ttl_resource_deep_no_im_req ;
                 test:response_assertion :created_ok_res
             ]
             [
                 test:request :get_ttl_resource_deep_no_im_req ;
+                test:response_assertion :ok_res
+            ]
+            [
+                test:request :get_ttl_resource_deep_con_no_im_req ;
                 test:response_assertion :ok_res
             ]
         )
@@ -350,8 +358,8 @@
     http:method "GET" ;
     http:requestURI </test-put-bc/foo/bar/dahut-bc.ttl>  .
 
-:get_ttl_resource_deep_con_bc_im_req a http:RequestMessage ;
-    rdfs:comment "GET container of Turtle resource created with container interaction model.";
+:get_ttl_resource_deep_con_im_req a http:RequestMessage ;
+    rdfs:comment "GET container of Turtle resource.";
     http:method "GET" ;
     http:requestURI </test-put-bc/foo/>  .
 
@@ -385,6 +393,10 @@
     http:method "GET" ;
     http:requestURI </test-put-bc/foobar/baz/dahut-no.ttl> .
 
+:get_ttl_resource_deep_con_no_im_req a http:RequestMessage ;
+    rdfs:comment "GET container of Turtle resource created with container interaction model.";
+    http:method "GET" ;
+    http:requestURI </test-put-bc/foobar/>  .
 
 
 :created_ok_res a http:ResponseMessage ;
