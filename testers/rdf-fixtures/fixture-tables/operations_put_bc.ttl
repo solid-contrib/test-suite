@@ -310,6 +310,14 @@
                 test:response_assertion :conflict_res
             ]
             [
+                test:request :get_ttl_resource_deep_bc_im_req ;
+                test:response_assertion :not_found_res
+            ]
+            [
+                test:request :get_ttl_resource_deep_con_bc_im_req ;
+                test:response_assertion :not_found_res
+            ]
+            [
                 test:request :put_ttl_resource_deep_rs_im_req ;
                 test:response_assertion :created_ok_res
             ]
@@ -336,6 +344,17 @@
     httph:link """<http://www.w3.org/ns/ldp#BasicContainer>; rel=\"type\"""";
     http:content """@prefix dc: <http://purl.org/dc/terms/>.
 <> dc:title "Container Interaction Model"@en .""" .
+
+:get_ttl_resource_deep_bc_im_req a http:RequestMessage ;
+    rdfs:comment "GET Turtle resource created with container interaction model.";
+    http:method "GET" ;
+    http:requestURI </test-put-bc/foo/bar/dahut-bc.ttl>  .
+
+:get_ttl_resource_deep_con_bc_im_req a http:RequestMessage ;
+    rdfs:comment "GET container of Turtle resource created with container interaction model.";
+    http:method "GET" ;
+    http:requestURI </test-put-bc/foo/>  .
+
 
 :put_ttl_resource_deep_rs_im_req a http:RequestMessage ;
     rdfs:comment "PUT Turtle resource with RDF source interaction model.";
