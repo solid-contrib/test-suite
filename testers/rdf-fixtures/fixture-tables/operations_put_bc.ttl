@@ -373,6 +373,11 @@
     http:content """@prefix dc: <http://purl.org/dc/terms/>.
 <> dc:title "RDF source Interaction Model"@en .""" .
 
+:get_ttl_resource_deep_rs_im_req a http:RequestMessage ;
+    rdfs:comment "GET Turtle resource created with RDF source interaction model.";
+    http:method "GET" ;
+    http:requestURI </test-put-bc/foo/baz/dahut-rs.ttl> .
+
 
 :put_ttl_resource_deep_no_im_req a http:RequestMessage ;
     rdfs:comment "PUT Turtle resource without interaction model.";
@@ -381,11 +386,6 @@
     httph:content_type "text/turtle";
     http:content """@prefix dc: <http://purl.org/dc/terms/>.
 <> dc:title "No Interaction Model"@en .""" .
-
-:get_ttl_resource_deep_rs_im_req a http:RequestMessage ;
-    rdfs:comment "GET Turtle resource created with RDF source interaction model.";
-    http:method "GET" ;
-    http:requestURI </test-put-bc/foo/baz/dahut-rs.ttl> .
 
 
 :get_ttl_resource_deep_no_im_req a http:RequestMessage ;
