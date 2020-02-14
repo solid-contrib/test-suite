@@ -53,14 +53,14 @@ docker build -t table-reporter reporters/table
 docker network create testnet
 mkdir  -p reports
 
-./runTests.sh gold
-./runTests.sh inrupt-pod-server
-./runTests.sh node-solid-server
-./runTests.sh trellis
-./runTests.sh wac-ldp
-# ./runTests.sh rww-play
+bash runTests.sh gold
+bash runTests.sh inrupt-pod-server
+bash runTests.sh node-solid-server
+bash runTests.sh trellis
+bash runTests.sh wac-ldp
+# bash runTests.sh rww-play
 
-egrep '[Tt]ests|earl:outcome' reports/* | docker run -i table-reporter
+egrep 'Tests:|tests run:|earl:outcome' reports/* | docker run -i table-reporter
 ```
 The final output should look something like:
 ```sh
