@@ -60,7 +60,7 @@ mkdir  -p reports
 ./runTests.sh wac-ldp
 # ./runTests.sh rww-play
 
-egrep '[Tt]ests|earl:outcome' reports/* | docker run -i table-reporter
+egrep 'Tests:|tests run:|earl:outcome' reports/* | docker run -i table-reporter
 ```
 The final output should look something like:
 ```sh
