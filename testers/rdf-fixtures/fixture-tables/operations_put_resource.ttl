@@ -459,6 +459,8 @@
         )
     ] .
 
+# TODO: Add the rest of teardowns
+
 :teardown_ttl_resource_bc_req a http:RequestMessage ;
     http:method "DELETE" ;
     http:requestURI </test-put-bc/dahut-bc.ttl> .
