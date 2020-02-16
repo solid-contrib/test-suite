@@ -35,6 +35,7 @@
 :create_containers a test:AutomatedTest ;
     test:purpose "Create containers"@en ;
     test:test_script <http://example.org/httplist#http_req_res_list> ;
+    rdfs:isDefinedBy <https://github.com/solid/specification/issues/40> ;
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
         test:steps (
@@ -53,6 +54,10 @@
             [
                 test:request :put_container_bc_nr_req ;
                 test:response_assertion :conflict_res
+            ]
+            [
+                test:request :put_container_no_im_pre_with_ifn_req ;
+                test:response_assertion :precond_fail_res
             ]
         )
     ] .
@@ -93,6 +98,14 @@
     http:content """@prefix dc: <http://purl.org/dc/terms/>.
 <> dc:title "Non-RDF Source Interaction Model"@en .""" .
 
+:put_container_no_im_pre_with_ifn_req a http:RequestMessage ;
+    rdfs:comment "PUT container without interaction model, pre-existing container, but with if-none-match.";
+    http:method "PUT" ;
+    http:requestURI </test-put-bc/no-interaction/> ;
+    httph:content_type "text/turtle";
+    httph:if_none_match "*";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+<> dc:title "No Interaction Model, but if-none-match"@en .""" .
 
 ## TODO: Does creating empty container make sense?
  # :put_container_bc_no_req a http:RequestMessage ;
@@ -107,3 +120,6 @@
 
 :conflict_res a http:ResponseMessage ;
     http:status 409 .
+
+:precond_fail_res a http:ResponseMessage ;
+    http:status 412 .
