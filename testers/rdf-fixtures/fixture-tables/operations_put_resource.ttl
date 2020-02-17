@@ -5,7 +5,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix nfo:  <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
 @prefix dqm:  <http://purl.org/dqm-vocabulary/v1/dqm#> .
-@prefix :     <https://github.com/solid/test-suite/blob/master/testers/rdf-fixtures/fixture-tables/operations_put_bc.ttl#> .
+@prefix :     <https://github.com/solid/test-suite/blob/master/testers/rdf-fixtures/fixture-tables/operations_put_resource.ttl#> .
 
 :test_list a test:FixtureTable ;
     rdfs:comment "These tests exist to provide a high-level overview of allowed PUT manipulations on different resources with unspecified interaction model."@en ;
@@ -13,6 +13,8 @@
         :setup_init
         :create_ttl_resources
         :create_ttl_resources_with_ifn
+        :update_ttl_resources
+        :create_deep_ttl_resources
         :teardown
     ) .
 
@@ -50,6 +52,7 @@
 
 :create_ttl_resources a test:AutomatedTest ;
     test:purpose "Create: PUT Turtle resources to container with varying LDP Interaction Models."@en ;
+    rdfs:isDefinedBy <https://github.com/solid/specification/issues/40> ;
     test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
@@ -84,6 +87,7 @@
 :create_ttl_resources_with_ifn a test:AutomatedTest ;
     test:purpose "Create: PUT Turtle resources to container with If-None-Match: * headers."@en ;
     test:test_script <http://example.org/httplist#http_req_res_list> ;
+    rdfs:isDefinedBy <https://github.com/solid/specification/issues/40> ;
     test:params [
         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
         test:steps (
@@ -194,15 +198,219 @@
 <> dc:title "Container Interaction Model"@en .""" .
 
 
+:update_ttl_resources a test:AutomatedTest ;
+    test:purpose "Update: PUT Turtle resources to container with varying LDP Interaction Models."@en ;
+    rdfs:isDefinedBy <https://github.com/solid/specification/issues/40> ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :put_ttl_resource_to_existing_nr_im_req ;
+                test:response_assertion :conflict_res
+            ]
+            [
+                test:request :put_ttl_resource_to_existing_bc_im_req ;
+                test:response_assertion :conflict_res
+            ]
+            [
+                test:request :put_text_resource_to_existing_nr_im_req ;
+                test:response_assertion :conflict_res
+            ]
+            [
+                test:request :put_text_resource_to_existing_no_im_req ;
+                test:response_assertion :conflict_res
+            ]
+            [
+                test:request :put_ttl_resource_to_existing_rs_im_req ;
+                test:response_assertion :updated_ok_res
+            ]
+            [
+                test:request :put_ttl_resource_to_existing_no_im_req ;
+                test:response_assertion :updated_ok_res
+            ]
+            [
+                test:request :get_ttl_resource_to_existing_no_im_req ;
+                test:response_assertion :ok_res
+            ]
+        )
+    ] .
+
+
+:put_ttl_resource_to_existing_nr_im_req a http:RequestMessage ;
+    rdfs:comment "PUT Turtle resource with Non-RDF source interaction model.";
+    http:method "PUT" ;
+    http:requestURI </test-put-bc/dahut-rs.ttl> ;
+    httph:content_type "text/turtle";
+    httph:link """<http://www.w3.org/ns/ldp#NonRDFSource>; rel=\"type\"""";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+<> dc:title "Updating Non-RDF source Interaction Model"@en .""" .
+
+:put_ttl_resource_to_existing_bc_im_req a http:RequestMessage ;
+    rdfs:comment "PUT Turtle resource with Container interaction model.";
+    http:method "PUT" ;
+    http:requestURI </test-put-bc/dahut-rs.ttl> ;
+    httph:content_type "text/turtle";
+    httph:link """<http://www.w3.org/ns/ldp#BasicContainer>; rel=\"type\"""";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+<> dc:title "Container Interaction Model"@en .""" .
+
+
+:put_text_resource_to_existing_nr_im_req a http:RequestMessage ;
+    rdfs:comment "PUT Text resource with Non-RDF source interaction model.";
+    http:method "PUT" ;
+    http:requestURI </test-put-bc/dahut-rs.ttl> ;
+    httph:content_type "text/plain";
+    httph:link """<http://www.w3.org/ns/ldp#NonRDFSource>; rel=\"type\"""";
+    http:content """Non RDF Interaction Model""" .
+
+:put_text_resource_to_existing_no_im_req a http:RequestMessage ;
+    rdfs:comment "PUT Text resource without interaction model.";
+    http:method "PUT" ;
+    http:requestURI </test-put-bc/dahut-rs.ttl> ;
+    httph:content_type "text/plain";
+    http:content """No source Interaction Model""" .
+
+:put_ttl_resource_to_existing_rs_im_req a http:RequestMessage ;
+    rdfs:comment "PUT Turtle resource with RDF source interaction model.";
+    http:method "PUT" ;
+    http:requestURI </test-put-bc/dahut-rs.ttl> ;
+    httph:content_type "text/turtle";
+    httph:link """<http://www.w3.org/ns/ldp#RDFSource>; rel=\"type\"""";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+<> dc:title "Update RDF source Interaction Model"@en .""" .
+
+:put_ttl_resource_to_existing_no_im_req a http:RequestMessage ;
+    rdfs:comment "PUT Turtle resource with no interaction model.";
+    http:method "PUT" ;
+    http:requestURI </test-put-bc/dahut-no.ttl> ;
+    httph:content_type "text/turtle";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+<> dc:title "Update with no Interaction Model"@en .""" .
+
+:get_ttl_resource_to_existing_no_im_req a http:RequestMessage ;
+    rdfs:comment "GET Turtle resource with no interaction model.";
+    http:method "GET" ;
+    http:requestURI </test-put-bc/dahut-no.ttl> ;
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+<> dc:title "Update with no Interaction Model"@en .""" .
+
+
+
+:create_deep_ttl_resources a test:AutomatedTest ;
+    test:purpose "Create: PUT Turtle resources to into a deep hierarchy."@en ;
+    rdfs:isDefinedBy <https://github.com/solid/specification/issues/40>,
+    <https://github.com/solid/specification/issues/68> ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :put_ttl_resource_deep_bc_im_req ;
+                test:response_assertion :conflict_res
+            ]
+            [
+                test:request :get_ttl_resource_deep_bc_im_req ;
+                test:response_assertion :not_found_res
+            ]
+            [
+                test:request :get_ttl_resource_deep_con_im_req ;
+                test:response_assertion :not_found_res
+            ]
+            [
+                test:request :put_ttl_resource_deep_rs_im_req ;
+                test:response_assertion :created_ok_res
+            ]
+            [
+                test:request :get_ttl_resource_deep_rs_im_req ;
+                test:response_assertion :ok_res
+            ]
+            [
+                test:request :get_ttl_resource_deep_con_im_req ;
+                test:response_assertion :ok_res
+            ]
+            [
+                test:request :put_ttl_resource_deep_no_im_req ;
+                test:response_assertion :created_ok_res
+            ]
+            [
+                test:request :get_ttl_resource_deep_no_im_req ;
+                test:response_assertion :ok_res
+            ]
+            [
+                test:request :get_ttl_resource_deep_con_no_im_req ;
+                test:response_assertion :ok_res
+            ]
+        )
+    ] .
+
+:put_ttl_resource_deep_bc_im_req a http:RequestMessage ;
+    rdfs:comment "PUT Turtle resource with Container interaction model.";
+    http:method "PUT" ;
+    http:requestURI </test-put-bc/foo/bar/dahut-bc.ttl> ;
+    httph:content_type "text/turtle";
+    httph:link """<http://www.w3.org/ns/ldp#BasicContainer>; rel=\"type\"""";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+<> dc:title "Container Interaction Model"@en .""" .
+
+:get_ttl_resource_deep_bc_im_req a http:RequestMessage ;
+    rdfs:comment "GET Turtle resource created with container interaction model.";
+    http:method "GET" ;
+    http:requestURI </test-put-bc/foo/bar/dahut-bc.ttl>  .
+
+:get_ttl_resource_deep_con_im_req a http:RequestMessage ;
+    rdfs:comment "GET container of Turtle resource.";
+    http:method "GET" ;
+    http:requestURI </test-put-bc/foo/>  .
+
+
+:put_ttl_resource_deep_rs_im_req a http:RequestMessage ;
+    rdfs:comment "PUT Turtle resource with RDF source interaction model.";
+    http:method "PUT" ;
+    http:requestURI </test-put-bc/foo/baz/dahut-rs.ttl> ;
+    httph:content_type "text/turtle";
+    httph:link """<http://www.w3.org/ns/ldp#RDFSource>; rel=\"type\"""";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+<> dc:title "RDF source Interaction Model"@en .""" .
+
+:get_ttl_resource_deep_rs_im_req a http:RequestMessage ;
+    rdfs:comment "GET Turtle resource created with RDF source interaction model.";
+    http:method "GET" ;
+    http:requestURI </test-put-bc/foo/baz/dahut-rs.ttl> .
+
+
+:put_ttl_resource_deep_no_im_req a http:RequestMessage ;
+    rdfs:comment "PUT Turtle resource without interaction model.";
+    http:method "PUT" ;
+    http:requestURI </test-put-bc/foobar/baz/dahut-no.ttl> ;
+    httph:content_type "text/turtle";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+<> dc:title "No Interaction Model"@en .""" .
+
+
+:get_ttl_resource_deep_no_im_req a http:RequestMessage ;
+    rdfs:comment "GET Turtle resource created without interaction model.";
+    http:method "GET" ;
+    http:requestURI </test-put-bc/foobar/baz/dahut-no.ttl> .
+
+:get_ttl_resource_deep_con_no_im_req a http:RequestMessage ;
+    rdfs:comment "GET container of Turtle resource created with container interaction model.";
+    http:method "GET" ;
+    http:requestURI </test-put-bc/foobar/>  .
+
+# TODO: Check containment
 
 :created_ok_res a http:ResponseMessage ;
     http:status 201 .
 
 :deleted_ok_res a http:ResponseMessage ;
-    http:status 200 .
+    http:status "200|204"^^dqm:regex .
 
 :ok_res a http:ResponseMessage ;
     http:status 200 .
+
+:updated_ok_res a http:ResponseMessage ;
+    http:status "200|204"^^dqm:regex .
 
 :not_found_res a http:ResponseMessage ;
     http:status 404 .
@@ -251,6 +459,8 @@
 
         )
     ] .
+
+# TODO: Add the rest of teardowns
 
 :teardown_ttl_resource_bc_req a http:RequestMessage ;
     http:method "DELETE" ;

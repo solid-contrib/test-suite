@@ -1,0 +1,129 @@
+@prefix test: <http://ontologi.es/doap-tests#> .
+@prefix deps: <http://ontologi.es/doap-deps#>.
+@prefix httph:<http://www.w3.org/2007/ont/httph#> .
+@prefix http: <http://www.w3.org/2007/ont/http#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix nfo:  <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
+@prefix dqm:  <http://purl.org/dqm-vocabulary/v1/dqm#> .
+@prefix :     <https://github.com/solid/test-suite/blob/master/testers/rdf-fixtures/fixture-tables/operations_put_resource.ttl#> .
+
+:test_list a test:FixtureTable ;
+    rdfs:comment "These tests exist to provide a high-level overview of allowed PUT manipulations on different resources with unspecified interaction model."@en ;
+    test:fixtures (
+        :create_containers
+        #        :teardown
+    ) .
+
+<http://example.org/httplist#http_req_res_list>
+    a nfo:SoftwareItem ;
+    deps:test-requirement "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
+    nfo:definesFunction "http_req_res_list" .
+
+ # :setup_init a test:AutomatedTest ;
+ #     test:purpose "Set up initial resources as needed by the rest of the tests"@en ;
+ #     test:test_script <http://example.org/httplist#http_req_res_list> ;
+ #     test:params [
+ #         <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+ #         test:steps (
+ #             [
+ #                 test:request :setup_alice_bc_req ;
+ #                 test:response_assertion :created_ok_res
+ #             ]
+ #         )
+#     ] .
+
+:create_containers a test:AutomatedTest ;
+    test:purpose "Create containers"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    rdfs:isDefinedBy <https://github.com/solid/specification/issues/40> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :put_container_bc_im_req ;
+                test:response_assertion :created_ok_res
+            ]
+            [
+                test:request :put_container_bc_no_req ;
+                test:response_assertion :created_ok_res
+            ]
+            [
+                test:request :put_container_bc_rs_req ;
+                test:response_assertion :conflict_res
+            ]
+            [
+                test:request :put_container_bc_nr_req ;
+                test:response_assertion :conflict_res
+            ]
+            [
+                test:request :put_container_no_im_pre_with_ifn_req ;
+                test:response_assertion :precond_fail_res
+            ]
+            [
+                test:request :put_container_empty_bc_no_req ;
+                test:response_assertion :created_ok_res
+            ]
+        )
+    ] .
+
+
+:put_container_bc_im_req a http:RequestMessage ;
+    rdfs:comment "PUT Container with Container interaction model.";
+    http:method "PUT" ;
+    http:requestURI </test-put-container/> ;
+    httph:content_type "text/turtle";
+    httph:link """<http://www.w3.org/ns/ldp#BasicContainer>; rel=\"type\"""";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+<> dc:title "Container Interaction Model"@en .""" .
+
+:put_container_bc_no_req a http:RequestMessage ;
+    rdfs:comment "PUT Container with no interaction model.";
+    http:method "PUT" ;
+    http:requestURI </test-put-container/no-interaction/> ;
+    httph:content_type "text/turtle";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+<> dc:title "No Interaction Model"@en .""" .
+
+:put_container_bc_rs_req a http:RequestMessage ;
+    rdfs:comment "PUT Container with RDF Source interaction model.";
+    http:method "PUT" ;
+    http:requestURI </test-put-container/rs-interaction/> ;
+    httph:content_type "text/turtle";
+    httph:link """<http://www.w3.org/ns/ldp#RDFSource>; rel=\"type\"""";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+<> dc:title "RDF Source Interaction Model"@en .""" .
+
+:put_container_bc_nr_req a http:RequestMessage ;
+    rdfs:comment "PUT Container with Non-RDF Source interaction model.";
+    http:method "PUT" ;
+    http:requestURI </test-put-container/nr-interaction/> ;
+    httph:content_type "text/turtle";
+    httph:link """<http://www.w3.org/ns/ldp#NonRDFSource>; rel=\"type\"""";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+<> dc:title "Non-RDF Source Interaction Model"@en .""" .
+
+:put_container_no_im_pre_with_ifn_req a http:RequestMessage ;
+    rdfs:comment "PUT container without interaction model, pre-existing container, but with if-none-match.";
+    http:method "PUT" ;
+    http:requestURI </test-put-bc/no-interaction/> ;
+    httph:content_type "text/turtle";
+    httph:if_none_match "*";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+<> dc:title "No Interaction Model, but if-none-match"@en .""" .
+
+
+:put_container_empty_bc_no_req a http:RequestMessage ;
+    rdfs:comment "PUT empty Container with no interaction model.";
+    http:method "PUT" ;
+    http:requestURI </test-put-container/empty-container/> .
+
+# TODO: Check containment
+
+:created_ok_res a http:ResponseMessage ;
+    http:status 201 .
+
+:conflict_res a http:ResponseMessage ;
+    http:status 409 .
+
+:precond_fail_res a http:ResponseMessage ;
+    http:status 412 .
