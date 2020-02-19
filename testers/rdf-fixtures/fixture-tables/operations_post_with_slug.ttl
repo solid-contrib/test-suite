@@ -12,6 +12,7 @@
     test:fixtures (
         :setup_init
         :slug_foo_slash_no_link
+        :slug_foo_no_link
 #        :teardown
     ) .
 
@@ -85,7 +86,39 @@
     httph:location '<(.*?foo/$)>'^^dqm:regex ;
     http:status 201 .
 
-:get_slug_foo_slash_no_link_req a http:RequestMessage ;
+
+:slug_foo_no_link a test:AutomatedTest ;
+    test:purpose "Create a resource with foo.ttl appended to the request-URI."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list_regex_reuser> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :post_slug_foo_no_link_req  ;
+                test:response_assertion :post_slug_foo_no_link_ok_res
+            ]
+            [
+                test:request :get_slug_foo_no_link_req  ;
+                test:response_assertion :ok_res
+            ]
+        )
+    ] .
+
+:post_slug_foo_no_link_req a http:RequestMessage ;
+    http:method "POST" ;
+    http:requestURI </test-slug-bc/> ;
+    httph:slug "foo" ;
+    httph:content_type "text/turtle";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+   dc:title "Resulting RDF resource."@en .""" .
+
+:post_slug_foo_no_link_ok_res a http:ResponseMessage ;
+    rdfs:comment "Verifies that the Location URL ends with foo.ttl and extracts for the next GET"@en ;
+    httph:location '(.*?foo.ttl$)'^^dqm:regex ;
+    http:status 201 .
+
+
+:get_slug_foo_no_link_req a http:RequestMessage ;
     rdfs:comment "Verify that the resource can be access, the test script will use the regexp from the previous response"@en ;
     http:method "GET" .
 
