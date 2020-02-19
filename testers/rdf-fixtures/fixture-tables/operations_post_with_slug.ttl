@@ -65,7 +65,7 @@
                 test:response_assertion :post_slug_foo_slash_no_link_ok_res
             ]
             [
-                test:request :get_slug_foo_slash_no_link_req  ;
+                test:request :get_slug_req  ;
                 test:response_assertion :ok_res
             ]
         )
@@ -79,11 +79,11 @@
     http:content """@prefix dc: <http://purl.org/dc/terms/>.
 @prefix ldp: <http://www.w3.org/ns/ldp#>.
 <> a ldp:BasicContainer ;
-   dc:title "Initial container for tests."@en .""" .
+   dc:title "No link-created container."@en .""" .
 
 :post_slug_foo_slash_no_link_ok_res a http:ResponseMessage ;
     rdfs:comment "Verifies that the Location URL ends with foo/ and extracts for the next GET"@en ;
-    httph:location '<(.*?foo/$)>'^^dqm:regex ;
+    httph:location '(.*?foo/$)'^^dqm:regex ;
     http:status 201 .
 
 
@@ -98,7 +98,7 @@
                 test:response_assertion :post_slug_foo_no_link_ok_res
             ]
             [
-                test:request :get_slug_foo_no_link_req  ;
+                test:request :get_slug_req  ;
                 test:response_assertion :ok_res
             ]
         )
@@ -118,8 +118,8 @@
     http:status 201 .
 
 
-:get_slug_foo_no_link_req a http:RequestMessage ;
-    rdfs:comment "Verify that the resource can be access, the test script will use the regexp from the previous response"@en ;
+:get_slug_req a http:RequestMessage ;
+    rdfs:comment "Verify that the resource can be accessed, the test script will use the regexp from the previous response"@en ;
     http:method "GET" .
 
 :ok_res a http:ResponseMessage ;
