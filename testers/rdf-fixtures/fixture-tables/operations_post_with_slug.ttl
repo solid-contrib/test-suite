@@ -71,22 +71,6 @@
         )
     ] .
 
-:post_slug_foo_slash_no_link_req a http:RequestMessage ;
-    http:method "POST" ;
-    http:requestURI </test-slug-bc/> ;
-    httph:slug "foo/" ;
-    httph:content_type "text/turtle";
-    http:content """@prefix dc: <http://purl.org/dc/terms/>.
-@prefix ldp: <http://www.w3.org/ns/ldp#>.
-<> a ldp:BasicContainer ;
-   dc:title "No link-created container."@en .""" .
-
-:post_slug_foo_slash_no_link_ok_res a http:ResponseMessage ;
-    rdfs:comment "Verifies that the Location URL ends with foo/ and extracts for the next GET"@en ;
-    httph:location '(.*?foo/$)'^^dqm:regex ;
-    http:status 201 .
-
-
 :slug_foo_no_link a test:AutomatedTest ;
     test:purpose "Create a resource with foo.ttl appended to the request-URI."@en ;
     test:test_script <http://example.org/httplist#http_req_res_list_regex_reuser> ;
@@ -103,6 +87,22 @@
             ]
         )
     ] .
+
+
+:post_slug_foo_slash_no_link_req a http:RequestMessage ;
+    http:method "POST" ;
+    http:requestURI </test-slug-bc/> ;
+    httph:slug "foo/" ;
+    httph:content_type "text/turtle";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+@prefix ldp: <http://www.w3.org/ns/ldp#>.
+<> a ldp:BasicContainer ;
+   dc:title "No link-created container."@en .""" .
+
+:post_slug_foo_slash_no_link_ok_res a http:ResponseMessage ;
+    rdfs:comment "Verifies that the Location URL ends with foo/ and extracts for the next GET"@en ;
+    httph:location '(.*?foo/$)'^^dqm:regex ;
+    http:status 201 .
 
 :post_slug_foo_no_link_req a http:RequestMessage ;
     http:method "POST" ;
