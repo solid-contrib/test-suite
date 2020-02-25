@@ -85,7 +85,7 @@
         test:steps (
             [
                 test:request :post_slug_slash_ldpc_link_req  ;
-                test:response_assertion :post_slug_slash_no_link_ok_res
+                test:response_assertion :post_slug_slash_ldpc_link_ok_res
             ]
             [
                 test:request :get_slug_req  ;
@@ -131,6 +131,11 @@
 <> a ldp:BasicContainer ;
    dc:title "No link-created container."@en .""" .
 
+:post_slug_slash_no_link_ok_res a http:ResponseMessage ;
+    rdfs:comment "Verifies that the Location URL ends with foo/ and extracts for the next GET"@en ;
+    httph:location '(.*?slug_slash_no_link/$)'^^dqm:regex ;
+    http:status 201 .
+
 :post_slug_slash_ldpc_link_req a http:RequestMessage ;
     http:method "POST" ;
     http:requestURI </test-slug-bc/> ;
@@ -142,8 +147,7 @@
 <> a ldp:BasicContainer ;
    dc:title "LDP-C created container."@en .""" .
 
-
-:post_slug_slash_no_link_ok_res a http:ResponseMessage ;
+:post_slug_slash_ldpc_link_ok_res a http:ResponseMessage ;
     rdfs:comment "Verifies that the Location URL ends with foo/ and extracts for the next GET"@en ;
     httph:location '(.*?slug_slash_ldpc_link/$)'^^dqm:regex ;
     http:status 201 .
