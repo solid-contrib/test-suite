@@ -9,6 +9,7 @@
 
 :test_list a test:FixtureTable ;
     rdfs:comment "These tests exist to test Slug headers"@en ;
+    rdfs:isDefinedBy <https://github.com/solid/specification/issues/128#issuecomment-573033297> ;
     test:fixtures (
         :setup_init
         :slug_slash_no_link
