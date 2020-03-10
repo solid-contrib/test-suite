@@ -1,0 +1,429 @@
+@prefix test: <http://ontologi.es/doap-tests#> .
+@prefix deps: <http://ontologi.es/doap-deps#>.
+@prefix httph:<http://www.w3.org/2007/ont/httph#> .
+@prefix http: <http://www.w3.org/2007/ont/http#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix nfo:  <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
+@prefix dqm:  <http://purl.org/dqm-vocabulary/v1/dqm#> .
+@prefix :     <https://github.com/solid/test-suite/blob/master/testers/rdf-fixtures/fixture-tables/operations_post_with_slug.ttl#> .
+
+:test_list a test:FixtureTable ;
+    rdfs:comment "These tests exist to test Slug headers"@en ;
+    rdfs:isDefinedBy <https://github.com/solid/specification/issues/128#issuecomment-573033297> ;
+    test:fixtures (
+        :setup_init
+        :slug_slash_no_link
+        :slug_slash_ldpc_link
+        :slug_slash_ldprs_link
+        :slug_no_link
+        :slug_ldpc_link
+        :slug_ldprs_link
+        :slug_empty_no_link
+        :slug_empty_ldpc_link
+        :slug_empty_ldprs_link
+        :teardown
+    ) .
+
+<http://example.org/httplist#http_req_res_list_regex_reuser>
+    a nfo:SoftwareItem ;
+    deps:test-requirement "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
+    nfo:definesFunction "http_req_res_list_regex_reuser" .
+
+<http://example.org/httplist#http_req_res_list>
+    a nfo:SoftwareItem ;
+    deps:test-requirement "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
+    nfo:definesFunction "http_req_res_list" .
+
+:setup_init a test:AutomatedTest ;
+    test:purpose "Set up initial resources as needed by the rest of the tests"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :setup_container ;
+                test:response_assertion :created_ok_res
+            ]
+        )
+    ] .
+
+:setup_container a http:RequestMessage ;
+    rdfs:comment "Set up RDF BC resource.";
+    http:method "POST" ;
+    http:requestURI </> ;
+    httph:slug "test-slug-bc" ;
+    httph:content_type "text/turtle";
+    httph:link """<http://www.w3.org/ns/ldp#BasicContainer>; rel=\"type\"""";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+@prefix ldp: <http://www.w3.org/ns/ldp#>.
+<> a ldp:BasicContainer ;
+   dc:title "Initial container for tests."@en .""" .
+
+:created_ok_res a http:ResponseMessage ;
+    http:status 201 .
+
+:slug_slash_no_link a test:AutomatedTest ;
+    test:purpose "With Slug with / but no Link header create a container with foo/ appended to the request-URI."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list_regex_reuser> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :post_slug_slash_no_link_req  ;
+                test:response_assertion :post_slug_slash_no_link_ok_res
+            ]
+            [
+                test:request :get_slug_req  ;
+                test:response_assertion :ok_res
+            ]
+            [
+                test:request :teardown_slug_req  ;
+                test:response_assertion :teardown_delete_res
+            ]
+        )
+    ] .
+
+:slug_slash_ldpc_link a test:AutomatedTest ;
+    test:purpose "With Slug with / and LDPC Link header create a container with foo/ appended to the request-URI."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list_regex_reuser> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :post_slug_slash_ldpc_link_req  ;
+                test:response_assertion :post_slug_slash_ldpc_link_ok_res
+            ]
+            [
+                test:request :get_slug_req  ;
+                test:response_assertion :ok_res
+            ]
+            [
+                test:request :teardown_slug_req  ;
+                test:response_assertion :teardown_delete_res
+            ]
+        )
+    ] .
+
+:slug_slash_ldprs_link a test:AutomatedTest ;
+    test:purpose "With Slug with / and LDPRS Link header create a resource with foo.ttl appended to the request-URI."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list_regex_reuser> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :post_slug_slash_ldprs_link_req  ;
+                test:response_assertion :post_slug_slash_ldprs_link_ok_res
+            ]
+            [
+                test:request :get_slug_req  ;
+                test:response_assertion :ok_res
+            ]
+            [
+                test:request :teardown_slug_req  ;
+                test:response_assertion :teardown_delete_res
+            ]
+        )
+    ] .
+
+
+:slug_no_link a test:AutomatedTest ;
+    test:purpose "Create a resource with foo.ttl appended to the request-URI."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list_regex_reuser> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :post_slug_no_link_req  ;
+                test:response_assertion :post_slug_no_link_ok_res
+            ]
+            [
+                test:request :get_slug_req  ;
+                test:response_assertion :ok_res
+            ]
+            [
+                test:request :teardown_slug_req  ;
+                test:response_assertion :teardown_delete_res
+            ]
+        )
+    ] .
+
+:slug_ldpc_link a test:AutomatedTest ;
+    test:purpose "Create a container with foo/ appended to the request-URI."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list_regex_reuser> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :post_slug_ldpc_link_req  ;
+                test:response_assertion :post_slug_ldpc_link_ok_res
+            ]
+            [
+                test:request :get_slug_req  ;
+                test:response_assertion :ok_res
+            ]
+            [
+                test:request :teardown_slug_req  ;
+                test:response_assertion :teardown_delete_res
+            ]
+        )
+    ] .
+
+:slug_ldprs_link a test:AutomatedTest ;
+    test:purpose "Create a resource with foo.ttl appended to the request-URI."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list_regex_reuser> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :post_slug_ldprs_link_req  ;
+                test:response_assertion :post_slug_ldprs_link_ok_res
+            ]
+            [
+                test:request :get_slug_req  ;
+                test:response_assertion :ok_res
+            ]
+            [
+                test:request :teardown_slug_req  ;
+                test:response_assertion :teardown_delete_res
+            ]
+        )
+    ] .
+
+:slug_empty_no_link a test:AutomatedTest ;
+    test:purpose "Create a resource with foo.ttl appended to the request-URI."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list_regex_reuser> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :post_slug_empty_no_link_req  ;
+                test:response_assertion :post_slug_empty_no_link_ok_res
+            ]
+            [
+                test:request :get_slug_req  ;
+                test:response_assertion :ok_res
+            ]
+            [
+                test:request :teardown_slug_req  ;
+                test:response_assertion :teardown_delete_res
+            ]
+        )
+    ] .
+
+:slug_empty_ldpc_link a test:AutomatedTest ;
+    test:purpose "Create a container with foo/ appended to the request-URI."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list_regex_reuser> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :post_slug_empty_ldpc_link_req  ;
+                test:response_assertion :post_slug_empty_ldpc_link_ok_res
+            ]
+            [
+                test:request :get_slug_req  ;
+                test:response_assertion :ok_res
+            ]
+            [
+                test:request :teardown_slug_req  ;
+                test:response_assertion :teardown_delete_res
+            ]
+        )
+    ] .
+
+:slug_empty_ldprs_link a test:AutomatedTest ;
+    test:purpose "Create a resource with foo.ttl appended to the request-URI."@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list_regex_reuser> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :post_slug_empty_ldprs_link_req  ;
+                test:response_assertion :post_slug_empty_ldprs_link_ok_res
+            ]
+            [
+                test:request :get_slug_req  ;
+                test:response_assertion :ok_res
+            ]
+            [
+                test:request :teardown_slug_req  ;
+                test:response_assertion :teardown_delete_res
+            ]
+        )
+    ] .
+
+:post_slug_slash_no_link_req a http:RequestMessage ;
+    http:method "POST" ;
+    http:requestURI </test-slug-bc/> ;
+    httph:slug "slug_slash_no_link/" ;
+    httph:content_type "text/turtle";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+@prefix ldp: <http://www.w3.org/ns/ldp#>.
+<> a ldp:BasicContainer ;
+   dc:title "No link-created container."@en .""" .
+
+:post_slug_slash_no_link_ok_res a http:ResponseMessage ;
+    rdfs:comment "Verifies that the Location URL ends with foo/ and extracts for the next GET"@en ;
+    httph:location '(.*?slug_slash_no_link/$)'^^dqm:regex ;
+    http:status 201 .
+
+:post_slug_slash_ldpc_link_req a http:RequestMessage ;
+    http:method "POST" ;
+    http:requestURI </test-slug-bc/> ;
+    httph:slug "slug_slash_ldpc_link/" ;
+    httph:link """<http://www.w3.org/ns/ldp#Container>; rel=\"type\"""";
+    httph:content_type "text/turtle";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+@prefix ldp: <http://www.w3.org/ns/ldp#>.
+<> a ldp:BasicContainer ;
+   dc:title "LDP-C created container."@en .""" .
+
+:post_slug_slash_ldpc_link_ok_res a http:ResponseMessage ;
+    rdfs:comment "Verifies that the Location URL ends with foo/ and extracts for the next GET"@en ;
+    httph:location '(.*?slug_slash_ldpc_link/$)'^^dqm:regex ;
+    http:status 201 .
+
+:post_slug_slash_ldprs_link_req a http:RequestMessage ;
+    http:method "POST" ;
+    http:requestURI </test-slug-bc/> ;
+    httph:slug "slug_slash_ldprs_link/" ;
+    httph:link """<http://www.w3.org/ns/ldp#RDFSource>; rel=\"type\"""";
+    httph:content_type "text/turtle";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+@prefix ldp: <http://www.w3.org/ns/ldp#>.
+<> dc:title "LDPRS created resource with slash."@en .""" .
+
+:post_slug_slash_ldprs_link_ok_res a http:ResponseMessage ;
+    rdfs:comment "Verifies that the Location URL ends with foo.ttl and extracts for the next GET"@en ;
+    httph:location '(.*?slug_slash_ldprs_link.ttl$)'^^dqm:regex ;
+    http:status 201 .
+
+
+:post_slug_no_link_req a http:RequestMessage ;
+    http:method "POST" ;
+    http:requestURI </test-slug-bc/> ;
+    httph:slug "slug_no_link" ;
+    httph:content_type "text/turtle";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+   dc:title "Resulting RDF resource."@en .""" .
+
+:post_slug_no_link_ok_res a http:ResponseMessage ;
+    rdfs:comment "Verifies that the Location URL ends with foo.ttl and extracts for the next GET"@en ;
+    httph:location '(.*?slug_no_link.ttl$)'^^dqm:regex ;
+    http:status 201 .
+
+:post_slug_ldpc_link_req a http:RequestMessage ;
+    http:method "POST" ;
+    http:requestURI </test-slug-bc/> ;
+    httph:slug "slug_ldpc_link" ;
+    httph:link """<http://www.w3.org/ns/ldp#Container>; rel=\"type\"""";
+    httph:content_type "text/turtle";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+@prefix ldp: <http://www.w3.org/ns/ldp#>.
+<> a ldp:BasicContainer ;
+   dc:title "LDP-C created container."@en .""" .
+
+:post_slug_ldpc_link_ok_res a http:ResponseMessage ;
+    rdfs:comment "Verifies that the Location URL ends with foo/ and extracts for the next GET"@en ;
+    httph:location '(.*?slug_ldpc_link/$)'^^dqm:regex ;
+    http:status 201 .
+
+:post_slug_ldprs_link_req a http:RequestMessage ;
+    http:method "POST" ;
+    http:requestURI </test-slug-bc/> ;
+    httph:slug "slug_ldprs_link" ;
+    httph:link """<http://www.w3.org/ns/ldp#RDFSource>; rel=\"type\"""";
+    httph:content_type "text/turtle";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+@prefix ldp: <http://www.w3.org/ns/ldp#>.
+<> dc:title "LDPRS created resource with slash."@en .""" .
+
+:post_slug_ldprs_link_ok_res a http:ResponseMessage ;
+    rdfs:comment "Verifies that the Location URL ends with foo.ttl and extracts for the next GET"@en ;
+    httph:location '(.*?slug_ldprs_link.ttl$)'^^dqm:regex ;
+    http:status 201 .
+
+:post_slug_empty_no_link_req a http:RequestMessage ;
+    http:method "POST" ;
+    http:requestURI </test-slug-bc/> ;
+    httph:content_type "text/turtle";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+   dc:title "Resulting RDF resource."@en .""" .
+
+:post_slug_empty_no_link_ok_res a http:ResponseMessage ;
+    rdfs:comment "Verifies that the Location URL ends with foo.ttl and extracts for the next GET"@en ;
+    httph:location '(.+?.ttl$)'^^dqm:regex ;
+    http:status 201 .
+
+:post_slug_empty_ldpc_link_req a http:RequestMessage ;
+    http:method "POST" ;
+    http:requestURI </test-slug-bc/> ;
+    httph:link """<http://www.w3.org/ns/ldp#Container>; rel=\"type\"""";
+    httph:content_type "text/turtle";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+@prefix ldp: <http://www.w3.org/ns/ldp#>.
+<> a ldp:BasicContainer ;
+   dc:title "LDP-C created container."@en .""" .
+
+:post_slug_empty_ldpc_link_ok_res a http:ResponseMessage ;
+    rdfs:comment "Verifies that the Location URL ends with foo/ and extracts for the next GET"@en ;
+    httph:location '(.+?/$)'^^dqm:regex ;
+    http:status 201 .
+
+:post_slug_empty_ldprs_link_req a http:RequestMessage ;
+    http:method "POST" ;
+    http:requestURI </test-slug-bc/> ;
+    httph:link """<http://www.w3.org/ns/ldp#RDFSource>; rel=\"type\"""";
+    httph:content_type "text/turtle";
+    http:content """@prefix dc: <http://purl.org/dc/terms/>.
+@prefix ldp: <http://www.w3.org/ns/ldp#>.
+<> dc:title "LDPRS created resource with slash."@en .""" .
+
+:post_slug_empty_ldprs_link_ok_res a http:ResponseMessage ;
+    rdfs:comment "Verifies that the Location URL ends with foo.ttl and extracts for the next GET"@en ;
+    httph:location '(.+?.ttl$)'^^dqm:regex ;
+    http:status 201 .
+
+:get_slug_req a http:RequestMessage ;
+    rdfs:comment "Verify that the resource can be accessed, the test script will use the regexp from the previous response"@en ;
+    http:method "GET" .
+
+:teardown_slug_req a http:RequestMessage ;
+    rdfs:comment "Remove resource created in the test."@en ;
+    http:method "DELETE" .
+
+:ok_res a http:ResponseMessage ;
+    http:status 200 .
+
+
+:teardown a test:AutomatedTest ;
+    test:purpose "Delete resources that were set up in these tests"@en ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
+    test:params [
+        <http://example.org/httplist/param#bearer> <https://idp.test.solidproject.org/tokens/ALICE_ID_GOOD> ;
+        test:steps (
+            [
+                test:request :teardown_test_dir ;
+                test:response_assertion :deleted_ok_res
+            ]
+            [
+                test:request :teardown_verify_its_gone ;
+                test:response_assertion :not_found_res
+            ]
+        )
+    ] .
+
+:teardown_test_dir a http:RequestMessage ;
+    http:method "DELETE" ;
+    http:requestURI </test-slug-bc/> .
+
+:teardown_verify_its_gone a http:RequestMessage ;
+    http:method "GET" ;
+    http:requestURI </test-slug-bc/> .
+
+
+:teardown_delete_res a http:ResponseMessage ;
+    http:status "200|204|404"^^dqm:regex .
+
+:not_found_res a http:ResponseMessage ;
+    http:status 404 .
