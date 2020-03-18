@@ -8,17 +8,18 @@ The goal of the test suite project is to produce test suites that can
 be used to verify the compliance of any server implementation to the
 Solid specifications.
 
-To accomplish this, the project will in part reuse existing test
-suites that have been developed for technologies Solid depends on, for
-example the W3C LDP testsuite. 
+For the most part, the project will develop test suites specifically
+for Solid technologies. Since most Solid specifications do not require
+extensive program flow to be tested, the main line of work is to
+develop a system that uses RDF to describe the tests, so that most of
+the tests are developed using RDF. This does not exclude the
+possibility of writing a test framework using a conventional
+programming language for parts of Solid that would be better served by
+it.
 
-In part, the project will develop test suites specifically for Solid
-technologies. Since most Solid specifications do not require extensive
-program flow to be tested, the main line of work is to develop a
-system that uses RDF to describe the tests, so that most of the
-tests are developed using RDF. This does not exclude the possibility
-of writing a test framework using a conventional programming language
-for parts of Solid that would be better served by it.
+Secondly, the project may integrate test suites from projects that
+Solid depends on.
+
 
 ## RDF-based Test Fixtures
 
