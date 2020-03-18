@@ -13,9 +13,6 @@ if [[ "$1" == trellis ]]
     docker logs server
 fi
 
-echo Running ldp-basic tester ...
-docker run --network=testnet ldp-basic > reports/$1-ldp-basic.txt
-
 echo Stopping server without WAC ...
 docker stop server
 
