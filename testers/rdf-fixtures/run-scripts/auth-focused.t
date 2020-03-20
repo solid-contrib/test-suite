@@ -4,7 +4,7 @@
 
 =head1 PURPOSE
 
-Testing HTTP interface functionality of a Solid server
+Testing HTTP interface authentication and authorization functionality with of a Solid server
 
 =head1 ENVIRONMENT
 
@@ -22,7 +22,7 @@ Kjetil Kjernsmo E<lt>kjetilk@cpan.orgE<gt>.
 
 =head1 COPYRIGHT AND LICENCE
 
-This software is Copyright (c) 2019 by Inrupt Inc.
+This software is Copyright (c) 2020 by Inrupt Inc.
 
 This is free software, licensed under:
 
@@ -48,7 +48,13 @@ my $path = $ENV{SOLID_FIXTURE_PATH} || '/opt/fixture-tables/';
 
 use Test::FITesque::RDF;
 
-my @files = ('authentication.ttl','operations_protected_ldp_nr.ttl','operations_protected_ldp_rs.ttl');
+my @files = qw(
+					 authentication.ttl
+					 http-put-check-acl.ttl
+					 operations_protected_ldp_rs.ttl
+					 operations_protected_ldp_nr.ttl
+					 operations_protected_ldp_bc.ttl
+				 );
 
 
 BAIL_OUT("Set SOLID_REMOTE_BASE to the URL of the base of the server you are testing") unless $ENV{SOLID_REMOTE_BASE};

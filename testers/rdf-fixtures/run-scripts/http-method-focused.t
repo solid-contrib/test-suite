@@ -22,7 +22,7 @@ Kjetil Kjernsmo E<lt>kjetilk@cpan.orgE<gt>.
 
 =head1 COPYRIGHT AND LICENCE
 
-This software is Copyright (c) 2019 by Inrupt Inc.
+This software is Copyright (c) 2020 by Inrupt Inc.
 
 This is free software, licensed under:
 
@@ -43,13 +43,27 @@ BEGIN {
   $ENV{PERL_NET_HTTPS_SSL_SOCKET_CLASS} = 'IO::Socket::SSL';
 }
 
+
 my $path = $ENV{SOLID_FIXTURE_PATH} || '/opt/fixture-tables/';
 
 use Test::FITesque::RDF;
 
+my @files = qw(
+					 operations_post_with_slug.ttl
+					 operations_put_resource.ttl
+					 operations_put_container.ttl
+				 );
+
+
 BAIL_OUT("Set SOLID_REMOTE_BASE to the URL of the base of the server you are testing") unless $ENV{SOLID_REMOTE_BASE};
 
-my $suite = Test::FITesque::RDF->new(source => $path . 'http-put-check-acl.ttl', base_uri => $ENV{SOLID_REMOTE_BASE})->suite;
+
+my $suite = Test::FITesque::Suite->new;
+
+foreach my $file (@files) {
+  note("Reading tests from $path$file");
+  $suite->add(Test::FITesque::RDF->new(source => $path . $file, base_uri => $ENV{SOLID_REMOTE_BASE})->suite);
+}
 
 $suite->run_tests;
 
