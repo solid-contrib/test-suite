@@ -4,10 +4,10 @@
 @prefix http: <http://www.w3.org/2007/ont/http#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix nfo:  <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
-@prefix :     <https://github.com/solid/test-suite/blob/master/testers/rdf-fixtures/fixture-tables/operations_protected_ldp_rs.ttl#> .
+@prefix :     <https://github.com/solid/test-suite/blob/master/testers/rdf-fixtures/fixture-tables/operations_protected_rdfsource.ttl#> .
 
 :test_list a test:FixtureTable ;
-    rdfs:comment "These tests exist to provide a high-level overview of allowed manipulations on an LDP-RS controlled by the ACL system."@en ;
+    rdfs:comment "These tests exist to provide a high-level overview of allowed manipulations on an RDF Source controlled by the ACL system."@en ;
     test:fixtures (
         :setup_init
         :test_bob_r_rs

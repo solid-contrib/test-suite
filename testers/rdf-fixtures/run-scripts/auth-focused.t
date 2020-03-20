@@ -49,11 +49,11 @@ my $path = $ENV{SOLID_FIXTURE_PATH} || '/opt/fixture-tables/';
 use Test::FITesque::RDF;
 
 my @files = qw(
-					 authentication.ttl
-					 http-put-check-acl.ttl
-					 operations_protected_ldp_rs.ttl
-					 operations_protected_ldp_nr.ttl
-					 operations_protected_ldp_bc.ttl
+  authentication.ttl
+  http-put-check-acl.ttl
+  operations_protected_cont.ttl
+  operations_protected_nonrdfsource.ttl
+  operations_protected_rdfsource.ttl
 				 );
 
 
