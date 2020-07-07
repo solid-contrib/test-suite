@@ -95,11 +95,11 @@ function processLine (line) {
 }
 
 function writeOutput() {
-  console.log(['Server', 'LDP Basic', 'Websockets-pub-sub', 'RDF-fixtures', 'Webid-provider'].map(str => str.padEnd(PAD_LEN)).join('\t'))
+  console.log(['Server', 'LDP Basic', 'Websockets-pub-sub', 'RDF-fixtures'].map(str => str.padEnd(PAD_LEN)).join('\t'))
   for (let serverName in table) {
     // console.log(table[serverName], serverName)
     var perlBasedResult = `${table[serverName].perlBased.passedNumber}/${table[serverName].perlBased.totalNumber}`
-    console.log([serverName, table[serverName].ldpBasic, table[serverName].websocketsPubsub, perlBasedResult, table[serverName].webidProvider].map(str => str.padEnd(PAD_LEN)).join('\t'))
+    console.log([serverName, table[serverName].ldpBasic, table[serverName].websocketsPubsub, perlBasedResult].map(str => str.padEnd(PAD_LEN)).join('\t'))
   }
 }
 
