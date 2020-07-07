@@ -39,6 +39,9 @@ docker run --network=testnet websockets-pubsub 2> reports/$1-websockets-pubsub.t
 echo Running rdf-fixtures tester ...
 docker run --network=testnet rdf-fixtures > reports/$1-rdf-fixtures.txt
 
+echo Running webid-provider tester ...
+docker run --network=testnet --env-file servers/$1/env.list webid-provider 2> reports/$1-webid-provider.txt
+
 echo Stopping server with WAC ...
 docker stop server
 
