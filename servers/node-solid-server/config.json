@@ -1,15 +1,17 @@
 {
   "root": "./data",
-  "port": "8080",
-  "serverUri": "http://localhost:8080",
-  "webid": false,
+  "port": "443",
+  "serverUri": "https://server",
+  "webid": true,
   "mount": "/",
   "configPath": "./config",
+  "configFile": "./config.json",
   "dbPath": "./.db",
+  "sslKey": "./server.key",
+  "sslCert": "./server.cert",
   "multiuser": false,
-  "corsProxy": "/proxy",
   "server": {
-    "name": "",
+    "name": "server",
     "description": "",
     "logo": ""
   },

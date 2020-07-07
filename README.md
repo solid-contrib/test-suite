@@ -48,6 +48,7 @@ Run the following commands in your command line terminal:
 docker build -t ldp-basic testers/ldp-basic
 docker build -t websockets-pubsub testers/websockets-pubsub
 docker build -t rdf-fixtures testers/rdf-fixtures
+docker build -t webid-provider testers/webid-provider
 
 docker build -t table-reporter reporters/table
 docker network create testnet
