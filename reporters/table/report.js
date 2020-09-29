@@ -77,6 +77,20 @@ function processLdpBasicLine (parts) {
   table[serverName].ldpBasic = result;
 }
 
+function processWebidProviderLine(parts) {
+  console.log('processing', parts);
+  const serverName = (/^reports.(.*)-webid-provider.txt.Tests.$/gm).exec(parts[0])[1];
+  const data = {};
+  for (let i=1; i<parts.length; i++) {
+    ['skipped', 'passed', 'failed', 'total'].forEach(term => {
+      if (parts[i] === term || parts[i] === `${term},`) {
+        data[term] = parseInt(parts[i-1]);
+      }
+    });
+  }
+  table[serverName].webidProvider = `${data.passed}/${data.total - data.skipped}`
+  // console.log(serverName, data);
+}
 function processLine (line) {
   const parts = line.split(' ');
   if (line.indexOf('ldp-basic') !== -1) {
@@ -86,8 +100,11 @@ function processLine (line) {
     processLdpBasicLine(parts)
   } else if (line.indexOf('rdf-fixtures') !== -1) {
     processPerlBasedLine(parts)
+  } else if (line.indexOf('webid-provider') !== -1) {
+    processWebidProviderLine(parts);
   } else {
     if (parts.length < 8) {
+      console.log('too few parts!', parts)
       return;
     }
     processWebsocketsPubsubLine(parts)
@@ -95,11 +112,14 @@ function processLine (line) {
 }
 
 function writeOutput() {
-  console.log(['Server', 'LDP Basic', 'Websockets-pub-sub', 'RDF-fixtures'].map(str => str.padEnd(PAD_LEN)).join('\t'))
+  console.log(['Server', 'WebID Provider', 'LDP Basic', 'Websockets-pub-sub', 'RDF-fixtures'].map(str => str.padEnd(PAD_LEN)).join('\t'))
   for (let serverName in table) {
     // console.log(table[serverName], serverName)
-    var perlBasedResult = `${table[serverName].perlBased.passedNumber}/${table[serverName].perlBased.totalNumber}`
-    console.log([serverName, table[serverName].ldpBasic, table[serverName].websocketsPubsub, perlBasedResult].map(str => str.padEnd(PAD_LEN)).join('\t'))
+    let perlBasedResult = '-';
+    if (table[serverName].perlBased) {
+      perlBasedResult = `${table[serverName].perlBased.passedNumber}/${table[serverName].perlBased.totalNumber}`
+    }
+    console.log([serverName || '---', table[serverName].webidProvider || '---', table[serverName].ldpBasic || '---', table[serverName].websocketsPubsub || '---', perlBasedResult || '---'].map(str => str.padEnd(PAD_LEN)).join('\t'))
   }
 }
 
