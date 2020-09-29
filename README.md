@@ -45,32 +45,35 @@ Prerequisites: [Docker](https://docs.docker.com/install/)
 Run the following commands in your command line terminal:
 
 ```sh
-docker build -t ldp-basic testers/ldp-basic
+# docker build -t ldp-basic testers/ldp-basic
 docker build -t websockets-pubsub testers/websockets-pubsub
 docker build -t rdf-fixtures testers/rdf-fixtures
 docker build -t webid-provider testers/webid-provider
+docker build -t cookie helpers/cookie
 
 docker build -t table-reporter reporters/table
 docker network create testnet
 mkdir  -p reports
 
-bash runTests.sh gold
-bash runTests.sh inrupt-pod-server
 bash runTests.sh node-solid-server
+bash runTests.sh nextcloud-server
+bash runTests.sh php-solid-server
 bash runTests.sh trellis
-bash runTests.sh wac-ldp
+bash runTests.sh solid-app-kit
+# bash runTests.sh gold
+# bash runTests.sh inrupt-pod-server
 # bash runTests.sh rww-play
 
 egrep 'Tests:|tests run:|earl:outcome' reports/* | docker run -i table-reporter
 ```
 The final output should look something like:
 ```sh
-Server              	LDP Basic           	Websockets-pub-sub  	RDF-fixtures
-gold                	0/90                	0/1                 	2/47
-inrupt-pod-server   	0/90                	0/1                 	2/47
-node-solid-server   	15/90               	0/1                 	22/49
-trellis             	47/90               	0/1                 	10/45
-wac-ldp             	57/90               	1/1                 	8/50
+Server              	WebID Provider      	LDP Basic           	Websockets-pub-sub  	RDF-fixtures        
+nextcloud-server    	35/35               	---                 	0/1                 	0/43                
+node-solid-server   	35/35               	---                 	0/1                 	0/43                
+php-solid-server    	24/35               	---                 	0/1                 	0/43                
+solid-app-kit       	0/35                	---                 	---                 	-                   
+trellis             	0/35                	---                 	---                 	-        
 ```
 
 To run one tester against one server interactively, you can do for instance:

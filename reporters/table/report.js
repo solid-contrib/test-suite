@@ -78,7 +78,7 @@ function processLdpBasicLine (parts) {
 }
 
 function processWebidProviderLine(parts) {
-  console.log('processing', parts);
+  // console.log('processing', parts);
   const serverName = (/^reports.(.*)-webid-provider.txt.Tests.$/gm).exec(parts[0])[1];
   const data = {};
   for (let i=1; i<parts.length; i++) {
@@ -88,8 +88,11 @@ function processWebidProviderLine(parts) {
       }
     });
   }
-  table[serverName].webidProvider = `${data.passed}/${data.total - data.skipped}`
+  if (!table[serverName]) {
+    table[serverName] = {}
+  }
   // console.log(serverName, data);
+  table[serverName].webidProvider = `${data.passed || 0}/${data.total - data.skipped}`
 }
 function processLine (line) {
   const parts = line.split(' ');
@@ -104,7 +107,7 @@ function processLine (line) {
     processWebidProviderLine(parts);
   } else {
     if (parts.length < 8) {
-      console.log('too few parts!', parts)
+      // console.log('too few parts!', parts)
       return;
     }
     processWebsocketsPubsubLine(parts)
