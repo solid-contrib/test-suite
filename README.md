@@ -45,14 +45,14 @@ Prerequisites: [Docker](https://docs.docker.com/install/)
 Run the following commands in your command line terminal:
 
 ```sh
-# docker build -t ldp-basic testers/ldp-basic
-docker build -t websockets-pubsub testers/websockets-pubsub
-docker build -t rdf-fixtures testers/rdf-fixtures
 docker build -t webid-provider testers/webid-provider
 docker build -t solid-crud testers/solid-crud
 docker build -t web-access-control testers/web-access-control
-docker build -t cookie helpers/cookie
+docker build -t rdf-fixtures testers/rdf-fixtures
+# docker build -t ldp-basic testers/ldp-basic
+# docker build -t websockets-pubsub testers/websockets-pubsub
 
+docker build -t cookie helpers/cookie
 docker build -t table-reporter reporters/table
 docker network create testnet
 mkdir  -p reports
@@ -60,8 +60,8 @@ mkdir  -p reports
 bash runTests.sh node-solid-server
 bash runTests.sh nextcloud-server
 bash runTests.sh php-solid-server
-bash runTests.sh trellis
-bash runTests.sh solid-app-kit
+# bash runTests.sh trellis
+# bash runTests.sh solid-app-kit
 # bash runTests.sh gold
 # bash runTests.sh inrupt-pod-server
 # bash runTests.sh rww-play
@@ -70,12 +70,10 @@ egrep 'Tests:|tests run:|earl:outcome' reports/* | docker run -i table-reporter
 ```
 The final output should look something like:
 ```sh
-Server              	WebID Provider      	LDP Basic           	Websockets-pub-sub  	RDF-fixtures        
-nextcloud-server    	35/35               	---                 	0/1                 	0/43                
-node-solid-server   	35/35               	---                 	0/1                 	0/43                
-php-solid-server    	24/35               	---                 	0/1                 	0/43                
-solid-app-kit       	0/35                	---                 	---                 	-                   
-trellis             	0/35                	---                 	---                 	-        
+Server              	WebID Provider      	Solid Crud          	Web Access Control  
+nextcloud-server    	35/35               	0/73                	0/0                 
+node-solid-server   	35/35               	48/73               	0/0                 
+php-solid-server    	24/35               	0/73                	0/0                 
 ```
 
 To run one tester against one server interactively, you can do for instance:

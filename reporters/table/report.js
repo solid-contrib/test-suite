@@ -77,9 +77,9 @@ function processLdpBasicLine (parts) {
   table[serverName].ldpBasic = result;
 }
 
-function processWebidProviderLine(parts) {
+function processJestBasedLine(parts, testName) {
   // console.log('processing', parts);
-  const serverName = (/^reports.(.*)-webid-provider.txt.Tests.$/gm).exec(parts[0])[1];
+  const serverName = (new RegExp(`^reports.(.*)-${testName}.txt.Tests.$`, 'gm')).exec(parts[0])[1];
   const data = {};
   for (let i=1; i<parts.length; i++) {
     ['skipped', 'passed', 'failed', 'total'].forEach(term => {
@@ -92,7 +92,7 @@ function processWebidProviderLine(parts) {
     table[serverName] = {}
   }
   // console.log(serverName, data);
-  table[serverName].webidProvider = `${data.passed || 0}/${data.total - data.skipped}`
+  table[serverName][testName] = `${data.passed || 0}/${data.total - (data.skipped || 0)}`
 }
 function processLine (line) {
   const parts = line.split(' ');
@@ -104,7 +104,11 @@ function processLine (line) {
   } else if (line.indexOf('rdf-fixtures') !== -1) {
     processPerlBasedLine(parts)
   } else if (line.indexOf('webid-provider') !== -1) {
-    processWebidProviderLine(parts);
+    processJestBasedLine(parts, 'webid-provider');
+  } else if (line.indexOf('solid-crud') !== -1) {
+    processJestBasedLine(parts, 'solid-crud');
+  } else if (line.indexOf('web-access-control') !== -1) {
+    processJestBasedLine(parts, 'web-access-control');
   } else {
     if (parts.length < 8) {
       // console.log('too few parts!', parts)
@@ -115,14 +119,20 @@ function processLine (line) {
 }
 
 function writeOutput() {
-  console.log(['Server', 'WebID Provider', 'LDP Basic', 'Websockets-pub-sub', 'RDF-fixtures'].map(str => str.padEnd(PAD_LEN)).join('\t'))
+  console.log(['Server', 'WebID Provider', 'Solid Crud', 'Web Access Control', /* 'RDF Fixtures' */].map(str => str.padEnd(PAD_LEN)).join('\t'))
   for (let serverName in table) {
     // console.log(table[serverName], serverName)
     let perlBasedResult = '-';
     if (table[serverName].perlBased) {
       perlBasedResult = `${table[serverName].perlBased.passedNumber}/${table[serverName].perlBased.totalNumber}`
     }
-    console.log([serverName || '---', table[serverName].webidProvider || '---', table[serverName].ldpBasic || '---', table[serverName].websocketsPubsub || '---', perlBasedResult || '---'].map(str => str.padEnd(PAD_LEN)).join('\t'))
+    console.log([
+      serverName || '---',
+      table[serverName]['webid-provider'] || '---',
+      table[serverName]['solid-crud'] || '---',
+      table[serverName]['web-access-control'] || '---',
+      // perlBasedResult || '---'
+    ].map(str => str.padEnd(PAD_LEN)).join('\t'))
   }
 }
 
