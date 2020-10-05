@@ -77,9 +77,15 @@ function processLdpBasicLine (parts) {
   table[serverName].ldpBasic = result;
 }
 
+<<<<<<< HEAD
 function processJestBasedLine(parts, testName) {
   // console.log('processing', parts);
   const serverName = (new RegExp(`^reports.(.*)-${testName}.txt.Tests.$`, 'gm')).exec(parts[0])[1];
+=======
+function processWebidProviderLine(parts) {
+  // console.log('processing', parts);
+  const serverName = (/^reports.(.*)-webid-provider.txt.Tests.$/gm).exec(parts[0])[1];
+>>>>>>> origin/master
   const data = {};
   for (let i=1; i<parts.length; i++) {
     ['skipped', 'passed', 'failed', 'total'].forEach(term => {
@@ -92,7 +98,11 @@ function processJestBasedLine(parts, testName) {
     table[serverName] = {}
   }
   // console.log(serverName, data);
+<<<<<<< HEAD
   table[serverName][testName] = `${data.passed || 0}/${data.total - (data.skipped || 0)}`
+=======
+  table[serverName].webidProvider = `${data.passed || 0}/${data.total - data.skipped}`
+>>>>>>> origin/master
 }
 function processLine (line) {
   const parts = line.split(' ');
