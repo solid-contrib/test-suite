@@ -1,3 +1,6 @@
+#!/bin/bash
+set -e
+
 echo Testing $1 ...
 echo Building image ...
 docker build -t $1 servers/$1
@@ -6,7 +9,7 @@ echo Starting server ...
 docker run -d --name=server --network=testnet $1
 
 echo Starting idp ...
-docker run -d --name=idp --network=testnet node-solid-server
+docker run --rm -d --name=idp --network=testnet node-solid-server
 
 until docker run --rm --network=testnet webid-provider curl -kI https://server 2> /dev/null > /dev/null
 do
@@ -21,9 +24,10 @@ if [[ "$1" == nextcloud-server ]]
     echo Running init script for Nextcloud server ...
     docker exec -u www-data -it server sh /init.sh
     docker exec -u root -it server service apache2 reload
-    echo Getting cookie...
-    export COOKIE="`docker run --rm --cap-add=SYS_ADMIN --network=testnet --name cookie --env-file servers/$1/env.list cookie`"
 fi
+
+echo Getting cookie...
+export COOKIE="`docker run --rm --cap-add=SYS_ADMIN --network=testnet --name cookie --env-file servers/$1/env.list cookie`"
 
 # echo Running rdf-fixtures tester ...
 # docker run --rm --network=testnet rdf-fixtures > reports/$1-rdf-fixtures.txt
@@ -37,8 +41,9 @@ docker run --rm --network=testnet --name tester --env COOKIE="$COOKIE" --env-fil
 # echo Running web-access-control tester with cookie $COOKIE...
 # docker run --rm --network=testnet --name tester --env COOKIE="$COOKIE" --env-file servers/$1/env.list web-access-control 2> reports/$1-web-access-control.txt
 
-echo Stopping server...
+echo Stopping server and idp...
 docker stop server
+docker stop idp
 
 echo Removing server...
 docker rm server
