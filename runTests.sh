@@ -5,18 +5,19 @@ docker build -t $1 servers/$1
 echo Starting server ...
 docker run -d --name=server --network=testnet $1
 
-if [[ "$1" == trellis ]]
-  then
-    docker logs server
-    echo Waiting for ten seconds ...
-    sleep 10
-    docker logs server
-fi
+echo Starting idp ...
+docker run -d --name=idp --network=testnet node-solid-server
+
+until docker run --rm --network=testnet webid-provider curl -kI https://server 2> /dev/null > /dev/null
+do
+  echo Waiting for server to start, this can take up to a minute ...
+  docker ps -a
+  docker logs server || true
+  sleep 1
+done
 
 if [[ "$1" == nextcloud-server ]]
   then
-    sleep 10
-    docker logs server
     echo Running init script for Nextcloud server ...
     docker exec -u www-data -it server sh /init.sh
     docker exec -u root -it server service apache2 reload
