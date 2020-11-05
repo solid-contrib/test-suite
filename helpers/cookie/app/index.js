@@ -1,11 +1,12 @@
 const puppeteer = require("puppeteer");
+const solidAuthFetcher = require("solid-auth-fetcher");
 
 const SERVER_ROOT = process.env.SERVER_ROOT || "https://server";
-const LOGIN_URL = `${SERVER_ROOT}/login`;
 const USERNAME = process.env.USERNAME || "alice";
 const PASSWORD = process.env.PASSWORD || "alice123";
 
 async function getCookieNextcloudCompatible() {
+  const LOGIN_URL = `${SERVER_ROOT}/login`;
   const browser = await puppeteer.launch({
     ignoreHTTPSErrors: true,
     headless: true,
@@ -26,7 +27,14 @@ async function getCookieNextcloudCompatible() {
 }
 
 async function run () {
-  const cookie = await getCookieNextcloudCompatible();
+  let cookie
+  if (process.env.SERVER_TYPE === 'nextcloud-server') {
+    cookie = await getCookieNextcloudCompatible();
+  } else if (process.env.SERVER_TYPE === 'node-solid-server') {
+    cookie = await solidAuthFetcher.getNodeSolidServerCookie(SERVER_ROOT, USERNAME, PASSWORD);
+  } else if (process.env.SERVER_TYPE === 'php-solid-server') {
+    cookie = await solidAuthFetcher.getNodeSolidServerCookie(SERVER_ROOT, USERNAME, PASSWORD);
+  }
   console.log(cookie);
 }
 
