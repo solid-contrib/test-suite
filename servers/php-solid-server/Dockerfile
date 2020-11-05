@@ -20,4 +20,5 @@ WORKDIR /app
 RUN php /install/composer.phar install --no-dev --prefer-dist
 COPY site.conf /etc/apache2/sites-enabled/site.conf
 RUN chown www-data /app/config
+RUN git checkout add-solid-crud-tests
 EXPOSE 443
