@@ -4,25 +4,41 @@
 
 ## Introduction
 
-The goal of the test suite project is to produce test suites that can
-be used to verify the compliance of any server implementation to the
-Solid specifications.
+This test suite runs various testers against various servers in a
+Docker testnet. The testers can also run against live servers over
+the public internet.
 
-To accomplish this, the project will in part reuse existing test
-suites that have been developed for technologies Solid depends on, for
-example the W3C LDP testsuite. 
+## WebID Provider
 
-In part, the project will develop test suites specifically for Solid
-technologies. Since most Solid specifications do not require extensive
-program flow to be tested, the main line of work is to develop a
-system that uses RDF to describe the tests, so that most of the
-tests are developed using RDF. This does not exclude the possibility
-of writing a test framework using a conventional programming language
-for parts of Solid that would be better served by it.
+The following servers pass 35/35 tests in the WebID Provider tests:
+
+* [Node Solid Server](https://github.com/solid/node-solid-server)
+* [PHP Solid Server](https://github.com/pdsinterop/php-solid-server)
+* [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled)
+
+## Solid CRUD
+
+No servers currently pass 62/62 tests in the Solid CRUD tests yet. This is
+the state of the landscape, as of November 2020:
+
+* [Node Solid Server](https://github.com/solid/node-solid-server): 50/62
+* [PHP Solid Server](https://github.com/pdsinterop/php-solid-server):
+* [Community Solid Server](https://github.com/solid/community-server):
+
+## Web Access Control
+
+These tests are currently under development.
+
+## Access Control Policies
+
+If more servers offer [Access Control Policies](https://github.com/solid/authorization-panel/blob/master/proposals/acp/index.md) as an experimental alternative to Solid's existing Web Access Control
+system, the test-suite panel should find a way to create tests for that, too. But as of November 2020,
+there are no concrete plans for this.
 
 ## RDF-based Test Fixtures
 
-This consists of Turtle files that formulates the tests by referencing
+These tests were created by Kjetil Kjernsmo during 2019. They
+consist of Turtle files that formulates the tests by referencing
 their implementation and parameterizes the tests. This is then
 implemented in a *framework* that can be used to formulate tests in a
 generic manner, i.e. not Solid-specific, and several *test scripts*
