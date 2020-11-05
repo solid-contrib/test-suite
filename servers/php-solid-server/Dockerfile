@@ -16,8 +16,8 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
 RUN git clone https://github.com/pdsinterop/php-solid-server /app
-RUN git checkout add-solid-crud-tests
 WORKDIR /app
+RUN git checkout add-solid-crud-tests
 RUN php /install/composer.phar install --no-dev --prefer-dist
 COPY site.conf /etc/apache2/sites-enabled/site.conf
 RUN chown www-data /app/config
