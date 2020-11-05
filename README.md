@@ -22,8 +22,8 @@ No servers currently pass 62/62 tests in the Solid CRUD tests yet. This is
 the state of the landscape, as of November 2020:
 
 * [Node Solid Server](https://github.com/solid/node-solid-server): 50/62
-* [PHP Solid Server](https://github.com/pdsinterop/php-solid-server):
-* [Community Solid Server](https://github.com/solid/community-server):
+* [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 0/62
+* [Community Solid Server](https://github.com/solid/community-server): 0/62
 
 ## Web Access Control
 
