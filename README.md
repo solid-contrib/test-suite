@@ -27,7 +27,12 @@ the state of the landscape, as of November 2020:
 
 ## Web Access Control
 
-These tests are currently under development.
+These tests are currently under development, there are only 9 tests so far (v1.1.0).
+This is the state of the landscape, as of November 2020:
+
+* [Node Solid Server](https://github.com/solid/node-solid-server): 9/9
+* [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 0/9
+* [Community Solid Server](https://github.com/solid/community-server): 0/9
 
 ## Access Control Policies
 
