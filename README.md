@@ -18,12 +18,11 @@ The following servers pass 35/35 tests in the WebID Provider tests:
 
 ## Solid CRUD
 
-No servers currently pass 62/62 tests in the Solid CRUD tests yet. This is
-the state of the landscape, as of November 2020:
+The following servers pass all or some tests in the Solid CRUD tests:
 
-* [Node Solid Server](https://github.com/solid/node-solid-server): 50/62
-* [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 0/62
-* [Community Solid Server](https://github.com/solid/community-server): 0/62
+* [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 61/61
+* [Node Solid Server](https://github.com/solid/node-solid-server/pull/1492#issuecomment-726668190): 45/61
+* [Community Solid Server](https://github.com/solid/community-server/pull/278#issuecomment-724651937): 8/61
 
 ## Web Access Control
 
