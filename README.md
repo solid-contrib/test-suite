@@ -12,26 +12,26 @@ the public internet.
 
 The following servers pass 35/35 tests in the WebID Provider tests:
 
-*********************************** [Node Solid Server](https://github.com/solid/node-solid-server)
-*********************************** [PHP Solid Server](https://github.com/pdsinterop/php-solid-server)
-*********************************** [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled)
+* `***********************************` [Node Solid Server](https://github.com/solid/node-solid-server)
+* `***********************************`**` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server)
+* `***********************************`**` [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled)
 
 ## Solid CRUD
 
 The following servers pass all or some tests in the Solid CRUD tests:
 
-************************************************************* [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 61/61
-********************************************* [Node Solid Server](https://github.com/solid/node-solid-server/pull/1492#issuecomment-726668190): 45/61
-******** [Community Solid Server](https://github.com/solid/community-server/pull/278#issuecomment-724651937): 8/61
+* `*************************************************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 61/61
+* `*********************************************` [Node Solid Server](https://github.com/solid/node-solid-server/pull/1492#issuecomment-726668190): 45/61
+* `********` [Community Solid Server](https://github.com/solid/community-server/pull/278#issuecomment-724651937): 8/61
 
 ## Web Access Control
 
 These tests are currently under development, there are only 9 tests so far (v1.1.0).
 This is the state of the landscape, as of November 2020:
 
-********* [Node Solid Server](https://github.com/solid/node-solid-server): 9/9
-- [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 0/9
-- [Community Solid Server](https://github.com/solid/community-server): 0/9
+* `*********` [Node Solid Server](https://github.com/solid/node-solid-server): 9/9
+* `-` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 0/9
+* `-` [Community Solid Server](https://github.com/solid/community-server): 0/9
 
 ## Access Control Policies
 
