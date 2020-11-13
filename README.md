@@ -13,8 +13,8 @@ the public internet.
 The following servers pass 35/35 tests in the WebID Provider tests:
 
 * `***********************************` [Node Solid Server](https://github.com/solid/node-solid-server)
-* `***********************************`**` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server)
-* `***********************************`**` [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled)
+* `***********************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server)
+* `***********************************` [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled)
 
 ## Solid CRUD
 
