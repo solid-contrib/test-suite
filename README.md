@@ -1,4 +1,4 @@
-# Test Suite for Solid
+# Test Suite for Solid (version 2.0)
 
 [![Join the chat at https://gitter.im/solid/test-suite](https://badges.gitter.im/solid/test-suite.svg)](https://gitter.im/solid/test-suite?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -17,7 +17,7 @@ their continuous integration:
 * Inrupt ESS (coming soon!)
 * TrinPod (coming soon!)
 
-## WebID Provider
+## WebID Provider Tests (version 2.0)
 
 The following servers run the WebID Provider tests:
 
@@ -25,7 +25,7 @@ The following servers run the WebID Provider tests:
 * `************************************` [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled)
 * `***********************************-` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server)
 
-## Solid CRUD
+## Solid CRUD Tests (version 2.0)
 
 The following servers run the Solid CRUD tests:
 
@@ -34,13 +34,13 @@ The following servers run the Solid CRUD tests:
 * `*********************************************` [Node Solid Server](https://github.com/solid/node-solid-server/pull/1492#issuecomment-726668190): 45/61
 * `********` [Community Solid Server](https://github.com/solid/community-server/pull/278#issuecomment-724651937): 8/61
 
-## Web Access Control
+## Web Access Control Tests (version 2.1)
 
 The following servers run the WAC tests:
 
 * `************************************` [Node Solid Server](https://github.com/solid/node-solid-server): 36/61
 
-## Access Control Policies
+## Access Control Policies (coming soon)
 
 If more servers offer [Access Control Policies](https://github.com/solid/authorization-panel/blob/master/proposals/acp/index.md) as an experimental alternative to Solid's existing Web Access Control
 system, the test-suite panel should find a way to create tests for that, too. But as of November 2020,
