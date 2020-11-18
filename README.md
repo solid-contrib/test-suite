@@ -78,3 +78,8 @@ The web-access-control-tests have to run authenticated. To pass these tests, the
 The 'Alice' identity on the server should have full R/W/A/C access (accessTo+default) to the entire pod.
 The tests then instantiate two [Solid Logic](https://www.npmjs.com/package/solid-logic) instances, one for 'Alice' on https://server, and one for 'Bob' on https://thirdparty.
 Through those, Alice will edit her ACL documents to give Bob various kinds of access, and then Bob will test various operations.
+
+See also:
+* The [webid-provider-tests](https://github.com/solid/webid-provider-tests#usage) readme.
+* The [solid-crud-tests](https://github.com/solid/solid-crud-tests#storage-tests) readme.
+* The [web-access-control-tests](https://github.com/solid/web-access-control-tests) readme.
