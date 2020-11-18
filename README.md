@@ -8,17 +8,24 @@ This test suite runs various testers against various servers in a
 Docker testnet. The testers can also run against live servers over
 the public internet.
 
+The following Solid Server projects run (parts of) this suite in
+their continuous integration:
+* [node-solid-server](https://github.com/solid/node-solid-server/blob/master/test/surface/run-solid-test-suite.sh) (webid + crud + wac)
+* [php-solid-server](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (only webid + crud, so far)
+* [Solid-Nextcloud](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (only webid + crud, so far)
+* [community-solid-server](https://github.com/solid/community-server/blob/master/test/system/run-solid-test-suite.sh) (only crud, so far)
+
 ## WebID Provider
 
-The following servers pass 36/36 tests in the WebID Provider tests:
+The following servers run the WebID Provider tests:
 
 * `************************************` [Node Solid Server](https://github.com/solid/node-solid-server)
-* `************************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server)
 * `************************************` [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled)
+* `***********************************-` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server)
 
 ## Solid CRUD
 
-The following servers pass all or some tests in the Solid CRUD tests:
+The following servers run the Solid CRUD tests:
 
 * `*************************************************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 61/61
 * `*************************************************************` [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled): 61/61
@@ -27,11 +34,9 @@ The following servers pass all or some tests in the Solid CRUD tests:
 
 ## Web Access Control
 
-The following servers pass all or some tests in the WAC tests:
+The following servers run the WAC tests:
 
-* `*****************************` [Node Solid Server](https://github.com/solid/node-solid-server): 29/61
-* `-` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 0/61
-* `-` [Community Solid Server](https://github.com/solid/community-server): 0/61
+* `************************************` [Node Solid Server](https://github.com/solid/node-solid-server): 36/61
 
 ## Access Control Policies
 
