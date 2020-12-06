@@ -13,7 +13,6 @@ their continuous integration:
 * [Node Solid Server](https://github.com/solid/node-solid-server/blob/master/test/surface/run-solid-test-suite.sh) (webid + crud + wac)
 * [PHP Solid Server](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (only webid + crud, so far)
 * [Solid-Nextcloud](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (only webid + crud, so far)
-* [Community Solid Server](https://github.com/solid/community-server/blob/master/test/system/run-solid-test-suite.sh) (only crud, so far)
 * Inrupt ESS (coming soon!)
 * TrinPod (coming soon!)
 
@@ -32,7 +31,7 @@ The following servers run the Solid CRUD tests:
 * `*************************************************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 61/61
 * `*************************************************************` [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled): 61/61
 * `*********************************************` [Node Solid Server](https://github.com/solid/node-solid-server/pull/1492#issuecomment-726668190): 45/61
-* `********` [Community Solid Server](https://github.com/solid/community-server/pull/278#issuecomment-724651937): 8/61
+* `********` [Community Solid Server v0.2.0](https://github.com/solid/community-server/pull/278#issuecomment-724651937): 8/61
 
 ## Web Access Control Tests (version 2.1)
 
