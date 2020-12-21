@@ -16,24 +16,24 @@ their continuous integration:
 * Inrupt ESS (coming soon!)
 * TrinPod (coming soon!)
 
-## WebID Provider Tests (version 2.0)
+## WebID Provider Tests (version 2.0.2)
 
 The following servers run the WebID Provider tests:
 
-* `************************************` [Node Solid Server](https://github.com/solid/node-solid-server)
-* `************************************` [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled)
-* `***********************************-` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server)
+* `************************************` [Node Solid Server](https://github.com/solid/node-solid-server): 36/36
+* `************************************` [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled): 36/36
+* `***********************************-` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 35/36
 
-## Solid CRUD Tests (version 2.0)
+## Solid CRUD Tests (version 2.0.3)
 
 The following servers run the Solid CRUD tests:
 
 * `*************************************************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 61/61
 * `*************************************************************` [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled): 61/61
-* `*********************************************` [Node Solid Server](https://github.com/solid/node-solid-server/pull/1492#issuecomment-726668190): 45/61
+* `*****************************************************` [Node Solid Server](https://github.com/solid/node-solid-server/pull/1492#issuecomment-726668190): 53/61
 * `********` [Community Solid Server v0.2.0](https://github.com/solid/community-server/pull/278#issuecomment-724651937): 8/61
 
-## Web Access Control Tests (version 2.1.1)
+## Web Access Control Tests (version 2.1.2)
 
 The following servers run the WAC tests:
 * `*******************************************************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 67/67
