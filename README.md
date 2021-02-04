@@ -16,7 +16,7 @@ their continuous integration:
 * Inrupt ESS (coming soon!)
 * TrinPod (coming soon!)
 
-## WebID Provider Tests (version 2.0.2)
+## WebID Provider Tests (version 2.0.3)
 
 The following servers run the WebID Provider tests:
 
@@ -24,7 +24,7 @@ The following servers run the WebID Provider tests:
 * `************************************` [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled): 36/36
 * `************************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 36/36
 
-## Solid CRUD Tests (version 2.0.3)
+## Solid CRUD Tests (version 2.0.4)
 
 The following servers run the Solid CRUD tests:
 
@@ -33,7 +33,7 @@ The following servers run the Solid CRUD tests:
 * `*************************************************************` [Node Solid Server](https://github.com/solid/node-solid-server/pull/1492#issuecomment-726668190): 61/61
 * `********` [Community Solid Server v0.2.0](https://github.com/solid/community-server/pull/278#issuecomment-724651937): 8/61
 
-## Web Access Control Tests (version 2.1.2)
+## Web Access Control Tests (version 2.1.3)
 
 The following servers run the WAC tests:
 * `*******************************************************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 67/67
