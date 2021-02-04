@@ -11,8 +11,9 @@ the public internet.
 The following Solid Server projects run (parts of) this suite in
 their continuous integration:
 * [Node Solid Server](https://github.com/solid/node-solid-server/blob/master/test/surface/run-solid-test-suite.sh) (webid + crud + wac)
-* [PHP Solid Server](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (only webid + crud, so far)
-* [Solid-Nextcloud](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (only webid + crud, so far)
+* [PHP Solid Server](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (webid + crud + wac)
+* [Solid-Nextcloud](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (webid + crud + wac)
+* [Community Solid Server](https://github.com/solid/community-server/pull/592) (only crud, so far)
 * Inrupt ESS (coming soon!)
 * TrinPod (coming soon!)
 
