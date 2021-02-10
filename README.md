@@ -13,7 +13,7 @@ their continuous integration:
 * [Node Solid Server](https://github.com/solid/node-solid-server/blob/master/test/surface/run-solid-test-suite.sh) (webid + crud + wac)
 * [PHP Solid Server](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (webid + crud + wac)
 * [Solid-Nextcloud](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (webid + crud + wac)
-* [Community Solid Server](https://github.com/michielbdejong/community-server/blob/master/test/system/run-solid-test-suite.sh) (only crud, so far)
+* [Community Solid Server](https://github.com/michielbdejong/community-server/blob/main/test/system/run-solid-test-suite.sh) (only crud, so far)
 * Inrupt ESS (coming soon!)
 * TrinPod (coming soon!)
 
