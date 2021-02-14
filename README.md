@@ -25,14 +25,14 @@ The following servers run the WebID Provider tests:
 * `************************************` [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled): 36/36
 * `************************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 36/36
 
-## Solid CRUD Tests (version 2.0.4)
+## Solid CRUD Tests (version 3.0.0)
 
 The following servers run the Solid CRUD tests:
 
-* `*************************************************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 61/61
-* `*************************************************************` [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled): 61/61
-* `*************************************************************` [Node Solid Server](https://github.com/solid/node-solid-server/pull/1492#issuecomment-726668190): 61/61
-* `************************************************` [Community Solid Server](https://github.com/michielbdejong/community-server/blob/master/README.md#community-solid-server): 48/61
+* `*********************************************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 57/57
+* `*********************************************************` [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled): 57/57
+* `*********************************************************` [Node Solid Server](https://github.com/solid/node-solid-server/pull/1492#issuecomment-726668190): 57/57
+* `**************************************************` [Community Solid Server](https://github.com/michielbdejong/community-server/blob/master/README.md#community-solid-server): 50/57
 
 ## Web Access Control Tests (version 2.1.3)
 
