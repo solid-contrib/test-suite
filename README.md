@@ -22,7 +22,8 @@ their continuous integration:
 The following servers run the WebID Provider tests:
 
 * `************************************` [Node Solid Server](https://github.com/solid/node-solid-server): 36/36
-* `************************************` [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled): 36/36
+* `************************************` [Nextcloud Server](https://github.com/nextcloud/server)
+  - (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled): 36/36
 * `************************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 36/36
 
 ## Solid CRUD Tests (version 3.0.0)
