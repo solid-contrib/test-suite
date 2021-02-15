@@ -30,17 +30,21 @@ The following servers run the WebID Provider tests:
 The following servers run the Solid CRUD tests:
 
 * `*********************************************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 57/57
-* `*********************************************************` [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled): 57/57
+* `*********************************************************` [Nextcloud Server](https://github.com/nextcloud/server)
+  - (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled): 57/57
 * `*********************************************************` [Node Solid Server](https://github.com/solid/node-solid-server/pull/1492#issuecomment-726668190): 57/57
-* `**************************************************` [Community Solid Server](https://github.com/michielbdejong/community-server/blob/master/README.md#community-solid-server): 50/57 (missing only [`pub` on container](https://github.com/solid/community-server/issues/612))
+* `**************************************************` [Community Solid Server](https://github.com/michielbdejong/community-server/blob/master/README.md#community-solid-server): 50/57
+  - (missing only [`pub` on container](https://github.com/solid/community-server/issues/612))
 
 ## Web Access Control Tests (version 3.0.0)
 
 The following servers run the WAC tests:
 * `************************************************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 60/60
-* `************************************************************` [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled): 60/60
+* `************************************************************` [Nextcloud Server](https://github.com/nextcloud/server)
+  - (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled): 60/60
 * `************************************************************` [Node Solid Server](https://github.com/solid/node-solid-server): 60/60
-* `******************************************************` [Community Solid Server](https://github.com/solid/community-server): 54/60 (missing only [WAC-Allow](https://github.com/solid/community-server/issues/225))
+* `******************************************************` [Community Solid Server](https://github.com/solid/community-server): 54/60
+  - (missing only [WAC-Allow](https://github.com/solid/community-server/issues/225))
 
 ## Access Control Policies (coming soon)
 
