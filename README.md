@@ -13,7 +13,7 @@ their continuous integration:
 * [Node Solid Server](https://github.com/solid/node-solid-server/blob/master/test/surface/run-solid-test-suite.sh) (webid + crud + wac)
 * [PHP Solid Server](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (webid + crud + wac)
 * [Solid-Nextcloud](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (webid + crud + wac)
-* [Community Solid Server](https://github.com/michielbdejong/community-server/blob/main/test/system/run-solid-test-suite.sh) (only crud, so far)
+* [Community Solid Server](https://github.com/michielbdejong/community-server/blob/main/test/system/run-solid-test-suite.sh) (crud + wac)
 * Inrupt ESS (coming soon!)
 * TrinPod (coming soon!)
 
@@ -34,13 +34,13 @@ The following servers run the Solid CRUD tests:
 * `*********************************************************` [Node Solid Server](https://github.com/solid/node-solid-server/pull/1492#issuecomment-726668190): 57/57
 * `**************************************************` [Community Solid Server](https://github.com/michielbdejong/community-server/blob/master/README.md#community-solid-server): 50/57
 
-## Web Access Control Tests (version 2.1.3)
+## Web Access Control Tests (version 3.0.0)
 
 The following servers run the WAC tests:
-* `*******************************************************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 67/67
-* `*******************************************************************` [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled): 67/67
-
-* `*******************************************************************` [Node Solid Server](https://github.com/solid/node-solid-server): 67/67
+* `************************************************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 60/60
+* `************************************************************` [Nextcloud Server](https://github.com/nextcloud/server) (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled): 60/60
+* `************************************************************` [Node Solid Server](https://github.com/solid/node-solid-server): 60/60
+* `******************************************************` [Community Solid Server](https://github.com/solid/community-server): 54/60
 
 ## Access Control Policies (coming soon)
 
