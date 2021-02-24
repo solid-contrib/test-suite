@@ -37,15 +37,16 @@ The following servers run the Solid CRUD tests:
 * `**************************************************` [Community Solid Server](https://github.com/michielbdejong/community-server/blob/master/README.md#community-solid-server): 50/57
   - (missing only [`pub` on container](https://github.com/solid/community-server/issues/612))
 
-## Web Access Control Tests (version 3.0.0)
+## Web Access Control Tests (version 4.0.0)
 
 The following servers run the WAC tests:
-* `************************************************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 60/60
-* `************************************************************` [Nextcloud Server](https://github.com/nextcloud/server): 60/60
+* `***********************************************************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 71/71
+* `***********************************************************************` [Nextcloud Server](https://github.com/nextcloud/server): 71/71
   - (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled)
-* `************************************************************` [Node Solid Server](https://github.com/solid/node-solid-server): 60/60
-* `******************************************************` [Community Solid Server](https://github.com/solid/community-server): 54/60
-  - (missing only [WAC-Allow](https://github.com/solid/community-server/issues/225))
+* `***********************************************************************` [Node Solid Server](https://github.com/solid/node-solid-server): 71/71
+* `***********************************************************************` [Community Solid Server](https://github.com/solid/community-server): 71/71
+* `*********************************************************************` [pod-compat.inrupt.com](https://pod-compat.inrupt.com): 69/71
+  - (missing only PATCH-to-Append)
 
 ## Access Control Policies (coming soon)
 
