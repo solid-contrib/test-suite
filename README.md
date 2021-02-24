@@ -44,7 +44,7 @@ The following servers run the WAC tests:
   - (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled)
 * `***********************************************************************` [Node Solid Server](https://github.com/solid/node-solid-server): 71/71
 * `***********************************************************************` [Community Solid Server](https://github.com/solid/community-server): 71/71
-* `*********************************************************************` [pod-compat.inrupt.com](https://pod-compat.inrupt.com): 69/71
+* `*********************************************************************--` [pod-compat.inrupt.com](https://pod-compat.inrupt.com): 69/71
   - (missing only PATCH-to-Append)
 
 ## Access Control Policies (coming soon)
