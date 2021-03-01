@@ -14,7 +14,7 @@ their continuous integration:
 * [PHP Solid Server](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (webid + crud + wac)
 * [Solid-Nextcloud](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (webid + crud + wac)
 * [Community Solid Server](https://github.com/michielbdejong/community-server/blob/main/test/system/run-solid-test-suite.sh) (crud + wac)
-* Inrupt ESS (coming soon!)
+* Inrupt ESS (crud + wac)
 * TrinPod (coming soon!)
 
 ## WebID Provider Tests (version 2.0.3)
