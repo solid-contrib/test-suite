@@ -30,23 +30,23 @@ The following servers run the WebID Provider tests:
 
 The following servers run the Solid CRUD tests ('+' means test is [related to websockets-pubsub](https://github.com/solid/test-suite/issues/111)):
 
-* `******************************++++++++++++++++++++++++++` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 56/56
-* `******************************++++++++++++++++++++++++++` [Nextcloud Server](https://github.com/nextcloud/server): 56/56
+* ******************************++++++++++++++++++++++++++ [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 56/56
+* ******************************++++++++++++++++++++++++++ [Nextcloud Server](https://github.com/nextcloud/server): 56/56
   - (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled)
-* `******************************++++++++++++++++++++++++++` [Node Solid Server](https://github.com/solid/node-solid-server): 56/56
-* `******************************++++++++++++++++++++++++++` [Community Solid Server](https://github.com/solid/community-server): 56/56
-* `*****************************[-](https://github.com/solid/solid-crud-tests/blob/v4.0.0/test/surface/create-non-container.test.ts#L300-L306)++++++++++++++++++++++++++` [pod-compat.inrupt.com](https://pod-compat.inrupt.com): 29/30
+* ******************************++++++++++++++++++++++++++ [Node Solid Server](https://github.com/solid/node-solid-server): 56/56
+* ******************************++++++++++++++++++++++++++ [Community Solid Server](https://github.com/solid/community-server): 56/56
+* *****************************[-](https://github.com/solid/solid-crud-tests/blob/v4.0.0/test/surface/create-non-container.test.ts#L300-L306)++++++++++++++++++++++++++ [pod-compat.inrupt.com](https://pod-compat.inrupt.com): 29/30
   - (websockets-pubsub not implemented)
 
 ## Web Access Control Tests (version 4.0.0)
 
 The following servers run the WAC tests:
-* `***********************************************************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 71/71
-* `***********************************************************************` [Nextcloud Server](https://github.com/nextcloud/server): 71/71
+* *********************************************************************** [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 71/71
+* *********************************************************************** [Nextcloud Server](https://github.com/nextcloud/server): 71/71
   - (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled)
-* `***********************************************************************` [Node Solid Server](https://github.com/solid/node-solid-server): 71/71
-* `***********************************************************************` [Community Solid Server](https://github.com/solid/community-server): 71/71
-* `*********************************************************************[-](https://github.com/solid/web-access-control-tests/blob/v4.0.0/test/surface/update.test.ts#L348-L381)[-](https://github.com/solid/web-access-control-tests/blob/v4.0.0/test/surface/update.test.ts#L382-L416)` [pod-compat.inrupt.com](https://pod-compat.inrupt.com): 69/71
+* *********************************************************************** [Node Solid Server](https://github.com/solid/node-solid-server): 71/71
+* *********************************************************************** [Community Solid Server](https://github.com/solid/community-server): 71/71
+* *********************************************************************[-](https://github.com/solid/web-access-control-tests/blob/v4.0.0/test/surface/update.test.ts#L348-L381)[-](https://github.com/solid/web-access-control-tests/blob/v4.0.0/test/surface/update.test.ts#L382-L416) [pod-compat.inrupt.com](https://pod-compat.inrupt.com): 69/71
   - (missing only PATCH-to-Append)
 
 ## Access Control Policies (coming soon)
