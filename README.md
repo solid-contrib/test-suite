@@ -49,11 +49,16 @@ The following servers run the WAC tests:
 * *********************************************************************[-](https://github.com/solid/web-access-control-tests/blob/v4.0.0/test/surface/update.test.ts#L348-L381)[-](https://github.com/solid/web-access-control-tests/blob/v4.0.0/test/surface/update.test.ts#L382-L416) [pod-compat.inrupt.com](https://pod-compat.inrupt.com): 69/71
   - (missing only PATCH-to-Append)
 
-## Access Control Policies (coming soon)
+## Access Control Policy Tests (coming soon)
 
 So far only ESS supports [Access Control Policies](https://github.com/solid/authorization-panel/blob/master/proposals/acp/index.md) and it's still considered an experimental alternative to Solid's existing Web Access Control
 system. In March 2021, [the plan came up](https://gitter.im/solid/test-suite?at=603cf692120cd84f78e81d76)
 to implement these test in [Java/Karate](https://github.com/solid/conformance-test-harness) instead of in TypeScript/Jest. This project will mainly be led by Pete Edwards.
+
+## Monetization Tests (coming soon)
+
+Work in progress, see https://github.com/solid/monetization-tests.
+
 
 ## Running the Test Suite
 
