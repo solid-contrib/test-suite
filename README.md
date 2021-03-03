@@ -55,10 +55,14 @@ If more servers offer [Access Control Policies](https://github.com/solid/authori
 system, the test-suite panel should find a way to create tests for that, too. But as of November 2020,
 there are no concrete plans for this.
 
-## Monetization Tests (coming soon)
+## Monetization Tests (version 1.0.0, experimental, work in progress)
 
-Work in progress, see https://github.com/solid/monetization-tests.
-
+As of 2021, [Web Monetization in Solid](https://github.com/solid/webmonetization) is an experiment, no real specifications have been written for it yet. These versioned tests are meant to help the discussion as it progresses.
+The tests themselves are a work in progress, too. More to come as the project progresses.
+If you're not yourself working on WebMonetization yourself, don't spend too much time trying to implement this feature.
+If youre a Solid app developer and wondering which servers to use when experimenting with WebMonetization in your Solid app, these tests might help you find your way.
+See https://github.com/solid/monetization-tests.
+* ++ [Node Solid Server](https://github.com/solid/node-solid-server): 2/2
 
 ## Running the Test Suite
 
