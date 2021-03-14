@@ -17,6 +17,13 @@ their continuous integration:
 * Inrupt ESS (crud + wac)
 * TrinPod (coming soon!)
 
+## Test-suite report
+When run locally a [test-suite-report app](https://github.com/solid/test-suite/blob/main/test-suite-report.md.js) can be run : 
+- the app uses the output json files produces by the tests run locally.
+- the report links each failed test to the reported error.
+
+See [latest report]((https://github.com/solid/test-suite/blob/main/test-suite-report.md)). The report actually covers CRUD and WAc tests of CSS,ESS and NSS.
+
 ## WebID Provider Tests (version 2.0.3)
 
 The following servers run the WebID Provider tests:
