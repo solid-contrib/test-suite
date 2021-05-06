@@ -13,12 +13,15 @@ NLNet Foundation donated 15,000 euros in 2020 as part of the [Solid-Nextcloud in
 [![NLNet](https://user-images.githubusercontent.com/408412/117270023-17d3a200-ae59-11eb-84ab-f27823af1b66.png)](https://nlnet.nl)
 
 ## Awesome Sponsors
-Digita, Ontola, O-Team, Interition and <your logo here?> are donating through our [Open Collective](https://opencollective.com/independent-solid-test-suite):
+These awesome sponsors are already donating through our [Open Collective](https://opencollective.com/independent-solid-test-suite):
+| [![Digita](https://user-images.githubusercontent.com/408412/117273440-6df61480-ae5c-11eb-89ec-93a72fea342b.png)](https://www.digita.ai) | [![Ontola](https://user-images.githubusercontent.com/408412/117268149-43558d00-ae57-11eb-8b69-d380b11bd86b.png)](https://ontola.io) | [![O Team](https://user-images.githubusercontent.com/408412/117268137-3df84280-ae57-11eb-9793-7bbefdbb324c.png)](https://o.team) | [![Interition](https://user-images.githubusercontent.com/408412/117268154-43ee2380-ae57-11eb-8613-c04d71f9afda.png)](https://interition.com) |
+|---|---|---|---|
+| [Digita](https://www.digita.ai) | [Ontola](https://ontola.io) | [O Team](https://o.team) | [Interition](https://interition.com) |
 
-[![Ontola](https://user-images.githubusercontent.com/408412/117273440-6df61480-ae5c-11eb-89ec-93a72fea342b.png)](https://www.digita.ai)
-[![Ontola](https://user-images.githubusercontent.com/408412/117268149-43558d00-ae57-11eb-8b69-d380b11bd86b.png)](https://ontola.io)
-[![O Team](https://user-images.githubusercontent.com/408412/117268137-3df84280-ae57-11eb-9793-7bbefdbb324c.png)](https://o.team)
-[![Interition](https://user-images.githubusercontent.com/408412/117268154-43ee2380-ae57-11eb-8613-c04d71f9afda.png)](https://interition.com)
+
+| ![(anonymous backer)](https://user-images.githubusercontent.com/408412/117300002-6d1fab80-ae79-11eb-9f10-71ace659e038.png) | ![Sjoerd van Groning](https://user-images.githubusercontent.com/408412/117299273-a3106000-ae78-11eb-9b79-6b627d500f69.png) |
+|---|---|
+| (anonymous backer) | Sjoerd van Groning |
 
 ## Introduction
 
