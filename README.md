@@ -1,6 +1,24 @@
-# Test Suite for Solid (version 2.0)
-
+# Independent Test Suite for Solid (version 2.0)
 [![Join the chat at https://gitter.im/solid/test-suite](https://badges.gitter.im/solid/test-suite.svg)](https://gitter.im/solid/test-suite?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+Solid's independent test suite is maintained by [the test suite panel](https://github.com/solid/process/blob/main/panels.md#test-suite)
+and sponsored through an [Open Collective](https://opencollective.com/independent-solid-test-suite). You can show your support by donating
+even just 1 USD there, and we'll add you or your logo to our list of sponsors.
+
+NB: This does not in any way give you a vote in the contents or the reporting of the test suite, in the Solid spec, or in any aspect of the Solid ecosystem. For that, you should join our [W3C-CG](https://www.w3.org/community/solid/).
+
+## Gold Sponsors
+NLNet Foundation donated 15,000 euros in 2020 as part of the [Solid-Nextcloud integration project](https://nlnet.nl/press/20210416-Nextcloud-Solid-compatible.html).
+
+[![NLNet](https://user-images.githubusercontent.com/408412/117270023-17d3a200-ae59-11eb-84ab-f27823af1b66.png)](https://nlnet.nl)
+
+## Awesome Sponsors
+Digita, Ontola, O-Team, Interition and <your logo here?> are donating through our [Open Collective](https://opencollective.com/independent-solid-test-suite):
+
+[![Ontola](https://user-images.githubusercontent.com/408412/117273440-6df61480-ae5c-11eb-89ec-93a72fea342b.png)](https://www.digita.ai)
+[![Ontola](https://user-images.githubusercontent.com/408412/117268149-43558d00-ae57-11eb-8b69-d380b11bd86b.png)](https://ontola.io)
+[![O Team](https://user-images.githubusercontent.com/408412/117268137-3df84280-ae57-11eb-9793-7bbefdbb324c.png)](https://o.team)
+[![Interition](https://user-images.githubusercontent.com/408412/117268154-43ee2380-ae57-11eb-8613-c04d71f9afda.png)](https://interition.com)
 
 ## Introduction
 
