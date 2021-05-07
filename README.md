@@ -7,6 +7,22 @@ even just 1 USD there, and we'll add you or your logo to our list of sponsors.
 
 NB: This does not in any way give you a vote in the contents or the reporting of the test suite, in the Solid spec, or in any aspect of the Solid ecosystem. For that, you should join our [W3C-CG](https://www.w3.org/community/solid/).
 
+## Introduction
+Your server implementation probably already has its own test coverage. And maybe you already run the [LDP test suite](https://github.com/trellis-ldp/trellis-docker-tests/blob/main/run_ldp_testsuite.sh) or plan to run [Inrupt's conformance test suite](https://inrupt.com/blog/conformance-test-suite) when it comes out. So then why run an independent test suite in addition, you may ask?
+The answer is simple: running more tests against your server will never decrease the amount of information you have.
+
+The more tests you run, the more information you collect.
+When all tests are green, it confirms what we already thought we knew, and improves our confidence.
+Even better, *especially* when test results from different sources contradict each other, this information adds up to help us move forward.
+This test suite tries to cover all Solid-related protocols and to only test for behaviours that are undisputed in the spec, but it's evolving and never perfect.
+
+All tests are written from assumptions, and sometimes the same assumption that slipped into your code, also slipped into your tests. In that case, the tests will be green for the wrong reasons. This can be as simple as [a typo in a predicate](https://github.com/solid/community-server/issues/621) which was maybe copied twice from the same source. Easy to fix, but very important for interoperability!
+
+Sometimes we find a test is incorrect or too strict. Sometimes we don't know what the correct behaviour is. In this case we mark the test as 'skip' and open a spec issue for debate. So at least we can turn an "unknown unknown" into a "known unknown".
+When tests disagree, and when servers disagree, the worst that can happen is this will help us all have more detailed spec discussions! :)
+
+Is this test suite a single complete and correct source of truth? The answer is no. Solid is still evolving and although there is a lot of consensus around how a Solid pod server should behave, there is no complete single truth. This test suite is an additional layer of defence that will help you compare your implementation of Solid with those of others! That way, we all collectively become more interoperable, and that will ultimately increase the value of Solid for everyone.
+
 ## Initial Sponsor
 NLNet Foundation donated 15,000 euros in 2020 as part of the [Solid-Nextcloud integration project](https://nlnet.nl/press/20210416-Nextcloud-Solid-compatible.html).
 
