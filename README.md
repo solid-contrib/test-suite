@@ -36,9 +36,9 @@ These awesome sponsors are already donating through our [Open Collective](https:
 | [Digita](https://www.digita.ai) | [O Team](https://o.team) | [GraphMetrix](https://graphmetrix.com) | [Interition](https://interition.com) | [Ontola](https://ontola.io) |
 
 
-| ![(anonymous backer)](https://user-images.githubusercontent.com/408412/117300002-6d1fab80-ae79-11eb-9f10-71ace659e038.png) | ![Sjoerd van Groning](https://user-images.githubusercontent.com/408412/117299273-a3106000-ae78-11eb-9b79-6b627d500f69.png) |
-|---|---|
-| (anonymous backer) | Sjoerd van Groning |
+| ![(anonymous backer)](https://user-images.githubusercontent.com/408412/117300002-6d1fab80-ae79-11eb-9f10-71ace659e038.png) | ![Sjoerd van Groning](https://user-images.githubusercontent.com/408412/117299273-a3106000-ae78-11eb-9b79-6b627d500f69.png) | ![Jan Schill](https://user-images.githubusercontent.com/408412/117430926-e9bd9300-af28-11eb-98e6-8723fcba5b11.png) |
+|---|---|---|
+| (anonymous backer) | Sjoerd van Groning | Jan Schill |
 
 ## Introduction
 
