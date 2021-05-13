@@ -7,7 +7,24 @@ even just 1 USD there, and we'll add you or your logo to our list of sponsors.
 
 NB: This does not in any way give you a vote in the contents or the reporting of the test suite, in the Solid spec, or in any aspect of the Solid ecosystem. For that, you should join our [W3C-CG](https://www.w3.org/community/solid/).
 
-## Introduction
+## Initial Sponsor
+NLNet Foundation donated 15,000 euros in 2020 as part of the [Solid-Nextcloud integration project](https://nlnet.nl/press/20210416-Nextcloud-Solid-compatible.html).
+
+[![NLNet](https://user-images.githubusercontent.com/408412/117270023-17d3a200-ae59-11eb-84ab-f27823af1b66.png)](https://nlnet.nl)
+
+## Current Sponsors
+These awesome *Solid-related startups* collectively sponsor the maintenance of the independent Solid test suite through our [Open Collective](https://opencollective.com/independent-solid-test-suite), click on their logos to check them out!
+
+| [![Digita](https://user-images.githubusercontent.com/408412/117273440-6df61480-ae5c-11eb-89ec-93a72fea342b.png)](https://www.digita.ai) | [![O Team](https://user-images.githubusercontent.com/408412/117268137-3df84280-ae57-11eb-9793-7bbefdbb324c.png)](https://o.team) | [![GraphMetrix](https://user-images.githubusercontent.com/408412/117344630-e0d7ad80-aea5-11eb-8b7c-dbcefff79734.png)](https://graphmetrix.com) | [![Interition](https://user-images.githubusercontent.com/408412/117268154-43ee2380-ae57-11eb-8613-c04d71f9afda.png)](https://interition.com) | [![Ontola](https://user-images.githubusercontent.com/408412/117268149-43558d00-ae57-11eb-8b69-d380b11bd86b.png)](https://ontola.io) | [![Understory](https://user-images.githubusercontent.com/408412/118088415-545a4d00-b3c7-11eb-8f60-bda451827391.png)](https://understory.coop)
+|---|---|---|---|---|---|
+| [Digita](https://www.digita.ai) | [O Team](https://o.team) | [GraphMetrix](https://graphmetrix.com) | [Interition](https://interition.com) | [Ontola](https://ontola.io) | [Understory](https://understory.coop)
+
+And a very big "Thank You" to the following *individuals* from the Solid community, who are donating through our [Open Collective](https://opencollective.com/independent-solid-test-suite) to make the independent Solid test suite possible, *you are all awesome!*
+| ![(anonymous backer)](https://user-images.githubusercontent.com/408412/117300002-6d1fab80-ae79-11eb-9f10-71ace659e038.png) | ![Sjoerd van Groning](https://user-images.githubusercontent.com/408412/117299273-a3106000-ae78-11eb-9b79-6b627d500f69.png) | ![Jan Schill](https://user-images.githubusercontent.com/408412/117430926-e9bd9300-af28-11eb-98e6-8723fcba5b11.png) | ![Travis Vachon](https://user-images.githubusercontent.com/408412/118088923-14479a00-b3c8-11eb-941a-43052ee31d4d.png)
+|---|---|---|---|
+| (anonymous backer) | Sjoerd van Groning | Jan Schill | Travis Vachon
+
+## Context
 Your server implementation probably already has its own test coverage. And maybe you already run the [LDP test suite](https://github.com/trellis-ldp/trellis-docker-tests/blob/main/run_ldp_testsuite.sh) or plan to run [Inrupt's conformance test suite](https://inrupt.com/blog/conformance-test-suite) when it comes out. So then why run an independent test suite in addition, you may ask?
 The answer is simple: running more tests against your server will never decrease the amount of information you have.
 
@@ -23,25 +40,7 @@ When tests disagree, and when servers disagree, the worst that can happen is thi
 
 Is this test suite a single complete and correct source of truth? The answer is no. Solid is still evolving and although there is a lot of consensus around how a Solid pod server should behave, there is no complete single truth. This test suite is an additional layer of defence that will help you compare your implementation of Solid with those of others! That way, we all collectively become more interoperable, and that will ultimately increase the value of Solid for everyone.
 
-## Initial Sponsor
-NLNet Foundation donated 15,000 euros in 2020 as part of the [Solid-Nextcloud integration project](https://nlnet.nl/press/20210416-Nextcloud-Solid-compatible.html).
-
-[![NLNet](https://user-images.githubusercontent.com/408412/117270023-17d3a200-ae59-11eb-84ab-f27823af1b66.png)](https://nlnet.nl)
-
-## Current Sponsors
-These awesome sponsors are already donating through our [Open Collective](https://opencollective.com/independent-solid-test-suite):
-
-| [![Digita](https://user-images.githubusercontent.com/408412/117273440-6df61480-ae5c-11eb-89ec-93a72fea342b.png)](https://www.digita.ai) | [![O Team](https://user-images.githubusercontent.com/408412/117268137-3df84280-ae57-11eb-9793-7bbefdbb324c.png)](https://o.team) | [![GraphMetrix](https://user-images.githubusercontent.com/408412/117344630-e0d7ad80-aea5-11eb-8b7c-dbcefff79734.png)](https://graphmetrix.com) | [![Interition](https://user-images.githubusercontent.com/408412/117268154-43ee2380-ae57-11eb-8613-c04d71f9afda.png)](https://interition.com) | [![Ontola](https://user-images.githubusercontent.com/408412/117268149-43558d00-ae57-11eb-8b69-d380b11bd86b.png)](https://ontola.io)
-|---|---|---|---|---|
-| [Digita](https://www.digita.ai) | [O Team](https://o.team) | [GraphMetrix](https://graphmetrix.com) | [Interition](https://interition.com) | [Ontola](https://ontola.io) |
-
-
-| ![(anonymous backer)](https://user-images.githubusercontent.com/408412/117300002-6d1fab80-ae79-11eb-9f10-71ace659e038.png) | ![Sjoerd van Groning](https://user-images.githubusercontent.com/408412/117299273-a3106000-ae78-11eb-9b79-6b627d500f69.png) | ![Jan Schill](https://user-images.githubusercontent.com/408412/117430926-e9bd9300-af28-11eb-98e6-8723fcba5b11.png) |
-|---|---|---|
-| (anonymous backer) | Sjoerd van Groning | Jan Schill |
-
-## Introduction
-
+## Overview
 This test suite runs various testers against various servers in a
 Docker testnet. The testers can also run against live servers over
 the public internet.
