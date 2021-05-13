@@ -46,14 +46,14 @@ Docker testnet. The testers can also run against live servers over
 the public internet.
 
 The following Solid pod server implementations have been tested against (parts of) this suite:
-1. [Node Solid Server](https://github.com/solid/node-solid-server/blob/master/test/surface/run-solid-test-suite.sh) (JavaScript; webid + crud + wac)
-2. [PHP Solid Server](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (PHP; webid + crud + wac)
-3. [Solid-Nextcloud](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (PHP; webid + crud + wac)
-4. [Community Solid Server](https://github.com/michielbdejong/community-server/blob/main/test/system/run-solid-test-suite.sh) (TypeScript; crud + wac)
-5. Inrupt ESS (closed source; crud + wac)
-6. TrinPod (closed source; coming soon!)
-7. Reactive-SoLiD (Scala; coming soon!)
-8. DexPod (Ruby; coming soon!)
+1. Node Solid Server [[JavaScript]](https://github.com/solid/node-solid-server/blob/master/test/surface/run-solid-test-suite.sh) (webid + crud + wac)
+2. PHP Solid Server [[PHP]](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (webid + crud + wac)
+3. Solid-Nextcloud [[PHP]](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (webid + crud + wac)
+4. Community Solid Server [[TypeScript]](https://github.com/michielbdejong/community-server/blob/main/test/system/run-solid-test-suite.sh) (crud + wac)
+5. Inrupt ESS [closed source] (crud + wac)
+6. TrinPod [closed source] (coming soon!)
+7. Reactive-SoLiD [[Scala]](https://github.com/co-operating-systems/Reactive-SoLiD) (coming soon!)
+8. DexPod [[Ruby]](https://gitlab.com/ontola/dexpod) (coming soon!)
 
 ## Test-suite report
 When run locally a [test-suite-report app](https://github.com/solid/test-suite/blob/main/test-suite-report.md.js) can be run : 
