@@ -50,7 +50,7 @@ The following Solid pod server implementations have been tested against (parts o
 2. PHP Solid Server [[PHP]](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (webid + crud + wac)
 3. Solid-Nextcloud [[PHP]](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (webid + crud + wac)
 4. Community Solid Server [[TypeScript]](https://github.com/michielbdejong/community-server/blob/main/test/system/run-solid-test-suite.sh) (crud + wac)
-5. Inrupt ESS [closed source, but based on [Trellis](https://github.com/trellis-ldp/trellis) which is in Java] (crud + wac)
+5. Inrupt ESS [closed source, but based on [Trellis](https://github.com/trellis-ldp/trellis) which is in Java] (crud only)
 6. TrinPod [closed source, but written in Common Lisp with Java libraries for encryption and pdf processing] (coming soon!)
 7. Reactive-SoLiD [[Scala]](https://github.com/co-operating-systems/Reactive-SoLiD) (coming soon!)
 8. DexPod [[Ruby]](https://gitlab.com/ontola/dexpod) (coming soon!)
@@ -91,8 +91,6 @@ The following servers run the WAC tests:
   - (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled)
 * *********************************************************************** [Node Solid Server](https://github.com/solid/node-solid-server): 71/71
 * *********************************************************************** [Community Solid Server](https://github.com/solid/community-server): 71/71
-* *********************************************************************[-](https://github.com/solid/web-access-control-tests/blob/v4.0.0/test/surface/update.test.ts#L348-L381)[-](https://github.com/solid/web-access-control-tests/blob/v4.0.0/test/surface/update.test.ts#L382-L416) [pod-compat.inrupt.com](https://pod-compat.inrupt.com): 69/71
-  - (missing only PATCH-to-Append)
 
 ## Access Control Policy Tests (coming soon)
 
