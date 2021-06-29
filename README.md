@@ -50,8 +50,8 @@ The following Solid pod server implementations have been tested against (parts o
 2. PHP Solid Server [[PHP]](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (webid + crud + wac)
 3. Solid-Nextcloud [[PHP]](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (webid + crud + wac)
 4. Community Solid Server [[TypeScript]](https://github.com/michielbdejong/community-server/blob/main/test/system/run-solid-test-suite.sh) (crud + wac)
-5. Inrupt ESS [closed source] (crud + wac)
-6. TrinPod [closed source] (coming soon!)
+5. Inrupt ESS [closed source, but based on [Trellis](https://github.com/trellis-ldp/trellis) which is in Java] (crud + wac)
+6. TrinPod [closed source, but written in Common Lisp with Java libraries for encryption and pdf processing] (coming soon!)
 7. Reactive-SoLiD [[Scala]](https://github.com/co-operating-systems/Reactive-SoLiD) (coming soon!)
 8. DexPod [[Ruby]](https://gitlab.com/ontola/dexpod) (coming soon!)
 
