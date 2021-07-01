@@ -179,7 +179,7 @@
             ]
             [
                 test:request :test_bob_rs_append_req ;
-                test:response_assertion :not_found_res ; # TODO: Doesn't support hierarchy, should be :no_content_res ;
+                test:response_assertion :no_content_res ;
             ]
             [
                 test:request :test_bob_rs_delete_req ;
@@ -330,7 +330,7 @@
             ]
             [
                 test:request :test_bob_rs_append_req ;
-                test:response_assertion :not_found_res ; # TODO: Doesn't support hierarchy, should be :no_content_res ;
+                test:response_assertion :no_content_res ;
             ]
             [
                 test:request :test_bob_rs_other_req ;
