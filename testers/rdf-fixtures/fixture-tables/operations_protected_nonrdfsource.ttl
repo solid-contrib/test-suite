@@ -4,6 +4,7 @@
 @prefix http: <http://www.w3.org/2007/ont/http#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix nfo:  <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#> .
+@prefix dqm:  <http://purl.org/dqm-vocabulary/v1/dqm#> .
 @prefix :     <https://github.com/solid/test-suite/blob/master/testers/rdf-fixtures/fixture-tables/operations_protected_nonrdfsource.ttl#> .
 
 :test_list a test:FixtureTable ;
@@ -305,7 +306,7 @@ http:method "PUT" ;
             ]
             [
                 test:request :test_bob_nr_write_req ;
-                test:response_assertion :created_res ; # TODO: Really?
+                test:response_assertion :updated_ok_res ;
             ]
             [
                 test:request :test_bob_nr_patch_req ;
@@ -431,6 +432,9 @@ http:method "PUT" ;
 
 :deleted_ok_res a http:ResponseMessage ;
     http:status 200 .
+
+:updated_ok_res a http:ResponseMessage ;
+    http:status "200|204"^^dqm:regex .
 
 
 :teardown a test:AutomatedTest ;
