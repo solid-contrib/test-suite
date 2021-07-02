@@ -459,7 +459,7 @@ WHERE  { ?s a ?o . }""" ;
     http:status 415 .
 
 :deleted_ok_res a http:ResponseMessage ;
-    http:status 200 .
+    http:status "200|204"^^dqm:regex .
 
 :updated_ok_res a http:ResponseMessage ;
     http:status "200|204"^^dqm:regex .
