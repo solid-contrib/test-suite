@@ -259,7 +259,7 @@
             ]
             [
                 test:request :test_bob_bc_append_req ;
-                test:response_assertion :created_ok ;
+                test:response_assertion :created_ok_res ;
             ]
             [
                 test:request :test_bob_bc_delete_req ;
@@ -334,7 +334,7 @@
             ]
             [
                 test:request :test_bob_bc_append_req ;
-                test:response_assertion :created_ok ;
+                test:response_assertion :created_ok_res ;
             ]
             [
                 test:request :test_bob_bc_other_req ;
