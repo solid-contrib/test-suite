@@ -54,6 +54,7 @@ The following Solid pod server implementations have been tested against (parts o
 6. TrinPod [closed source, but written in Common Lisp with Java libraries for encryption and pdf processing] (coming soon!)
 7. Reactive-SoLiD [[Scala]](https://github.com/co-operating-systems/Reactive-SoLiD) (coming soon!)
 8. DexPod [[Ruby]](https://gitlab.com/ontola/dexpod) (coming soon!)
+9. Disfluid [[C]](https://labo.planete-kraus.eu/webid-oidc.git) (coming soon!)
 
 ## Test-suite report
 When run locally a [test-suite-report app](https://github.com/solid/test-suite/blob/main/test-suite-report.md.js) can be run : 
