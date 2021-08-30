@@ -54,9 +54,9 @@ Required parts:
 * "WAC" refers to the [web-access-control-tests](https://github.com/solid/web-access-control-tests)
 
 Optional parts:
-* "WPS" refers to [Websockets-Pub-Sub](https://github.com/solid/solid-spec/blob/master/api-websockets.md)
-* "CON" refers to [multiple clients writing to the same pod concurrently](https://github.com/solid/specification/issues/91#issuecomment-904482600)
-* "MON" refers to the experimental [Monetization tests](https://github.com/solid/monetization-tests)
+* "(WPS)" refers to [Websockets-Pub-Sub](https://github.com/solid/solid-spec/blob/master/api-websockets.md)
+* "(CON)" refers to [multiple clients writing to the same pod concurrently](https://github.com/solid/specification/issues/91#issuecomment-904482600)
+* "(MON)" refers to the experimental [Monetization tests](https://github.com/solid/monetization-tests)
 
 For the 'version' column, servers have "(each PR)" if their continuous integration is set up to automatically test against each PR. For closed-source servers we list the public instance against which we run the test suite.
 
