@@ -47,18 +47,19 @@ the public internet.
 
 The following Solid pod server implementations have been tested against (parts of) this suite:
 
-
-Required parts:
+### Required parts:
 * "IDP" refers to the [webid-provider-tests](https://github.com/solid/webid-provider-tests)
 * "CRUD" refers to the core parts of the [solid-crud-tests](https://github.com/solid/solid-crud-tests)
 * "WAC" refers to the [web-access-control-tests](https://github.com/solid/web-access-control-tests)
 
-Optional parts:
+### Optional parts:
 * "(WPS)" refers to [Websockets-Pub-Sub](https://github.com/solid/solid-spec/blob/master/api-websockets.md)
 * "(CON)" refers to [multiple clients writing to the same pod concurrently](https://github.com/solid/specification/issues/91#issuecomment-904482600)
 * "(MON)" refers to the experimental [Monetization tests](https://github.com/solid/monetization-tests)
 
 For the 'version' column, servers have "(each PR)" if their continuous integration is set up to automatically test against each PR. For closed-source servers we list the public instance against which we run the test suite.
+
+### Table
 
 | #  | name                   | version        | prog.lang                                                                                                   | IDP | CRUD | WAC | (WPS) | (CON) | (MON) |
 |----|------------------------|----------------|-------------------------------------------------------------------------------------------------------------|-----|------|-----|-------|-------|-------|
@@ -71,6 +72,8 @@ For the 'version' column, servers have "(each PR)" if their continuous integrati
 | 7. | Reactive-SoLiD         | (coming soon!) | [Scala](https://github.com/co-operating-systems/Reactive-SoLiD)                                           |     |      |     |       |       |       |
 | 8. | DexPod                 | (coming soon!) | [Ruby](https://gitlab.com/ontola/dexpod)                                                                  |     |      |     |       |       |       |
 | 9. | Disfluid               | (coming soon!) |  [C](https://labo.planete-kraus.eu/webid-oidc.git)                                                        |     |      |     |       |       |       |
+
+### Footnotes
 
 1) for some servers we have manually tested that they include a working webid-oidc identity provider, but we don't have the headless-browser tests that confirm this automatically for these servers
 2) TrinPod [will support](https://gitter.im/solid/test-suite?at=612101ace8de9946b4324a0b) this in the future
