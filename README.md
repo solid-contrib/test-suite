@@ -47,17 +47,36 @@ the public internet.
 
 The following Solid pod server implementations have been tested against (parts of) this suite:
 
+
+Required parts:
+* "IDP" refers to the [webid-provider-tests](https://github.com/solid/webid-provider-tests)
+* "CRUD" refers to the core parts of the [solid-crud-tests](https://github.com/solid/solid-crud-tests)
+* "WAC" refers to the [web-access-control-tests](https://github.com/solid/web-access-control-tests)
+
+Optional parts:
+* "WPS" refers to [Websockets-Pub-Sub](https://github.com/solid/solid-spec/blob/master/api-websockets.md)
+* "CON" refers to [multiple clients writing to the same pod concurrently](https://github.com/solid/specification/issues/91#issuecomment-904482600)
+* "MON" refers to the experimental [Monetization tests](https://github.com/solid/monetization-tests)
+
+For the 'version' column, some servers have '(each PR)' if their continuous integration set up automatically tests against each PR. For closed-source servers we list the public instance against which we run the test suite.
+
 | #  | name                   | version        | prog.lang                                                                                                   | IDP | CRUD | WAC | (WPS) | (CON) | (MON) |
 |----|------------------------|----------------|-------------------------------------------------------------------------------------------------------------|-----|------|-----|-------|-------|-------|
 | 1. | Node Solid Server      | (each PR)      | [JavaScript](https://github.com/solid/node-solid-server/blob/master/test/surface/run-solid-test-suite.sh) | OK  | OK   | OK  | OK    | OK    | OK    |
 | 2. | PHP Solid Server       | (each PR)      | [PHP](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh)                 | OK  | OK   | OK  | OK    | OK    |       |
 | 3. | Solid-Nextcloud        | (each PR)      | [PHP](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh)                 | OK  | OK   | OK  | OK    | OK    |       |
-| 4. | Community Solid Server | [`f34e124`](https://github.com/solid/community-server/commit/f34e124e1b88c59b4e456b3f69d9373e61550bd1)                                                                                                                   | [TypeScript](https://github.com/solid/community-server)                                                   | Man | OK   | OK  | OK    |       |       |
-| 6. | TrinPod                | stage.graphmetrix.net | Lisp    | Man | OK   | OK  |       |       |       |
-| 5. | Inrupt ESS             | pod.inrupt.com | Java            | Man | OK   |     |       |       |       |
+| 4. | Community Solid Server | [`f34e124`](https://github.com/solid/community-server/commit/f34e124e1b88c59b4e456b3f69d9373e61550bd1)                                                                                                                   | [TypeScript](https://github.com/solid/community-server)                                                   | 1) | OK   | OK  | OK    |       |       |
+| 6. | TrinPod                | stage.graphmetrix.net | Lisp    | 1) | OK   | OK  | OK  |  2)   |       |
+| 5. | Inrupt ESS             | pod.inrupt.com | Java            | 1) | OK   |  3)  |   4) |  5)   |       |
 | 7. | Reactive-SoLiD         | (coming soon!) | [Scala](https://github.com/co-operating-systems/Reactive-SoLiD)                                           |     |      |     |       |       |       |
 | 8. | DexPod                 | (coming soon!) | [Ruby](https://gitlab.com/ontola/dexpod)                                                                  |     |      |     |       |       |       |
 | 9. | Disfluid               | (coming soon!) |  [C](https://labo.planete-kraus.eu/webid-oidc.git)                                                        |     |      |     |       |       |       |
+
+1) for some servers we have manually tested that they include a working webid-oidc identity provider, but we don't have the headless-browser tests that confirm this automatically for these servers
+2) this is expected in version 2.0, see https://github.com/solid/community-server/pull/913
+3) Although Inrupt ESS does have a WAC module, this feature is disabled on pod.inrupt.com for various reasons
+4) Instead of WPS, Inrupt ESS implements a similar WebSockets-based protocol known as WebSockets-Patching
+5) Due to architectural issues, global locks are not supported in Inrupt ESS
 
 ## Test-suite report
 When run locally a [test-suite-report app](https://github.com/solid/test-suite/blob/main/test-suite-report.md.js) can be run : 
