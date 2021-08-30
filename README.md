@@ -46,15 +46,18 @@ Docker testnet. The testers can also run against live servers over
 the public internet.
 
 The following Solid pod server implementations have been tested against (parts of) this suite:
-1. Node Solid Server [[JavaScript]](https://github.com/solid/node-solid-server/blob/master/test/surface/run-solid-test-suite.sh) (webid + crud + wac)
-2. PHP Solid Server [[PHP]](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (webid + crud + wac)
-3. Solid-Nextcloud [[PHP]](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh) (webid + crud + wac)
-4. Community Solid Server [[TypeScript]](https://github.com/michielbdejong/community-server/blob/main/test/system/run-solid-test-suite.sh) (crud + wac)
-5. Inrupt ESS [closed source, but based on [Trellis](https://github.com/trellis-ldp/trellis) which is in Java] (crud only)
-6. TrinPod [closed source, but written in Common Lisp with Java libraries for encryption and pdf processing] (coming soon!)
-7. Reactive-SoLiD [[Scala]](https://github.com/co-operating-systems/Reactive-SoLiD) (coming soon!)
-8. DexPod [[Ruby]](https://gitlab.com/ontola/dexpod) (coming soon!)
-9. Disfluid [[C]](https://labo.planete-kraus.eu/webid-oidc.git) (coming soon!)
+
+| #  | name                   | version        | prog.lang                                                                                                   | IDP | CRUD | WAC | (WPS) | (CON) | (MON) |
+|----|------------------------|----------------|-------------------------------------------------------------------------------------------------------------|-----|------|-----|-------|-------|-------|
+| 1. | Node Solid Server      | (each PR)      | [JavaScript](https://github.com/solid/node-solid-server/blob/master/test/surface/run-solid-test-suite.sh) | OK  | OK   | OK  | OK    | OK    | OK    |
+| 2. | PHP Solid Server       | (each PR)      | [PHP](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh)                 | OK  | OK   | OK  | OK    | OK    |       |
+| 3. | Solid-Nextcloud        | (each PR)      | [PHP](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh)                 | OK  | OK   | OK  | OK    | OK    |       |
+| 4. | Community Solid Server | [`f34e124`](https://github.com/solid/community-server/commit/f34e124e1b88c59b4e456b3f69d9373e61550bd1)                                                                                                                   | [TypeScript](https://github.com/solid/community-server)                                                   | Man | OK   | OK  | OK    |       |       |
+| 6. | TrinPod                | stage.graphmetrix.net | Lisp    | Man | OK   | OK  |       |       |       |
+| 5. | Inrupt ESS             | pod.inrupt.com | Java            | Man | OK   |     |       |       |       |
+| 7. | Reactive-SoLiD         | (coming soon!) | [Scala](https://github.com/co-operating-systems/Reactive-SoLiD)                                           |     |      |     |       |       |       |
+| 8. | DexPod                 | (coming soon!) | [Ruby](https://gitlab.com/ontola/dexpod)                                                                  |     |      |     |       |       |       |
+| 9. | Disfluid               | (coming soon!) |  [C](https://labo.planete-kraus.eu/webid-oidc.git)                                                        |     |      |     |       |       |       |
 
 ## Test-suite report
 When run locally a [test-suite-report app](https://github.com/solid/test-suite/blob/main/test-suite-report.md.js) can be run : 
@@ -62,36 +65,6 @@ When run locally a [test-suite-report app](https://github.com/solid/test-suite/b
 - the report links each failed test to the reported error.
 
 See [latest test-suite-report.md](https://github.com/solid/test-suite/blob/main/test-suite-report.md). The report actually covers CRUD and WAC tests of CSS, ESS and NSS.
-
-## WebID Provider Tests (version 2.0.3)
-
-The following servers run the WebID Provider tests:
-
-* `************************************` [Node Solid Server](https://github.com/solid/node-solid-server): 36/36
-* `************************************` [Nextcloud Server](https://github.com/nextcloud/server): 36/36
-  - (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled)
-* `************************************` [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 36/36
-
-## Solid CRUD Tests (version 4.0.0)
-
-The following servers run the Solid CRUD tests ('+' means test is [related to websockets-pubsub](https://github.com/solid/test-suite/issues/111)):
-
-* ******************************++++++++++++++++++++++++++ [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 56/56
-* ******************************++++++++++++++++++++++++++ [Nextcloud Server](https://github.com/nextcloud/server): 56/56
-  - (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled)
-* ******************************++++++++++++++++++++++++++ [Node Solid Server](https://github.com/solid/node-solid-server): 56/56
-* ******************************++++++++++++++++++++++++++ [Community Solid Server](https://github.com/solid/community-server): 56/56
-* *****************************[-](https://github.com/solid/solid-crud-tests/blob/v4.0.0/test/surface/create-non-container.test.ts#L300-L306) [pod-compat.inrupt.com](https://pod-compat.inrupt.com): 29/30
-  - (websockets-pubsub not implemented)
-
-## Web Access Control Tests (version 4.0.0)
-
-The following servers run the WAC tests:
-* *********************************************************************** [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): 71/71
-* *********************************************************************** [Nextcloud Server](https://github.com/nextcloud/server): 71/71
-  - (with [Solid-Nextcloud](https://github.com/pdsinterop/solid-nextcloud) enabled)
-* *********************************************************************** [Node Solid Server](https://github.com/solid/node-solid-server): 71/71
-* *********************************************************************** [Community Solid Server](https://github.com/solid/community-server): 71/71
 
 ## Access Control Policy Tests (coming soon)
 
