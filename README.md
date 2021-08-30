@@ -62,12 +62,12 @@ For the 'version' column, servers have "(each PR)" if their continuous integrati
 
 | #  | name                   | version        | prog.lang                                                                                                   | IDP | CRUD | WAC | (WPS) | (CON) | (MON) |
 |----|------------------------|----------------|-------------------------------------------------------------------------------------------------------------|-----|------|-----|-------|-------|-------|
-| 1. | Node Solid Server      | (each PR)      | [JavaScript](https://github.com/solid/node-solid-server/blob/master/test/surface/run-solid-test-suite.sh) | OK  | OK   | OK  | OK    | OK    | OK    |
-| 2. | PHP Solid Server       | (each PR)      | [PHP](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh)                 | OK  | OK   | OK  | OK    | OK    |       |
-| 3. | Solid-Nextcloud        | (each PR)      | [PHP](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh)                 | OK  | OK   | OK  | OK    | OK    |       |
-| 4. | Community Solid Server | [`759112b`](https://github.com/solid/community-server/commit/759112b)                                                                                                                   | [TypeScript](https://github.com/solid/community-server)                                                   | 1) | OK   | OK  | OK    |  OK  |       |
-| 6. | TrinPod                | [stage.graphmetrix.net](https://stage.graphmetrix.net) | Lisp    | 1) | OK   | OK  |    |   2)   |       |
-| 5. | Inrupt ESS             | [pod.inrupt.com](https://pod.inrupt.com) | Java            | 1) | OK   |  3)  |   4) |  5)   |       |
+| 1. | Node Solid Server      | (each PR)      | [JavaScript](https://github.com/solid/node-solid-server/blob/master/test/surface/run-solid-test-suite.sh) |  ✓  |  ✓   |  ✓  |  ✓    |  ✓    |  ✓    |
+| 2. | PHP Solid Server       | (each PR)      | [PHP](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh)                 |  ✓  |  ✓   |  ✓  |  ✓    |  ✓    |       |
+| 3. | Solid-Nextcloud        | (each PR)      | [PHP](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh)                 |  ✓  |  ✓   |  ✓  |  ✓    |  ✓    |       |
+| 4. | Community Solid Server | [`759112b`](https://github.com/solid/community-server/commit/759112b)                                                                                                                   | [TypeScript](https://github.com/solid/community-server)                                                   | 1) |  ✓   |  ✓  |  ✓    |   ✓  |       |
+| 6. | TrinPod                | [stage.graphmetrix.net](https://stage.graphmetrix.net) | Lisp    | 1) |  ✓   |  ✓  |    |   2)   |       |
+| 5. | Inrupt ESS             | [pod.inrupt.com](https://pod.inrupt.com) | Java            | 1) |  ✓   |  3)  |   4) |  5)   |       |
 | 7. | Reactive-SoLiD         | (coming soon!) | [Scala](https://github.com/co-operating-systems/Reactive-SoLiD)                                           |     |      |     |       |       |       |
 | 8. | DexPod                 | (coming soon!) | [Ruby](https://gitlab.com/ontola/dexpod)                                                                  |     |      |     |       |       |       |
 | 9. | Disfluid               | (coming soon!) |  [C](https://labo.planete-kraus.eu/webid-oidc.git)                                                        |     |      |     |       |       |       |
