@@ -66,7 +66,7 @@ For the 'version' column, servers have "(each PR)" if their continuous integrati
 | 1. | Node Solid Server      | (each PR)      | [JavaScript](https://github.com/solid/node-solid-server/blob/master/test/surface/run-solid-test-suite.sh) |  ✓  |  ✓   |  ✓  |  ✓    |  ✓    |  ✓    |
 | 2. | PHP Solid Server       | (each PR)      | [PHP](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh)                 |  ✓  |  ✓   |  ✓  |  ✓    |  ✓    |       |
 | 3. | Solid-Nextcloud        | (each PR)      | [PHP](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh)                 |  ✓  |  ✓   |  ✓  |  ✓    |  ✓    |       |
-| 4. | Community Solid Server | [`759112b`](https://github.com/solid/community-server/commit/759112b)                                                                                                                   | [TypeScript](https://github.com/solid/community-server)                                                   | 1) |  ✓   |  ✓  |  ✓    |   ✓  |       |
+| 4. | Community Solid Server | [`759112b`](https://github.com/solid/community-server/commit/759112b)                                                                                                                   | [TypeScript](https://github.com/solid/community-server)                                                   | 1) |  ✓   |  6)  |  ✓    |   ✓  |       |
 | 6. | TrinPod                | [stage.graphmetrix.net](https://stage.graphmetrix.net) | Lisp    | 1) |  ✓   |  ✓  |    |   2)   |       |
 | 5. | Inrupt ESS             | [pod.inrupt.com](https://pod.inrupt.com) | Java            | 1) |  ✓   |  3)  |   4) |  5)   |       |
 | 7. | Reactive-SoLiD         | (coming soon!) | [Scala](https://github.com/co-operating-systems/Reactive-SoLiD)                                           |     |      |     |       |       |       |
@@ -80,6 +80,7 @@ For the 'version' column, servers have "(each PR)" if their continuous integrati
 3) Although Inrupt ESS does have a WAC module, this feature is disabled on pod.inrupt.com for various reasons
 4) Instead of WPS, Inrupt ESS implements a similar WebSockets-based protocol known as WebSockets-Patching
 5) Due to architectural issues, global locks are not supported in Inrupt ESS
+6) CSS is getting very close to a correct implementation of WAC, but see https://github.com/solid/web-access-control-tests/issues/41
 
 ## Test-suite report
 When run locally a [test-suite-report app](https://github.com/solid/test-suite/blob/main/test-suite-report.md.js) can be run : 
