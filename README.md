@@ -67,7 +67,7 @@ For the 'version' column, servers have "(each PR)" if their continuous integrati
 | 2. | PHP Solid Server       | (each PR)      | [PHP](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh)                 |  ✓  |  ✓   |  ✓  |  ✓    |  ✓    |       |
 | 3. | Solid-Nextcloud        | (each PR)      | [PHP](https://github.com/pdsinterop/php-solid-server/blob/master/run-solid-test-suite.sh)                 |  ✓  |  ✓   |  ✓  |  ✓    |  ✓    |       |
 | 4. | Community Solid Server | [`759112b`](https://github.com/solid/community-server/commit/759112b)                                                                                                                   | [TypeScript](https://github.com/solid/community-server)                                                   | 1) |  ✓   |  6)  |  ✓    |   ✓  |       |
-| 6. | TrinPod                | [stage.graphmetrix.net](https://stage.graphmetrix.net) | Lisp    | 1) |  ✓   |  ✓  |    |   2)   |       |
+| 6. | TrinPod                | [stage.gr...x.net](https://stage.graphmetrix.net) | Lisp    | 1) |  ✓   |  ✓  |    |   2)   |       |
 | 5. | Inrupt ESS             | [pod.inrupt.com](https://pod.inrupt.com) | Java            | 1) |  ✓   |  3)  |   4) |  5)   |       |
 | 7. | Reactive-SoLiD         | (coming soon!) | [Scala](https://github.com/co-operating-systems/Reactive-SoLiD)                                           |     |      |     |       |       |       |
 | 8. | DexPod                 | (coming soon!) | [Ruby](https://gitlab.com/ontola/dexpod)                                                                  |     |      |     |       |       |       |
