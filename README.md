@@ -20,9 +20,9 @@ These awesome *Solid-related startups* collectively sponsor the maintenance of t
 | [Digita](https://www.digita.ai) | [O Team](https://o.team) | [GraphMetrix](https://graphmetrix.com) | [Interition](https://interition.com) | [Ontola](https://ontola.io) | [Understory](https://understory.coop) | [Startin'blox](https://startinblox.com)
 
 And a very big "Thank You" to the following *individuals* from the Solid community, who are donating through our [Open Collective](https://opencollective.com/independent-solid-test-suite) to make the independent Solid test suite possible, *you are all awesome!*
-| ![(anonymous backer)](https://user-images.githubusercontent.com/408412/117300002-6d1fab80-ae79-11eb-9f10-71ace659e038.png) | ![Sjoerd van Groning](https://user-images.githubusercontent.com/408412/117299273-a3106000-ae78-11eb-9b79-6b627d500f69.png) | ![Jan Schill](https://user-images.githubusercontent.com/408412/117430926-e9bd9300-af28-11eb-98e6-8723fcba5b11.png) | ![Travis Vachon](https://user-images.githubusercontent.com/408412/118088923-14479a00-b3c8-11eb-941a-43052ee31d4d.png)
-|---|---|---|---|
-| (anonymous backer) | Sjoerd van Groning | Jan Schill | Travis Vachon
+| ![(anonymous backer)](https://user-images.githubusercontent.com/408412/117300002-6d1fab80-ae79-11eb-9f10-71ace659e038.png) | ![Sjoerd van Groning](https://user-images.githubusercontent.com/408412/117299273-a3106000-ae78-11eb-9b79-6b627d500f69.png) | ![Jan Schill](https://user-images.githubusercontent.com/408412/117430926-e9bd9300-af28-11eb-98e6-8723fcba5b11.png) | ![Travis Vachon](https://user-images.githubusercontent.com/408412/118088923-14479a00-b3c8-11eb-941a-43052ee31d4d.png) | ![Sharon Stratsianis](https://user-images.githubusercontent.com/408412/153570149-067b7fb4-b52d-4553-95b3-514de715f7e0.png)
+|---|---|---|---|---|
+| (anonymous backer) | Sjoerd van Groning | Jan Schill | Travis Vachon | Sharon Stratsianis
 
 ## Context
 Your server implementation probably already has its own test coverage. And maybe you already run the [LDP test suite](https://github.com/trellis-ldp/trellis-docker-tests/blob/main/run_ldp_testsuite.sh) or plan to run [Inrupt's conformance test suite](https://inrupt.com/blog/conformance-test-suite) when it comes out. So then why run an independent test suite in addition, you may ask?
